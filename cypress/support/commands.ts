@@ -71,9 +71,7 @@ Cypress.Commands.add('stubLogin', () => {
   }).as('interceptLogin')
 
   // Set fixtures
-  cy.fixture('../fixtures/auth/login/inputData.auth.login.json').as(
-    'userLoginInput'
-  )
+  cy.fixture('../fixtures/auth/inputData.auth.login.json').as('userLoginInput')
 
   // Visit Login page
   cy.visit('/login')
