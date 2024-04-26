@@ -14,9 +14,8 @@ export async function signup(inputSignup: TSignupInput) {
     })
     const data = await response.json()
 
-    const success = data.status === 'success'
-    if (!success) {
-      // NOTIFY USER
+    if (!response.ok || data.status !== 'success') {
+      throw new Error(`Signup went wrong`)
     }
 
     return data

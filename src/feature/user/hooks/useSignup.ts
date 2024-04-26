@@ -18,6 +18,9 @@ export function useSignup() {
       toast.success('You signed up successfully!')
       // Nav to home page
       navigate('/')
+    },
+    onError: (err) => {
+      toast.error(err.message)
     }
   })
 }
