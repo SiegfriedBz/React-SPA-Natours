@@ -58,12 +58,12 @@ Cypress.Commands.add('stubLogin', () => {
   // Set up interceptors
   cy.intercept('POST', `${API_URL}/sessions/login`, {
     // stubbed server response
-    status: 200,
+    status: 'success',
     data: {
       user: {
         _id: 'fake_id',
         name: 'Jane Doe',
-        email: 'jane@cypress.io',
+        email: 'jane@example.io',
         role: 'user',
         isActive: true
       }
@@ -71,7 +71,7 @@ Cypress.Commands.add('stubLogin', () => {
   }).as('interceptLogin')
 
   // Set fixtures
-  cy.fixture('../fixtures/auth/login/inputData.user.login.json').as(
+  cy.fixture('../fixtures/auth/login/inputData.auth.login.json').as(
     'userLoginInput'
   )
 
@@ -87,4 +87,6 @@ Cypress.Commands.add('stubLogin', () => {
 
   // Submit form
   cy.get('[data-cy=form-login-btn]').click()
+
+  cy.wait(['@interceptLogin'])
 })
