@@ -16,6 +16,10 @@ export async function login(input: TLoginInput) {
 
     const data = await response.json()
 
+    if (!response.ok || data.status !== 'success') {
+      throw new Error(`Login went wrong`)
+    }
+
     return data
   } catch (error) {
     logger.info(error)
@@ -27,17 +31,18 @@ export async function logout() {
   try {
     const response = await fetch(`${API_URL}/sessions/logout`, {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      },
       credentials: 'include' // SEND cookies to Server
     })
 
     const data = await response.json()
 
+    if (!response.ok || data.status !== 'success') {
+      throw new Error(`Logout went wrong`)
+    }
+
     return data
   } catch (error) {
     logger.info(error)
-    throw error
+    throw new Error(`Logout went wrong`)
   }
 }
