@@ -74,7 +74,12 @@ export async function getAllTours() {
 
 export async function getTour(tourId: string) {
   try {
-    const response = await fetch(`${API_URL}/tours/${tourId}`)
+    const response = await fetch(`${API_URL}/tours/${tourId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
     const data = await response.json()
 
     if (!response.ok || data.status !== 'success') {

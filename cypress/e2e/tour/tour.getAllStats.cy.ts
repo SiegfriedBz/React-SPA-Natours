@@ -42,13 +42,13 @@ describe('All Tours stats page spec', () => {
           stats: allStats
         }
       }).as('interceptGetAllStats')
-
-      cy.visit('/tours/stats')
     })
 
     it('should display all stats', () => {
+      cy.visit('/tours/stats')
+
       // Wait for interceptors
-      cy.wait(['@interceptGetAllStats'])
+      cy.wait('@interceptGetAllStats')
 
       cy.getDataCyEl('stat-card').should('be.visible')
     })

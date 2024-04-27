@@ -130,7 +130,7 @@ describe('All Tours page spec', () => {
 
     it('should display a list of tour cards', () => {
       // Wait for interceptors
-      cy.wait(['@interceptGetAllTours'])
+      cy.wait('@interceptGetAllTours')
 
       cy.getDataCyEl('tour-card').should('be.visible')
     })

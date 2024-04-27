@@ -54,7 +54,7 @@ describe('Login spec', () => {
         cy.get('[data-cy=form-login-btn]').click()
 
         // Wait for interceptors
-        cy.wait(['@interceptLogin'])
+        cy.wait('@interceptLogin')
 
         // Assert that the success message is displayed
         cy.contains('You logged in successfully!')
@@ -93,7 +93,7 @@ describe('Login spec', () => {
         cy.get('[data-cy=form-login-btn]').click()
 
         // Wait for interceptors
-        cy.wait(['@interceptLoginWentWrong'])
+        cy.wait('@interceptLoginWentWrong')
 
         // Assert that the error message is displayed
         cy.contains('Login went wrong')

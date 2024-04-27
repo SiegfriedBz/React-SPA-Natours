@@ -67,13 +67,13 @@ describe('TourDetails page spec', () => {
           tour: selectedTour
         }
       }).as('interceptGetTourDetails')
-
-      cy.visit(`/tours/${selectedTour?._id}`)
     })
 
     it('should display the correct tour', () => {
+      cy.visit(`/tours/${selectedTour?._id}`)
+
       // Wait for interceptors
-      cy.wait(['@interceptGetTourDetails'])
+      cy.wait('@interceptGetTourDetails')
 
       cy.getDataCyEl('tour-details-wrapper').should('be.visible')
       cy.contains(`Tour name: ${selectedTour.name}`)

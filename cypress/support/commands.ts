@@ -86,5 +86,5 @@ Cypress.Commands.add('stubLogin', () => {
   // Submit form
   cy.get('[data-cy=form-login-btn]').click()
 
-  cy.wait(['@interceptLogin'])
+  cy.wait('@interceptLogin')
 })
