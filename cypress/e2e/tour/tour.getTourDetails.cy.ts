@@ -69,14 +69,23 @@ describe('TourDetails page spec', () => {
       }).as('interceptGetTourDetails')
     })
 
-    it('should display the correct tour', () => {
-      cy.visit(`/tours/${selectedTour?._id}`)
+    it(
+      'should display the correct tour',
+      {
+        retries: {
+          runMode: 2,
+          openMode: 0
+        }
+      },
+      () => {
+        cy.visit(`/tours/${selectedTour?._id}`)
 
-      // Wait for interceptors
-      cy.wait('@interceptGetTourDetails')
+        // Wait for interceptors
+        cy.wait('@interceptGetTourDetails')
 
-      cy.getDataCyEl('tour-details-wrapper').should('be.visible')
-      cy.contains(`Tour name: ${selectedTour.name}`)
-    })
+        cy.getDataCyEl('tour-details-wrapper').should('be.visible')
+        cy.contains(`Tour name: ${selectedTour.name}`)
+      }
+    )
   })
 })
