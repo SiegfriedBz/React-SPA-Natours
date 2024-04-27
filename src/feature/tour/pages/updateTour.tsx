@@ -1,12 +1,15 @@
+import { useParams } from 'react-router'
 import UpdateTourForm from '../components/UpdateTourForm'
 
-const updateTour = () => {
+const UpdateTour = () => {
+  const { tourId } = useParams()
+
   return (
     <div>
-      updateTour
-      <UpdateTourForm />
+      Update Tour page
+      <UpdateTourForm tourId={tourId} />
     </div>
   )
 }
 
-export default updateTour
+export default UpdateTour
