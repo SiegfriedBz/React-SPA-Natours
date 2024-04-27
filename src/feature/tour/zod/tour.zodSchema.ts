@@ -96,7 +96,6 @@ const createTourZodSchema = z
 const updateTourZodSchema = z
   .object({ ...baseTourBody })
   .extend({
-    _id: z.string(),
     difficulty: baseTourBody.difficulty.refine(
       (value) => value == undefined || TOUR_DIFFICULTY.includes(value),
       {
