@@ -13,7 +13,7 @@ const API_URL = import.meta.env.VITE_API_URL
  * @throws If an error occurs during the mutation process.
  */
 export async function mutateTour(
-  mutateTourData: TCreateTourInput | TUpdateTourInput
+  mutateTourData: TCreateTourInput | (TUpdateTourInput & { tourId: string })
 ) {
   try {
     // Prepare form data as multipart formdata
@@ -22,18 +22,18 @@ export async function mutateTour(
       if (typeof value === 'object' && value !== null) {
         // Convert object to string
         formData.append(key, JSON.stringify(value))
-      } else if (key !== '_id') {
+      } else {
         // Convert other non-string values to string
         formData.append(key, String(value))
       }
     })
 
     const url =
-      '_id' in mutateTourData
-        ? `${API_URL}/tours/${mutateTourData?._id}`
+      'tourId' in mutateTourData
+        ? `${API_URL}/tours/${mutateTourData.tourId}`
         : `${API_URL}/tours`
 
-    const method = '_id' in mutateTourData ? 'PATCH' : 'POST'
+    const method = 'tourId' in mutateTourData ? 'PATCH' : 'POST'
 
     const response = await fetch(url, {
       method,
@@ -43,8 +43,8 @@ export async function mutateTour(
 
     if (!response.ok || data.status !== 'success') {
       const errorMessage =
-        '_id' in mutateTourData
-          ? `Updating tour #${mutateTourData?._id}`
+        'tourId' in mutateTourData
+          ? `Updating tour #${mutateTourData.tourId}`
           : 'Creating new tour'
       throw new Error(`${errorMessage} went wrong`)
     }
@@ -72,13 +72,13 @@ export async function getAllTours() {
   }
 }
 
-export async function getTour(id: string) {
+export async function getTour(tourId: string) {
   try {
-    const response = await fetch(`${API_URL}/tours/${id}`)
+    const response = await fetch(`${API_URL}/tours/${tourId}`)
     const data = await response.json()
 
     if (!response.ok || data.status !== 'success') {
-      throw new Error(`Fetching tour #${id} went wrong`)
+      throw new Error(`Fetching tour #${tourId} went wrong`)
     }
 
     return data
@@ -106,7 +106,9 @@ export async function getStats() {
 
 export async function getMonthlyStats(year: number) {
   try {
-    const response = await fetch(`${API_URL}/tours//monthly-stats/${year}`)
+    const response = await fetch(`${API_URL}/tours/monthly-stats/${year}`, {
+      credentials: 'include'
+    })
     const data = await response.json()
 
     if (!response.ok || data.status !== 'success') {

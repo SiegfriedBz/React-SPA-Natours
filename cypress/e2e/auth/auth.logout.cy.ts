@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+import '../../support/commands'
 
 describe('Logout spec', () => {
   const API_URL = Cypress.env('API_URL')

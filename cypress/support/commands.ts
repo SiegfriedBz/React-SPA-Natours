@@ -44,12 +44,12 @@ export {}
 //       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
 //       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
 //       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
+//     }c
 //   }
 // }
 
 Cypress.Commands.add('getDataCyEl', (selector) => {
-  return cy.get(`[data-cy=${selector}]`)
+  return cy.get(`[data-cy="${selector}"]`)
 })
 
 Cypress.Commands.add('stubLogin', () => {
