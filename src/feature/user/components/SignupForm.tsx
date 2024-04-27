@@ -16,34 +16,33 @@ const SignupForm = () => {
   const { mutate } = useSignup()
 
   const onSubmit: SubmitHandler<TSignupInput> = (data) => {
-    console.log(data)
     mutate(data)
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <label>Name</label>
-      <input {...register('name')} data-cy='form-signup-input-name' />
+      <input {...register('name')} data-cy="form-signup-input-name" />
       {errors.name && <span>{errors.name.message}</span>}
 
       <label>Email</label>
-      <input {...register('email')} data-cy='form-signup-input-email' />
+      <input {...register('email')} data-cy="form-signup-input-email" />
       {errors.email && <span>{errors.email.message}</span>}
 
       <label>Password</label>
-      <input {...register('password')} data-cy='form-signup-input-password' />
+      <input {...register('password')} data-cy="form-signup-input-password" />
       {errors.password && <span>{errors.password.message}</span>}
 
       <label>Password confirm</label>
       <input
         {...register('passwordConfirmation')}
-        data-cy='form-signup-input-passwordConfirmation'
+        data-cy="form-signup-input-passwordConfirmation"
       />
       {errors.passwordConfirmation && (
         <span>{errors.passwordConfirmation.message}</span>
       )}
 
-      <button type='submit' data-cy='form-signup-btn'>
+      <button type="submit" data-cy="form-signup-btn">
         Signup
       </button>
     </form>
