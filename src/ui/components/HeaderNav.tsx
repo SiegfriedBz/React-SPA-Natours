@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useUserStore } from '../../feature/user/store/user.store'
 import { useLogout } from '../../feature/auth/hooks/useAuth'
+import { TUser } from '../../types/user.types'
 
 type TLink = {
   to: string
@@ -26,7 +27,11 @@ const NAV_LINKS: TLink[] = [
 ]
 
 const HeaderNav = () => {
-  const user = useUserStore((state) => state.user)
+  const user: TUser | null = useUserStore((state) => state.user)
+  // const isAdmin = user?.role === 'admin'
+  // const isLeadGuide = user?.role === 'lead-guide'
+  // const isGuide = user?.role === 'guide'
+
   const { mutate } = useLogout()
 
   const handleLogout = () => {

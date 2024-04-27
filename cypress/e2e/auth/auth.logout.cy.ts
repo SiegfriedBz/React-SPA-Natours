@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+import '../../support/commands'
 
 describe('Logout spec', () => {
   const API_URL = Cypress.env('API_URL')
@@ -26,7 +27,7 @@ describe('Logout spec', () => {
         cy.getDataCyEl('logout-btn').click()
 
         // Wait for interceptors
-        cy.wait(['@interceptLogout'])
+        cy.wait('@interceptLogout')
 
         // Assert that the success message is displayed
         cy.contains('You logged out successfully')
@@ -54,7 +55,7 @@ describe('Logout spec', () => {
         cy.getDataCyEl('logout-btn').click()
 
         // Wait for interceptors
-        cy.wait(['@interceptLogoutWentWrong'])
+        cy.wait('@interceptLogoutWentWrong')
 
         // Assert that the success message is displayed
         cy.contains('Logout went wrong')

@@ -49,7 +49,7 @@ describe('User Signup spec', () => {
         cy.get('[data-cy=form-signup-btn]').click()
 
         // Wait for interceptors
-        cy.wait(['@interceptSignup'])
+        cy.wait('@interceptSignup')
 
         // Assert that the success message is displayed
         cy.contains('You signed up successfully!')
@@ -80,7 +80,7 @@ describe('User Signup spec', () => {
         cy.get('[data-cy=form-signup-btn]').click()
 
         // Wait for interceptors
-        cy.wait(['@interceptSignupWentWrong'])
+        cy.wait('@interceptSignupWentWrong')
 
         // Assert that the error message is displayed
         cy.contains('Signup went wrong')

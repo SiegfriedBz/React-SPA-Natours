@@ -21,7 +21,7 @@ export type TTour = {
   updatedAt: Date
 }
 
-export type TTourStats = {
+export type TTourStat = {
   _id: 'easy' | 'medium' | 'hard' // Assuming TOUR_DIFFICULTY is an array containing these strings
   avgRating: number
   avgPrice: number
@@ -31,7 +31,7 @@ export type TTourStats = {
   totalToursCount: number
 }
 
-export type TMonthlyStats = {
+export type TMonthlyStat = {
   toursStartCount: number
   tours: string[]
   month: number

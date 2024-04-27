@@ -1,14 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
 import { getAllTours, getTour } from '../../../service/tour.service'
 
-type TProps = { id?: string }
+type TProps = { tourId?: string }
 
-export function useTour({ id }: TProps = {}) {
+export function useTour({ tourId }: TProps = {}) {
   const { status, isPending, isSuccess, isError, isLoading, data, refetch } =
     useQuery({
       queryKey: ['tours'],
       queryFn: () => {
-        return id ? getTour(id) : getAllTours()
+        return tourId ? getTour(tourId) : getAllTours()
       }
     })
 

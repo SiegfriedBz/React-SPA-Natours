@@ -10,7 +10,7 @@
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "preview": "vite preview",
     "cy:open": "node ./src/utils/load-env.js && cypress open",
-    "cy:run": "node ./src/utils/load-env.js && cypress run",
+    "cy:run": "node ./src/utils/load-env.js && cypress run --headed --browser chrome",
     "test": "start-server-and-test dev http://localhost:3000 cy:run",
     "prepare": "husky"
   },

@@ -3,22 +3,24 @@ import { toast } from 'react-toastify'
 import { mutateTour } from '../../../service/tour.service'
 import type { TCreateTourInput, TUpdateTourInput } from '../zod/tour.zodSchema'
 
-export function useMutateTour() {
+type TProps = { tourId?: string }
+
+export function useMutateTour({ tourId }: TProps = {}) {
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: (tourData: TCreateTourInput | TUpdateTourInput) =>
-      '_id' in tourData
-        ? mutateTour(tourData as TUpdateTourInput)
+      tourId
+        ? mutateTour({ ...tourData, tourId } as TUpdateTourInput & {
+            tourId: string
+          })
         : mutateTour(tourData as TCreateTourInput),
 
-    onSuccess: (_, variables) => {
+    onSuccess: () => {
       // Invalidate cache keys after mutation
-      queryClient.invalidateQueries({ queryKey: ['tours'] })
+      queryClient.invalidateQueries({ queryKey: ['tours', `tours-${tourId}`] })
       // Notify user
-      toast.info(
-        `Tour ${'_id' in variables ? 'updated' : 'created'} successfully`
-      )
+      toast.info(`Tour ${tourId ? 'updated' : 'created'} successfully`)
     },
     onError: (err) => {
       toast.error(err.message)
