@@ -7,4 +7,5 @@ export type TUser = {
   photo?: string
   role: TUserRole
   isActive: boolean
+  latLng?: string
 }
