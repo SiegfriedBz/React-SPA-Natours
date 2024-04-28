@@ -39,6 +39,7 @@ export async function mutateTour(
       method,
       body: formData
     })
+
     const data = await response.json()
 
     if (!response.ok || data.status !== 'success') {
@@ -93,6 +94,36 @@ export async function getTour(tourId: string) {
   }
 }
 
+/** Geo */
+export type TPropsGetDistances = {
+  latLng: string
+  unit: 'mi' | 'km'
+}
+export type TDistance = { distance: number; name: string; _id: string }
+export async function getDistancesToTours(
+  { latLng, unit }: TPropsGetDistances = { latLng: '8.64,115.1', unit: 'mi' }
+): Promise<TDistance[]> {
+  try {
+    // /distances-from/:latLng/unit/:unit
+    const response = await fetch(
+      `${API_URL}/tours/distances-from/${latLng}/unit/${unit}`
+    )
+    const data = await response.json()
+
+    if (!response.ok || data.status !== 'success') {
+      throw new Error(`Fetching distances to tours went wrong`)
+    }
+
+    const distances: TDistance[] = data?.data?.distances
+
+    return distances
+  } catch (error) {
+    logger.info(error)
+    throw error
+  }
+}
+
+/** Stats */
 export async function getStats() {
   try {
     const response = await fetch(`${API_URL}/tours/stats`)
