@@ -4,7 +4,10 @@ import type { TUser } from '../../../types/user.types'
 
 type TState = {
   user: TUser | null
-  userPosition?: string
+  userPosition?: {
+    lat: string
+    lng: string
+  }
   getPositionStatus: 'idle' | 'loading' | 'error'
 }
 type TActions = {
@@ -21,8 +24,10 @@ export const useUserStore = create<TStore>()((set) => ({
   getPositionStatus: 'idle',
   setUser: (userData) => set(() => ({ user: userData })),
   setUserPosition: (latLng: string) => {
+    const [lat, lng] = latLng.split(',')
+
     set({
-      userPosition: latLng
+      userPosition: { lat, lng }
     })
   },
   getUserPosition: async () => {
@@ -32,9 +37,11 @@ export const useUserStore = create<TStore>()((set) => ({
       })
       // Get the user's geolocation position
       const position = await getPosition()
-      const latLng = `${position?.coords?.latitude},${position?.coords?.longitude}`
+      const lat = position?.coords?.latitude?.toString()
+      const lng = position?.coords?.longitude?.toString()
+
       set({
-        userPosition: latLng,
+        userPosition: { lat, lng },
         getPositionStatus: 'idle'
       })
     } catch (error) {
