@@ -2,8 +2,13 @@ import { useTour } from '../hooks/useTour'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import TourCard from './TourCard'
 import type { TTour } from '../../../types/tour.types'
+import type { TDistancesToTours } from '../pages/tours'
 
-const AllTours = () => {
+type TProps = {
+  distancesToTours?: TDistancesToTours
+}
+
+const AllTours = ({ distancesToTours }: TProps) => {
   const {
     data,
     refetch,
@@ -41,7 +46,17 @@ const AllTours = () => {
   return (
     <>
       {tours?.map((tour) => {
-        return <TourCard key={tour?._id} tour={tour} />
+        const distanceToTour = distancesToTours?.distances?.find(
+          (distance) => distance?._id === tour?._id
+        )
+        return (
+          <TourCard
+            key={tour?._id}
+            tour={tour}
+            distanceToTour={distanceToTour}
+            distanceUnit={distancesToTours?.unit}
+          />
+        )
       })}
     </>
   )
