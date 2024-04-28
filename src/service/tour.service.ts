@@ -3,6 +3,7 @@ import type {
   TCreateTourInput,
   TUpdateTourInput
 } from '../feature/tour/zod/tour.zodSchema'
+import type { TDistanceUnit } from '../types/tour.types'
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -39,6 +40,7 @@ export async function mutateTour(
       method,
       body: formData
     })
+
     const data = await response.json()
 
     if (!response.ok || data.status !== 'success') {
@@ -93,6 +95,61 @@ export async function getTour(tourId: string) {
   }
 }
 
+/** Geo */
+export type TPropsGetDistances = {
+  latLng: string
+  unit: TDistanceUnit
+}
+export type TDistance = { distance: number; name: string; _id: string }
+export async function getDistancesToTours(
+  { latLng, unit }: TPropsGetDistances = { latLng: '8.64,115.1', unit: 'mi' }
+): Promise<TDistance[]> {
+  try {
+    const response = await fetch(
+      `${API_URL}/tours/distances-from/${latLng}/unit/${unit}`
+    )
+    const data = await response.json()
+
+    if (!response.ok || data.status !== 'success') {
+      throw new Error(`Fetching distances to tours went wrong`)
+    }
+
+    const distances: TDistance[] = data?.data?.distances
+
+    return distances
+  } catch (error) {
+    logger.info(error)
+    throw error
+  }
+}
+
+export type TPropsToursWithin = {
+  distance: string
+} & TPropsGetDistances
+export async function getToursWithin({
+  distance,
+  latLng,
+  unit
+}: TPropsToursWithin) {
+  console.log('==== getToursWithin')
+  try {
+    const response = await fetch(
+      `${API_URL}/tours/within/${distance}/center/${latLng}/unit/${unit}`
+    )
+    const data = await response.json()
+
+    if (!response.ok || data.status !== 'success') {
+      throw new Error(`Fetching tours within distance went wrong`)
+    }
+
+    return data
+  } catch (error) {
+    logger.info(error)
+    throw error
+  }
+}
+
+/** Stats */
 export async function getStats() {
   try {
     const response = await fetch(`${API_URL}/tours/stats`)
