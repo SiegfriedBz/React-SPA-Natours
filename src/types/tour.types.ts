@@ -36,3 +36,5 @@ export type TMonthlyStat = {
   tours: string[]
   month: number
 }
+
+export type TDistanceUnit = 'mi' | 'km'

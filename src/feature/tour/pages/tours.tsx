@@ -5,6 +5,7 @@ import {
   type TDistanceUnit
 } from '../components/DistancesToToursForm'
 import type { TDistance } from '../../../service/tour.service'
+import { ToursWithinDistanceForm } from '../components/ToursWithinDistanceForm'
 
 export type TDistancesToTours = {
   distances: TDistance[]
@@ -21,6 +22,7 @@ const Tours = () => {
     <div>
       All Tours page
       <DistancesToToursForm setDistancesToTours={setDistancesToTours} />
+      <ToursWithinDistanceForm />
       <AllTours distancesToTours={distancesToTours} />
     </div>
   )

@@ -1,25 +1,15 @@
 import { useState } from 'react'
-import { useUserStore } from '../../user/store/user.store'
-import {
-  getDistancesToTours,
-  type TDistance
-} from '../../../service/tour.service'
-import logger from '../../../utils/logger.utils'
+import { useSearchParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { useUserStore } from '../../user/store/user.store'
+import logger from '../../../utils/logger.utils'
+import type { TDistanceUnit } from './DistancesToToursForm'
 
-export type TDistanceUnit = 'mi' | 'km'
+export const ToursWithinDistanceForm = () => {
+  const [searchParams, setSearchParams] = useSearchParams()
 
-type TProps = {
-  setDistancesToTours: React.Dispatch<
-    React.SetStateAction<{
-      distances: TDistance[]
-      unit: TDistanceUnit
-    }>
-  >
-}
-
-export const DistancesToToursForm = ({ setDistancesToTours }: TProps) => {
   const [unit, setUnit] = useState<TDistanceUnit>('mi')
+  const [distance, setDistance] = useState<string | undefined>(undefined)
   const userPosition = useUserStore((state) => state.userPosition)
   const setUserPosition = useUserStore((state) => state.setUserPosition)
   const getPositionStatus = useUserStore((state) => state.getPositionStatus)
@@ -37,15 +27,16 @@ export const DistancesToToursForm = ({ setDistancesToTours }: TProps) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (!userPosition?.lat || !userPosition?.lng) return
+    if (!userPosition || !distance) return
 
     try {
-      const distances: TDistance[] = await getDistancesToTours({
-        latLng: `${userPosition?.lat},${userPosition?.lng}`,
+      setSearchParams({
+        ...Object.fromEntries(searchParams),
+        distance,
+        lat: userPosition.lat,
+        lng: userPosition.lng,
         unit
       })
-
-      setDistancesToTours({ distances, unit })
     } catch (error) {
       const err = error as Error
       logger.info(err)
@@ -55,7 +46,7 @@ export const DistancesToToursForm = ({ setDistancesToTours }: TProps) => {
 
   return (
     <>
-      <p>Display my distance to tours</p>
+      <p>Display tours within</p>
       <form onSubmit={handleSubmit} className="flex flex-col">
         <div>
           <p>Enter your coordinates or click on Get my position</p>
@@ -83,6 +74,15 @@ export const DistancesToToursForm = ({ setDistancesToTours }: TProps) => {
             </button>
           </div>
         </div>
+
+        <div>
+          <label htmlFor="distance">Distance</label>
+          <input
+            defaultValue={distance}
+            onChange={(e) => setDistance(e.target.value)}
+          />
+        </div>
+
         <div>
           <label htmlFor="unit">Unit</label>
           <select
@@ -94,7 +94,7 @@ export const DistancesToToursForm = ({ setDistancesToTours }: TProps) => {
           </select>
         </div>
 
-        <button type="submit">Get distances</button>
+        <button type="submit">Get tours</button>
       </form>
     </>
   )
