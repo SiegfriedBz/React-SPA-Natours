@@ -20,8 +20,7 @@ type TProps = {
 
 export const DistancesToToursForm = ({ setDistancesToTours }: TProps) => {
   const [unit, setUnit] = useState<TDistanceUnit>('mi')
-  const user = useUserStore((state) => state.user)
-  const userPosition = user?.latLng
+  const userPosition = useUserStore((state) => state.userPosition)
   const setUserPosition = useUserStore((state) => state.setUserPosition)
   const getPositionStatus = useUserStore((state) => state.getPositionStatus)
   const getUserPosition = useUserStore((state) => state.getUserPosition)

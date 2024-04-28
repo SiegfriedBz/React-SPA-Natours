@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useUserStore } from '../../user/store/user.store'
 import AllTours from '../components/AllTours'
 import {
   DistancesToToursForm,
@@ -13,7 +12,6 @@ export type TDistancesToTours = {
 }
 
 const Tours = () => {
-  const user = useUserStore((state) => state.user)
   const [distancesToTours, setDistancesToTours] = useState<TDistancesToTours>({
     distances: [],
     unit: 'mi'
@@ -22,9 +20,7 @@ const Tours = () => {
   return (
     <div>
       All Tours page
-      {user && (
-        <DistancesToToursForm setDistancesToTours={setDistancesToTours} />
-      )}
+      <DistancesToToursForm setDistancesToTours={setDistancesToTours} />
       <AllTours distancesToTours={distancesToTours} />
     </div>
   )
