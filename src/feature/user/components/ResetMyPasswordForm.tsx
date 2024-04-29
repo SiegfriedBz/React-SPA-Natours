@@ -10,7 +10,7 @@ type TProps = {
   resetPasswordToken?: string
 }
 
-const ResetPasswordForm = ({ resetPasswordToken }: TProps) => {
+const ResetMyPasswordForm = ({ resetPasswordToken }: TProps) => {
   const {
     register,
     handleSubmit,
@@ -49,4 +49,4 @@ const ResetPasswordForm = ({ resetPasswordToken }: TProps) => {
   )
 }
 
-export default ResetPasswordForm
+export default ResetMyPasswordForm

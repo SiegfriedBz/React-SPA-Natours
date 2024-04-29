@@ -6,7 +6,7 @@ import {
 } from '../zod/user.zodSchema'
 import { useForgotMyPassword } from '../hooks/useForgotMyPassword'
 
-const ForgotPasswordForm = () => {
+const ForgotMyPasswordForm = () => {
   const {
     register,
     handleSubmit,
@@ -33,4 +33,4 @@ const ForgotPasswordForm = () => {
   )
 }
 
-export default ForgotPasswordForm
+export default ForgotMyPasswordForm
