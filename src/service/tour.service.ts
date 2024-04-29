@@ -131,7 +131,6 @@ export async function getToursWithin({
   latLng,
   unit
 }: TPropsToursWithin) {
-  console.log('==== getToursWithin')
   try {
     const response = await fetch(
       `${API_URL}/tours/within/${distance}/center/${latLng}/unit/${unit}`
