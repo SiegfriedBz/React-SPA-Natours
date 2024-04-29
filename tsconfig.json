@@ -21,6 +21,6 @@
     "noFallthroughCasesInSwitch": true,
     "types": ["cypress"]
   },
-  "include": ["src", "cypress/support/**/*"],
+  "include": ["src/**/*", "cypress/support/**/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
