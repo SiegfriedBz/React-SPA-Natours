@@ -56,7 +56,7 @@ const AllTours = ({ distancesToTours }: TProps) => {
   }
 
   const tours: TTour[] = data?.data?.tours
-  console.log('===== tours?.length', tours?.length)
+
   return (
     <>
       {tours?.map((tour) => {
