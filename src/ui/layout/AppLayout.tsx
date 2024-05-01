@@ -6,10 +6,10 @@ import 'react-toastify/dist/ReactToastify.css'
 
 const AppLayout = () => {
   return (
-    <div className='layout'>
+    <div className="layout">
       <Header />
 
-      <main className='main'>
+      <main className="main">
         <Outlet />
       </main>
 

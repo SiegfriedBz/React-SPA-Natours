@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import {loadStripe, type Stripe} from '@stripe/stripe-js';
+import { useEffect } from 'react'
+import { loadStripe, type Stripe } from '@stripe/stripe-js'
 import { toast } from 'react-toastify'
 import { getStripeCheckoutSession } from '../../../service/booking.stripe.service'
 import logger from '../../../utils/logger.utils'
@@ -9,15 +9,14 @@ type TProps = {
 }
 
 const STRIPE_PUBLIC_KEY = import.meta.env.VITE_STRIPE_PUBLIC_KEY
-let stripe:Stripe | null = null
+let stripe: Stripe | null = null
 
 const StripeCheckoutButton = ({ tourId }: TProps) => {
-  
-  useEffect(()=> {
-  (async()=> {
-    stripe = await loadStripe(STRIPE_PUBLIC_KEY as string)
-  })()
-  },[])
+  useEffect(() => {
+    ;(async () => {
+      stripe = await loadStripe(STRIPE_PUBLIC_KEY as string)
+    })()
+  }, [])
 
   const handleGetStripeCheckoutSession = async (tourId: string) => {
     try {
@@ -34,16 +33,16 @@ const StripeCheckoutButton = ({ tourId }: TProps) => {
         }
       } = data
 
-      if(!stripe){
-        throw new Error("Error loading stripe")
+      if (!stripe) {
+        throw new Error('Error loading stripe')
       }
 
       const result = await stripe.redirectToCheckout({
         sessionId: id
       })
-      
+
       if (result.error) {
-        throw new Error(result.error.message);
+        throw new Error(result.error.message)
       }
     } catch (error) {
       logger.info(error)
