@@ -23,6 +23,10 @@ const NAV_LINKS_LOGGED_IN: TLink[] = [
   {
     to: '/me',
     label: 'My Profile'
+  },
+  {
+    to: '/my-bookings',
+    label: 'My Bookings'
   }
 ]
 const NAV_LINKS_NOT_LOGGED_IN: TLink[] = [
