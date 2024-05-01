@@ -1,3 +1,12 @@
+export type TBaseLocation = {
+  type: string
+  coordinates: [number, number]
+  description: string
+}
+export type TLocation = TBaseLocation & {
+  day: number
+}
+
 export type TTour = {
   _id: string
   name: string
@@ -14,8 +23,8 @@ export type TTour = {
   imageCover: string
   images: string[]
   startDates: Date[]
-  startLocation: object
-  locations: object[]
+  startLocation: TBaseLocation
+  locations: TLocation[]
   guides: string[]
   createdAt: Date
   updatedAt: Date
