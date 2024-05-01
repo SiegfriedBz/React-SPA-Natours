@@ -3,7 +3,7 @@ import HeaderNav from './HeaderNav'
 
 const Header = () => {
   return (
-    <div className='flex'>
+    <div className="flex">
       <Logo />
       <HeaderNav />
     </div>

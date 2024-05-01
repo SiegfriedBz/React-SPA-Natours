@@ -22,14 +22,14 @@ const LoginForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <label>Email</label>
-      <input {...register('email')} data-cy='form-login-input-email' />
+      <input {...register('email')} data-cy="form-login-input-email" />
       {errors.email && <span>{errors.email.message}</span>}
 
       <label>Password</label>
-      <input {...register('password')} data-cy='form-login-input-password' />
+      <input {...register('password')} data-cy="form-login-input-password" />
       {errors.password && <span>{errors.password.message}</span>}
 
-      <button type='submit' data-cy='form-login-btn'>
+      <button type="submit" data-cy="form-login-btn">
         Login
       </button>
     </form>
