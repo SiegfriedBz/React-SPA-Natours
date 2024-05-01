@@ -4,12 +4,10 @@ import '../../support/commands'
 describe('All Tours page spec', () => {
   const API_URL = Cypress.env('API_URL')
 
-  beforeEach(() => {
-    cy.visit('/tours')
-  })
-
   describe('When user enters /tours path', () => {
     it('should navigate to root path', () => {
+      cy.visit('/tours')
+
       cy.location('pathname').should('eq', '/')
     })
   })
@@ -129,6 +127,8 @@ describe('All Tours page spec', () => {
     })
 
     it('should display a list of tour cards', () => {
+      cy.visit('/')
+
       // Wait for interceptors
       cy.wait('@interceptGetAllTours')
 

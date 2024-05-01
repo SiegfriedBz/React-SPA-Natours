@@ -1,19 +1,16 @@
-import { useMonthlyStats } from '../hooks/useStats'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
-import type { TMonthlyStat } from '../../../types/tour.types'
+import { useGetMyBookings } from '../hooks/useGetMyBookings'
+import BookingCard from './BookingCard'
+import type { TBooking } from '../../../types/booking.types'
 
-type TProps = {
-  year?: string
-}
-
-const AllStatsForYear = ({ year }: TProps) => {
+const AllMyBookings = () => {
   const {
     data,
     refetch,
     // status, isPending, isSuccess,
     isError,
     isLoading
-  } = useMonthlyStats(Number(year) || 2024)
+  } = useGetMyBookings()
 
   if (isLoading) {
     return (
@@ -40,11 +37,15 @@ const AllStatsForYear = ({ year }: TProps) => {
     )
   }
 
-  // TMonthlyStats
-  const stats: TMonthlyStat[] = data?.data?.stats
+  const bookings: TBooking[] = data?.data?.bookings
 
-  // Render fetched data
-  return <div> {JSON.stringify(stats)}</div>
+  return (
+    <>
+      {bookings?.map((booking) => {
+        return <BookingCard key={booking?._id} booking={booking} />
+      })}
+    </>
+  )
 }
 
-export default AllStatsForYear
+export default AllMyBookings

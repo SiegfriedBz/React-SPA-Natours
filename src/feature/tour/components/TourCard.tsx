@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { TDistance } from '../../../service/tour.service'
 import type { TTour } from '../../../types/tour.types'
 import type { TDistanceUnit } from './DistancesToToursForm'
@@ -18,6 +19,7 @@ const TourCard = ({ tour, distanceToTour, distanceUnit }: TProps) => {
           {distanceUnit}
         </div>
       )}
+      <Link to={`/tours/${tour._id}`}>Tour details</Link>
       <div>{JSON.stringify(tour)}</div>
     </div>
   )

@@ -12,6 +12,7 @@ import UpdateTour from '../feature/tour/pages/updateTour'
 import Stats from '../feature/tour/pages/stats'
 import MonthlyStats from '../feature/tour/pages/monthlyStats'
 import About from '../ui/pages/about'
+import MyBookings from '../feature/booking/pages/myBookings'
 
 const router = createBrowserRouter([
   {
@@ -28,12 +29,13 @@ const router = createBrowserRouter([
         path: '/resetMyPassword-2/2/:resetPasswordToken',
         element: <ResetMyPassword />
       },
-      { path: '/about', element: <About /> },
+      { path: '/my-bookings', element: <MyBookings /> },
       { path: '/tours/new', element: <CreateTour /> },
       { path: '/tours/:tourId', element: <Tour /> },
       { path: '/tours/:tourId/update', element: <UpdateTour /> },
       { path: '/tours/stats', element: <Stats /> },
-      { path: '/tours/stats/:year', element: <MonthlyStats /> }
+      { path: '/tours/stats/:year', element: <MonthlyStats /> },
+      { path: '/about', element: <About /> }
     ]
   }
 ])

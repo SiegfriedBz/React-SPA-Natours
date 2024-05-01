@@ -1,19 +1,26 @@
-import { useMonthlyStats } from '../hooks/useStats'
+import { useEffect } from 'react'
+import { useGetMe } from '../../user/hooks/useGetMe'
+import { useUserStore } from '../../user/store/user.store'
+import AllMyBookings from '../components/AllMyBookings'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
-import type { TMonthlyStat } from '../../../types/tour.types'
 
-type TProps = {
-  year?: string
-}
+const MyBookings = () => {
+  const setUser = useUserStore((state) => state.setUser)
 
-const AllStatsForYear = ({ year }: TProps) => {
   const {
     data,
     refetch,
     // status, isPending, isSuccess,
     isError,
     isLoading
-  } = useMonthlyStats(Number(year) || 2024)
+  } = useGetMe()
+
+  useEffect(() => {
+    if (data?.data?.user == null) return
+
+    // update user in ui state after fetch
+    setUser(data?.data?.user)
+  }, [setUser, data?.data?.user])
 
   if (isLoading) {
     return (
@@ -40,11 +47,12 @@ const AllStatsForYear = ({ year }: TProps) => {
     )
   }
 
-  // TMonthlyStats
-  const stats: TMonthlyStat[] = data?.data?.stats
-
-  // Render fetched data
-  return <div> {JSON.stringify(stats)}</div>
+  return (
+    <div>
+      <h1>MyBookings page</h1>
+      <AllMyBookings />
+    </div>
+  )
 }
 
-export default AllStatsForYear
+export default MyBookings
