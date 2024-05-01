@@ -1,7 +1,6 @@
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import { useStats } from '../hooks/useStats'
 import TourStatCard from './TourStatCard'
-import 'react-loading-skeleton/dist/skeleton.css'
 import type { TTourStat } from '../../../types/tour.types'
 
 const AllStats = () => {
