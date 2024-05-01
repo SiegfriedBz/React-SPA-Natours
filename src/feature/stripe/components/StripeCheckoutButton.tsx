@@ -1,11 +1,5 @@
-declare const Stripe: {
-  (publicKey: string): {
-    redirectToCheckout: (options: {
-      sessionId: string
-    }) => Promise<{ error?: Error }>
-  }
-}
-
+import { useEffect } from 'react';
+import {loadStripe, type Stripe} from '@stripe/stripe-js';
 import { toast } from 'react-toastify'
 import { getStripeCheckoutSession } from '../../../service/booking.stripe.service'
 import logger from '../../../utils/logger.utils'
@@ -15,9 +9,16 @@ type TProps = {
 }
 
 const STRIPE_PUBLIC_KEY = import.meta.env.VITE_STRIPE_PUBLIC_KEY
-const stripe = Stripe(STRIPE_PUBLIC_KEY as string)
+let stripe:Stripe | null = null
 
 const StripeCheckoutButton = ({ tourId }: TProps) => {
+  
+  useEffect(()=> {
+  (async()=> {
+    stripe = await loadStripe(STRIPE_PUBLIC_KEY as string)
+  })()
+  },[])
+
   const handleGetStripeCheckoutSession = async (tourId: string) => {
     try {
       /** 1. Get Checkout session from API */
@@ -33,9 +34,17 @@ const StripeCheckoutButton = ({ tourId }: TProps) => {
         }
       } = data
 
-      await stripe.redirectToCheckout({
+      if(!stripe){
+        throw new Error("Error loading stripe")
+      }
+
+      const result = await stripe.redirectToCheckout({
         sessionId: id
       })
+      
+      if (result.error) {
+        throw new Error(result.error.message);
+      }
     } catch (error) {
       logger.info(error)
       toast.error('Getting stripe checkout went wrong')
