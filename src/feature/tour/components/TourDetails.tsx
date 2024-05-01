@@ -1,6 +1,6 @@
 import { useTour } from '../hooks/useTour'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+import StripeCheckoutButton from '../../stripe/components/StripeCheckoutButton'
 import type { TTour } from '../../../types/tour.types'
 
 type TProps = {
@@ -46,6 +46,9 @@ const TourDetails = ({ tourId }: TProps) => {
   return (
     <div data-cy="tour-details-wrapper">
       <span>Tour name: {tour?.name}</span>
+
+      {tourId && <StripeCheckoutButton tourId={tourId} />}
+
       {JSON.stringify(tour)}
     </div>
   )
