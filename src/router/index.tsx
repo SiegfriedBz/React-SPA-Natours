@@ -13,6 +13,8 @@ import Stats from '../feature/tour/pages/stats'
 import MonthlyStats from '../feature/tour/pages/monthlyStats'
 import About from '../ui/pages/about'
 import MyBookings from '../feature/booking/pages/myBookings'
+import ProtectRoute from './ProtectRoute'
+import RestrictTo from './RestrictTo'
 
 const router = createBrowserRouter([
   {
@@ -23,19 +25,37 @@ const router = createBrowserRouter([
       { path: '/tours', element: <Navigate to="/" replace={true} /> },
       { path: '/login', element: <Login /> },
       { path: '/signup', element: <Signup /> },
-      { path: '/me', element: <UserProfile /> },
+
       { path: '/resetMyPassword-1/2', element: <ForgotMyPassword /> },
       {
         path: '/resetMyPassword-2/2/:resetPasswordToken',
         element: <ResetMyPassword />
       },
-      { path: '/my-bookings', element: <MyBookings /> },
-      { path: '/tours/new', element: <CreateTour /> },
       { path: '/tours/:tourId', element: <Tour /> },
-      { path: '/tours/:tourId/update', element: <UpdateTour /> },
       { path: '/tours/stats', element: <Stats /> },
-      { path: '/tours/stats/:year', element: <MonthlyStats /> },
-      { path: '/about', element: <About /> }
+      { path: '/about', element: <About /> },
+      {
+        element: <ProtectRoute />,
+        children: [
+          { path: '/me', element: <UserProfile /> },
+          { path: '/my-bookings', element: <MyBookings /> },
+          {
+            element: <RestrictTo authorizedRoles={['admin', 'lead-guide']} />,
+            children: [
+              { path: '/tours/new', element: <CreateTour /> },
+              { path: '/tours/:tourId/update', element: <UpdateTour /> }
+            ]
+          },
+          {
+            element: (
+              <RestrictTo authorizedRoles={['admin', 'lead-guide', 'guide']} />
+            ),
+            children: [
+              { path: '/tours/stats/:year', element: <MonthlyStats /> }
+            ]
+          }
+        ]
+      }
     ]
   }
 ])
