@@ -6,13 +6,17 @@ import { login, logout } from '../../../service/auth.service'
 import type { TLoginInput } from '../zod/auth.zodSchema'
 import type { TUser } from '../../../types/user.types'
 
-export function useLogin() {
+type TProps = {
+  prevPathname?: string
+}
+export function useLogin({ prevPathname }: TProps) {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const setUser = useUserStore((state) => state.setUser)
 
   return useMutation({
-    mutationFn: (loginInputData: TLoginInput) => login(loginInputData),
+    mutationFn: ({ email, password }: TLoginInput) =>
+      login({ email, password }),
     onSuccess: (data) => {
       // Invalidate cache keys after mutation
       queryClient.invalidateQueries({ queryKey: ['user'] })
@@ -22,8 +26,9 @@ export function useLogin() {
 
       // Notify user
       toast.success('You logged in successfully!')
-      // Nav to home page
-      navigate('/')
+
+      // Nav to previous page pr home page
+      prevPathname ? navigate(`${prevPathname}`) : navigate('/')
     },
     onError: (err) => {
       toast.error(err.message)
