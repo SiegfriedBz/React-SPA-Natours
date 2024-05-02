@@ -1,10 +1,10 @@
 import { useRef, useState, useEffect, useMemo } from 'react'
-import Map, { MapRef, Marker, Popup } from 'react-map-gl'
+import MapGL, { MapRef, Marker, Popup } from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import bbox from '@turf/bbox'
 import { featureCollection, point } from '@turf/helpers'
 import pinOrange from '../../../assets/pin-orange.png'
-import { INITIAL_POPUP, MAP_BOUNDS_PADDING } from '../constants'
+import { INITIAL_POPUP, MAP_BOUNDS_PADDING } from './map.constants'
 import type { TBaseLocation, TLocation } from '../../../types/tour.types'
 import type { TMarker, TPopup } from '../../../types/map.types'
 
@@ -15,7 +15,7 @@ type TProps = {
   locations: TLocation[]
 }
 
-function TourDetailsMap({ startLocation, locations }: TProps) {
+function Map({ startLocation, locations }: TProps) {
   const mapRef = useRef<MapRef | null>(null)
   const [startLng, startLat] = startLocation.coordinates
   const INITIAL_VIEW_STATE = {
@@ -66,7 +66,7 @@ function TourDetailsMap({ startLocation, locations }: TProps) {
   }, [mapRef, markersGeojson])
 
   return (
-    <Map
+    <MapGL
       ref={mapRef}
       {...viewState}
       onMove={(evt) => setViewState(evt.viewState)}
@@ -110,7 +110,7 @@ function TourDetailsMap({ startLocation, locations }: TProps) {
           </Popup>
         </div>
       )}
-    </Map>
+    </MapGL>
   )
 }
-export default TourDetailsMap
+export default Map
