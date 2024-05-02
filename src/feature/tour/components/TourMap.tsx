@@ -1,13 +1,13 @@
-import { useTour } from '../hooks/useTour'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
-import StripeCheckoutButton from '../../stripe/components/StripeCheckoutButton'
-import type { TTour } from '../../../types/tour.types'
+import { useTour } from '../hooks/useTour'
+import Map from '../../../ui/components/map/Map'
+import { TTour } from '../../../types/tour.types'
 
 type TProps = {
   tourId?: string
 }
 
-const TourDetails = ({ tourId }: TProps) => {
+const TourMap = ({ tourId }: TProps) => {
   const {
     data,
     refetch,
@@ -44,14 +44,12 @@ const TourDetails = ({ tourId }: TProps) => {
   const tour: TTour = data?.data?.tour
 
   return (
-    <div data-cy="tour-details-wrapper">
-      <span>Tour name: {tour?.name}</span>
-
-      {tourId && <StripeCheckoutButton tourId={tourId} />}
-
-      {JSON.stringify(tour)}
-    </div>
+    <>
+      {tour?.startLocation && tour?.locations && (
+        <Map startLocation={tour.startLocation} locations={tour.locations} />
+      )}
+    </>
   )
 }
 
-export default TourDetails
+export default TourMap

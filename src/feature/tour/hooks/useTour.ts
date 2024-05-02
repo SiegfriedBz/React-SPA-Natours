@@ -16,7 +16,11 @@ type TProps = {
 export function useTour({ tourId, latLng, distance, unit }: TProps = {}) {
   const { status, isPending, isSuccess, isError, isLoading, data, refetch } =
     useQuery({
-      queryKey: ['tours', `tours-${latLng}-${distance}-${unit}`],
+      queryKey: [
+        'tours',
+        `tours-${tourId}`,
+        `tours-${latLng}-${distance}-${unit}`
+      ],
       queryFn: () => {
         return tourId
           ? getTour(tourId)
