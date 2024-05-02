@@ -29,6 +29,22 @@ const NAV_LINKS_LOGGED_IN: TLink[] = [
     label: 'My Bookings'
   }
 ]
+const NAV_LINKS_ADMIN: TLink[] = [
+  ...NAV_LINKS_LOGGED_IN,
+  {
+    to: '/tours/new',
+    label: 'Create Tour'
+  },
+  {
+    to: '/tours/:tourId/update',
+    label: 'Update Tour'
+  },
+  {
+    to: '/tours/stats/:year',
+    label: 'Monthly Stats'
+  }
+]
+
 const NAV_LINKS_NOT_LOGGED_IN: TLink[] = [
   ...BASE_NAV_LINKS,
   {
@@ -43,9 +59,8 @@ const NAV_LINKS_NOT_LOGGED_IN: TLink[] = [
 
 const HeaderNav = () => {
   const user: TUser | null = useUserStore((state) => state.user)
-  // const isAdmin = user?.role === 'admin'
-  // const isLeadGuide = user?.role === 'lead-guide'
-  // const isGuide = user?.role === 'guide'
+  // const hasPrivileges = user && user?.role !== 'user'
+  const hasPrivileges = user != null
 
   const { mutate } = useLogout()
 
@@ -56,7 +71,29 @@ const HeaderNav = () => {
   return (
     <nav className="ml-auto">
       <ul className="flex space-x-4">
-        {user != null ? (
+        {hasPrivileges ? (
+          <>
+            {NAV_LINKS_ADMIN.map((link: TLink) => {
+              return (
+                <li key={link.to}>
+                  <Link
+                    to={link.to}
+                    data-cy={`nav-item-${
+                      link.label === 'Home'
+                        ? ''
+                        : link.label.toLowerCase().split(' ').join('-')
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              )
+            })}
+            <button onClick={handleLogout} data-cy="logout-btn">
+              Logout
+            </button>
+          </>
+        ) : user != null ? (
           <>
             {NAV_LINKS_LOGGED_IN.map((link: TLink) => {
               return (
