@@ -2,7 +2,6 @@ import { useTour } from '../hooks/useTour'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import StripeCheckoutButton from '../../stripe/components/StripeCheckoutButton'
 import type { TTour } from '../../../types/tour.types'
-import TourDetailsMap from '../../map/components/TourDetailsMap'
 
 type TProps = {
   tourId?: string
@@ -51,13 +50,6 @@ const TourDetails = ({ tourId }: TProps) => {
       {tourId && <StripeCheckoutButton tourId={tourId} />}
 
       {JSON.stringify(tour)}
-
-      {tour?.startLocation && tour?.locations && (
-        <TourDetailsMap
-          startLocation={tour.startLocation}
-          locations={tour.locations}
-        />
-      )}
     </div>
   )
 }
