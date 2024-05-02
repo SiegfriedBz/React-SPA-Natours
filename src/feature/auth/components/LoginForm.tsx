@@ -3,7 +3,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { loginZodSchema, type TLoginInput } from '../zod/auth.zodSchema'
 import { useLogin } from '../hooks/useAuth'
 
-const LoginForm = () => {
+type TProps = {
+  prevPathname?: string
+}
+
+const LoginForm = ({ prevPathname }: TProps) => {
   const {
     register,
     handleSubmit,
@@ -13,7 +17,7 @@ const LoginForm = () => {
     resolver: zodResolver(loginZodSchema)
   })
 
-  const { mutate } = useLogin()
+  const { mutate } = useLogin({ prevPathname })
 
   const onSubmit: SubmitHandler<TLoginInput> = (data) => {
     mutate(data)
