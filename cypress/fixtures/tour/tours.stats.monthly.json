@@ -1,0 +1,16 @@
+[
+  {
+    "toursStartCount": 2,
+    "tours": ["5c88fa8cf4afda39709c2951", "5c88fa8cf4afda39709c295a"],
+    "month": 1
+  },
+  {
+    "toursStartCount": 3,
+    "tours": [
+      "5c88fa8cf4afda39709c2951",
+      "5c88fa8cf4afda39709c295a",
+      "5c88fa8cf4afda39709c2961"
+    ],
+    "month": 2
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "_id": "5c8a1dfa2f8fb814b56fa181",
+  "name": "user-01",
+  "email": "user-01@example.com",
+  "role": "user",
+  "photo": "user-2.jpg",
+  "password": "123456",
+  "passwordConfirmation": "123456"
+}
