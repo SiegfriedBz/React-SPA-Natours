@@ -1,4 +1,9 @@
 import z from 'zod'
+import {
+  ACCEPTED_IMAGE_MIME_TYPES,
+  ACCEPTED_IMAGE_TYPES,
+  MAX_FILE_SIZE
+} from '../../../constants'
 
 // Signup
 const signupZodSchema = z
@@ -29,15 +34,6 @@ type TSignupInput = z.TypeOf<typeof signupZodSchema>
 
 //
 // User - Update self (except password)
-const MAX_FILE_SIZE = 1024 * 1024 * 5
-const ACCEPTED_IMAGE_MIME_TYPES = [
-  'image/jpeg',
-  'image/jpg',
-  'image/png',
-  'image/webp'
-]
-const ACCEPTED_IMAGE_TYPES = ['jpeg', 'jpg', 'png', 'webp']
-
 const updateMeZodSchema = z
   .object({
     name: z.string().optional(),
@@ -52,13 +48,20 @@ const updateMeZodSchema = z
     message: 'User email can not be null',
     path: ['email']
   })
-  .refine((data) => data?.photo && data?.photo?.[0]?.size <= MAX_FILE_SIZE, {
-    message: 'Max image size is 5MB.',
-    path: ['photo']
-  })
   .refine(
     (data) =>
-      data?.photo && ACCEPTED_IMAGE_MIME_TYPES.includes(data?.photo?.[0]?.type),
+      data?.photo?.length === 0 ||
+      (data?.photo && data?.photo?.[0]?.size <= MAX_FILE_SIZE),
+    {
+      message: 'Max image size is 5MB.',
+      path: ['photo']
+    }
+  )
+  .refine(
+    (data) =>
+      data?.photo?.length === 0 ||
+      (data?.photo &&
+        ACCEPTED_IMAGE_MIME_TYPES.includes(data?.photo?.[0]?.type)),
     {
       message: `Only ${ACCEPTED_IMAGE_TYPES.join(', ')} formats are supported.`,
       path: ['photo']
