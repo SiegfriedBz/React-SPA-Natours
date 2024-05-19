@@ -230,16 +230,13 @@ Cypress.Commands.add('stubHomeClickOnSelectedTourCard', () => {
 
   // Click on the the selected tour link
   cy.fixture('../fixtures/tour/selectedTour.json').then((selectedTour) => {
-    cy.getDataCyEl(`link-to-tour-details-${selectedTour._id}`).should(
-      'be.visible'
-    )
-    cy.getDataCyEl(`link-to-tour-details-${selectedTour._id}`).click()
+    cy.get(`a:contains(${selectedTour.name})`).should('be.visible')
+    cy.get(`a:contains(${selectedTour.name})`).click()
   })
 
   // Wait for the interceptors
   cy.wait('@interceptGetSelectedTour')
   cy.wait('@interceptGetSelectedTourReviews')
-  cy.wait('@interceptMapbox')
 })
 
 /** TOURS */

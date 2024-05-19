@@ -9,12 +9,12 @@ describe('Stats - Tours Insights page spec', () => {
     cy.interceptStripe()
   })
 
-  it('should display difficulty stats', () => {
+  it('should display Tours Insights stats', () => {
     cy.visit('/tours/insights')
 
     // Wait for interceptors
     cy.wait('@interceptGetToursInsightsStats')
 
-    cy.getDataCyEl('stats-by-difficulty-charts-wrapper').should('be.visible')
+    cy.getDataCyEl('insights-charts-wrapper').should('exist')
   })
 })

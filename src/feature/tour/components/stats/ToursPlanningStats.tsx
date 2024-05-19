@@ -29,7 +29,7 @@ const ToursPlanningStats = ({ year }: TProps) => {
         </div>
       ) : (
         <div
-          data-cy="planning-stats-by-year-charts-wrapper"
+          data-cy="planning-charts-wrapper"
           className="flex h-[54vh] w-full flex-col mx-auto items-center justify-center"
         >
           <StatsBarChart data={stats} />

@@ -50,7 +50,6 @@ const LoginForm = ({ prevPathname }: TProps) => {
       <FormInputError errorField={errors.password} />
 
       <button
-        disabled={isPending}
         className={`btn-primary btn-submit 
             ${isPending ? 'cursor-not-allowed' : ''}
           `}

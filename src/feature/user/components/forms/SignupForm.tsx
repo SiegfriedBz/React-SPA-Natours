@@ -52,7 +52,6 @@ const SignupForm = () => {
       <FormInputError errorField={errors.passwordConfirmation} />
 
       <button
-        disabled={isPending}
         className={`btn-primary btn-submit 
             ${isPending ? 'cursor-not-allowed' : ''}
           `}

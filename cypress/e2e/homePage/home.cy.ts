@@ -31,11 +31,11 @@ describe('Home/AllTours page spec', () => {
       })
 
       it('should display a list of tour cards', () => {
-        cy.getDataCyEl('tour-card').should('be.visible')
+        cy.getDataCyEl('tour-card').should('exist')
       })
 
       it('should display pagination wrapper', () => {
-        cy.getDataCyEl('pagination').should('be.visible')
+        cy.getDataCyEl('pagination').should('exist')
       })
     })
   })

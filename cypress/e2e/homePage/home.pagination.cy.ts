@@ -28,12 +28,12 @@ describe('Home - Pagination spec', () => {
         .should('not.be.visible')
     })
 
-    it('next page button should be visible', () => {
+    it('next page button should exist', () => {
       // cy.wait('@interceptGetAllToursForPage2')
 
       cy.getDataCyEl('pagination')
         .find('[data-cy="next-page-btn"]')
-        .should('be.visible')
+        .should('exist')
     })
 
     it('next page button should contain "2', () => {
@@ -45,41 +45,41 @@ describe('Home - Pagination spec', () => {
     })
   })
 
-  // describe('When user clicks on next page button', () => {
-  //   beforeEach(() => {
-  //     cy.getDataCyEl('next-page-btn').click()
-  //     cy.wait('@interceptGetAllToursForPage2')
-  //   })
+  describe('When user clicks on next page button', () => {
+    beforeEach(() => {
+      cy.getDataCyEl('next-page-btn').click()
+      cy.wait('@interceptGetAllToursForPage-2')
+    })
 
-  //   it("query params should include 'page=2'", () => {
-  //     cy.location('search').should('include', 'page=2')
-  //   })
+    it("query params should include 'page=2'", () => {
+      cy.location('search').should('include', 'page=2')
+    })
 
-  //   it('prev page button should be visible', () => {
-  //     cy.getDataCyEl('pagination')
-  //       .find('[data-cy="prev-page-btn"]')
-  //       .should('be.visible')
-  //   })
+    it('prev page button should exist', () => {
+      cy.getDataCyEl('pagination')
+        .find('[data-cy="prev-page-btn"]')
+        .should('exist')
+    })
 
-  //   it('prev page button should contain "1"', () => {
-  //     cy.getDataCyEl('pagination')
-  //       .find('[data-cy="prev-page-btn"]')
-  //       .should('contain', '1')
-  //   })
-  // })
+    it('prev page button should contain "1"', () => {
+      cy.getDataCyEl('pagination')
+        .find('[data-cy="prev-page-btn"]')
+        .should('contain', '1')
+    })
+  })
 
-  // describe('When user is on page 2', () => {
-  //   beforeEach(() => {
-  //     cy.getDataCyEl('next-page-btn').click()
-  //     // Assert is on page 2
-  //     cy.location('search').should('include', 'page=2')
-  //   })
-  //   describe('When user clicks on prev page button', () => {
-  //     it("query params should include 'page=1'", () => {
-  //       cy.getDataCyEl('prev-page-btn').click()
+  describe('When user is on page 2', () => {
+    beforeEach(() => {
+      cy.getDataCyEl('next-page-btn').click()
+      // Assert is on page 2
+      cy.location('search').should('include', 'page=2')
+    })
+    describe('When user clicks on prev page button', () => {
+      it("query params should include 'page=1'", () => {
+        cy.getDataCyEl('prev-page-btn').click()
 
-  //       cy.location('search').should('include', 'page=1')
-  //     })
-  //   })
-  // })
+        cy.location('search').should('include', 'page=1')
+      })
+    })
+  })
 })

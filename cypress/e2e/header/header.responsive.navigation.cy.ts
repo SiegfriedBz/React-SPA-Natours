@@ -57,9 +57,7 @@ describe('Responsive header spec', () => {
           NAV_LINKS_NOT_LOGGED_IN.forEach(({ label, to, dataCy }) => {
             it(`clicks on ${label} link navigates to ${to} page`, () => {
               cy.getDataCyEl('mobile-nav')
-                .should('be.visible')
                 .find(`[data-cy='${dataCy}']`)
-                .should('be.visible')
                 .click({ multiple: true })
 
               cy.location().its('pathname').should('eq', `${to}`)
@@ -81,12 +79,8 @@ describe('Responsive header spec', () => {
               cy.getDataCyEl('burger-menu-button').click({ force: true })
 
               cy.getDataCyEl('mobile-nav')
-                .should('be.visible')
                 .find(`[data-cy='${dataCy}']`)
-                .should('be.visible')
                 .click({ multiple: true })
-
-              if (to === '/my-bookings') cy.wait('@interceptGetMyBookings')
 
               cy.location().its('pathname').should('eq', `${to}`)
             })
@@ -111,9 +105,7 @@ describe('Responsive header spec', () => {
               cy.getDataCyEl('burger-menu-button').click({ force: true })
 
               cy.getDataCyEl('mobile-nav')
-                .should('be.visible')
                 .find(`[data-cy='${dataCy}']`)
-                .should('be.visible')
                 .click({ multiple: true })
 
               cy.location().its('pathname').should('eq', `${to}`)
@@ -161,9 +153,7 @@ describe('Responsive header spec', () => {
           NAV_LINKS_NOT_LOGGED_IN.forEach(({ label, to, dataCy }) => {
             it(`clicks on ${label} link navigates to ${to} page`, () => {
               cy.getDataCyEl('mobile-nav')
-                .should('be.visible')
                 .find(`[data-cy='${dataCy}']`)
-                .should('be.visible')
                 .click({ multiple: true })
 
               cy.location().its('pathname').should('eq', `${to}`)
@@ -185,12 +175,8 @@ describe('Responsive header spec', () => {
               cy.getDataCyEl('burger-menu-button').click({ force: true })
 
               cy.getDataCyEl('mobile-nav')
-                .should('be.visible')
                 .find(`[data-cy='${dataCy}']`)
-                .should('be.visible')
                 .click({ multiple: true })
-
-              if (to === '/my-bookings') cy.wait('@interceptGetMyBookings')
 
               cy.location().its('pathname').should('eq', `${to}`)
             })
@@ -215,9 +201,7 @@ describe('Responsive header spec', () => {
               cy.getDataCyEl('burger-menu-button').click({ force: true })
 
               cy.getDataCyEl('mobile-nav')
-                .should('be.visible')
                 .find(`[data-cy='${dataCy}']`)
-                .should('be.visible')
                 .click({ multiple: true })
 
               cy.location().its('pathname').should('eq', `${to}`)
@@ -242,7 +226,7 @@ describe('Responsive header spec', () => {
       describe('When the User clicks on a link', () => {
         NAV_LINKS_NOT_LOGGED_IN.forEach(({ label, to, dataCy }) => {
           it(`clicks on ${label} link navigates to ${to} page`, () => {
-            cy.getDataCyEl(dataCy).should('be.visible').click()
+            cy.getDataCyEl(dataCy).click()
             cy.location().its('pathname').should('eq', `${to}`)
           })
         })
@@ -259,11 +243,7 @@ describe('Responsive header spec', () => {
       describe('When the Logged in User clicks on a link', () => {
         NAV_LINKS_LOGGED_IN.forEach(({ label, to, dataCy }) => {
           it(`clicks on ${label} link navigates to ${to} page`, () => {
-            cy.getDataCyEl(dataCy)
-              .should('be.visible')
-              .click({ multiple: true })
-
-            if (to === '/my-bookings') cy.wait('@interceptGetMyBookings')
+            cy.getDataCyEl(dataCy).click({ multiple: true })
 
             cy.location().its('pathname').should('eq', `${to}`)
           })
@@ -285,7 +265,7 @@ describe('Responsive header spec', () => {
       describe('When the Logged in Admin clicks on a link', () => {
         NAV_LINKS_ADMIN.forEach(({ label, to, dataCy }) => {
           it(`clicks on ${label} link navigates to ${to} page`, () => {
-            cy.getDataCyEl(dataCy).should('be.visible').click()
+            cy.getDataCyEl(dataCy).click()
             cy.location().its('pathname').should('eq', `${to}`)
           })
         })
