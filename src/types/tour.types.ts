@@ -1,37 +1,42 @@
+import type { TUser } from './user.types'
 export type TBaseLocation = {
-  type: string
-  coordinates: [number, number]
+  type: 'Point'
+  coordinates: number[]
   description: string
 }
+
 export type TLocation = TBaseLocation & {
   day: number
 }
 
-export type TTour = {
+export type TBaseTour = {
   _id: string
   name: string
   slug: string
-  duration: number
-  maxGroupSize: number
+  imageCover: string
   difficulty: 'easy' | 'medium' | 'difficult'
+  duration: number
+  locations: TLocation[]
+  maxGroupSize: number
   ratingsAverage: number
   ratingsCount: number
+}
+
+export type TTour = TBaseTour & {
   price: number
   discount: number
   summary: string
   description: string
-  imageCover: string
   images: string[]
   startDates: Date[]
   startLocation: TBaseLocation
-  locations: TLocation[]
-  guides: string[]
+  guides: TUser[] | string[]
   createdAt: Date
   updatedAt: Date
 }
 
 export type TTourStat = {
-  _id: 'easy' | 'medium' | 'hard' // Assuming TOUR_DIFFICULTY is an array containing these strings
+  _id: 'easy' | 'medium' | 'difficult' // Assuming TOUR_DIFFICULTY is an array containing these strings
   avgRating: number
   avgPrice: number
   minPrice: number

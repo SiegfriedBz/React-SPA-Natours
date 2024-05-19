@@ -3,5 +3,8 @@ export type TReview = {
   content: string
   rating: number
   tour: string
-  user: string
+  user: {
+    name: string
+    photo: string
+  }
 }
