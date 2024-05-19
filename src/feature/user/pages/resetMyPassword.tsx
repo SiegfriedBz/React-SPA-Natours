@@ -1,15 +1,10 @@
 import { useParams } from 'react-router'
-import ResetMyPasswordForm from '../components/ResetMyPasswordForm'
+import ResetMyPasswordForm from '../components/forms/ResetMyPasswordForm'
 
 const ResetMyPassword = () => {
   const { resetPasswordToken } = useParams()
 
-  return (
-    <div>
-      Reset my password - 2/2
-      <ResetMyPasswordForm resetPasswordToken={resetPasswordToken} />
-    </div>
-  )
+  return <ResetMyPasswordForm resetPasswordToken={resetPasswordToken} />
 }
 
 export default ResetMyPassword

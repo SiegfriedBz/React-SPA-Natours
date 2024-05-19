@@ -1,12 +1,7 @@
-import SignupForm from '../components/SignupForm'
+import LoginAndSignupWrapper from '../../../ui/components/LoginAndSignupWrapper'
 
 const signup = () => {
-  return (
-    <div>
-      Signup
-      <SignupForm />
-    </div>
-  )
+  return <LoginAndSignupWrapper />
 }
 
 export default signup
