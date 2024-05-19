@@ -5,13 +5,14 @@ import { getStripeCheckoutSession } from '../../../service/booking.stripe.servic
 import logger from '../../../utils/logger.utils'
 
 type TProps = {
-  tourId: string
+  tourId?: string
+  className?: string
 }
 
 const STRIPE_PUBLIC_KEY = import.meta.env.VITE_STRIPE_PUBLIC_KEY
 let stripe: Stripe | null = null
 
-const StripeCheckoutButton = ({ tourId }: TProps) => {
+const StripeCheckoutButton = ({ tourId, className = '' }: TProps) => {
   useEffect(() => {
     ;(async () => {
       stripe = await loadStripe(STRIPE_PUBLIC_KEY as string)
@@ -52,11 +53,11 @@ const StripeCheckoutButton = ({ tourId }: TProps) => {
 
   return (
     <button
-      className="px-4 py-2 bg-blue-500"
+      className={className}
       type="button"
       onClick={() => handleGetStripeCheckoutSession(tourId as string)}
     >
-      Book tour
+      Book tour now!
     </button>
   )
 }
