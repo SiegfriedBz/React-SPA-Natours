@@ -1,11 +1,11 @@
-import CreateTourForm from '../components/CreateTourForm'
+import CreateTourForm from '../components/forms/CreateTourForm'
 
 const createTour = () => {
   return (
-    <div>
-      CreateTour page
+    <>
+      <h1 className="h1">Create Tour</h1>
       <CreateTourForm />
-    </div>
+    </>
   )
 }
 
