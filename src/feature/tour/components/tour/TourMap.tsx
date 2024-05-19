@@ -5,12 +5,14 @@ import RefetchButton from '../../../../ui/components/RefetchButton'
 import type { TTour } from '../../../../types/tour.types'
 
 type TProps = {
-  tourId: string
+  tourId?: string
 }
 
 /** map top & bottom borders' slope 12vw (y) / 100vw (x) */
 const TourMap = ({ tourId }: TProps) => {
-  const { data, refetch, isError, isLoading } = useGetTour({ tourId })
+  const { data, refetch, isError, isLoading } = useGetTour({
+    tourId: tourId as string
+  })
 
   if (isError) {
     return <RefetchButton refetch={refetch} />

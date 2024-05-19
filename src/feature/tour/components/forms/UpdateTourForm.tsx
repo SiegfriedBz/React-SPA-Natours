@@ -26,7 +26,7 @@ import { difficultyOptions } from './difficultyOptions'
 const API_PUBLIC_URL = import.meta.env.VITE_API_PUBLIC_URL
 
 type TProps = {
-  tourId: string
+  tourId?: string
 }
 
 const UpdateTourForm = ({ tourId }: TProps) => {
@@ -39,7 +39,7 @@ const UpdateTourForm = ({ tourId }: TProps) => {
     refetch: refetchTour,
     isPending: tourIsPending,
     isError: isErrorFetchingTour
-  } = useGetTour({ tourId })
+  } = useGetTour({ tourId: tourId as string })
 
   const tour: TTour | undefined = tourData?.data?.tour
 

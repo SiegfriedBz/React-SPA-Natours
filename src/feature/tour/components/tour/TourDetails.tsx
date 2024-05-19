@@ -11,11 +11,13 @@ import type { TUser } from '../../../../types/user.types'
 const API_PUBLIC_URL = import.meta.env.VITE_API_PUBLIC_URL
 
 type TProps = {
-  tourId: string
+  tourId?: string
 }
 
 const TourDetails = ({ tourId }: TProps) => {
-  const { data, refetch, isError, isLoading } = useGetTour({ tourId })
+  const { data, refetch, isError, isLoading } = useGetTour({
+    tourId: tourId as string
+  })
 
   if (isLoading) return <TourDetailsSkeleton />
 

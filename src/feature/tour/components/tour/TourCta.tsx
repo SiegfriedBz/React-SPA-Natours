@@ -10,13 +10,15 @@ import { useGetTour } from '../../hooks/useGetTour'
 const API_PUBLIC_URL = import.meta.env.VITE_API_PUBLIC_URL
 
 type TProps = {
-  tourId: string
+  tourId?: string
 }
 
 const TourCta = ({ tourId }: TProps) => {
   const user = useUserStore((state) => state.user)
 
-  const { data, refetch, isError, isLoading } = useGetTour({ tourId })
+  const { data, refetch, isError, isLoading } = useGetTour({
+    tourId: tourId as string
+  })
 
   if (isError) {
     return <RefetchButton refetch={refetch} />
