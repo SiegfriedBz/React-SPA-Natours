@@ -9,7 +9,7 @@ import {
 } from 'react-hook-form'
 import { useMutateTour } from '../../hooks/useMutateTour'
 import SelectTourGuides from './SelectTourGuides'
-import SelectDifficulty, { difficultyOptions } from './SelectDifficulty'
+import SelectDifficulty from './SelectDifficulty'
 import Loading from '../../../../ui/components/loading/Loading'
 import FormInputError from '../../../../ui/components/FormInputError'
 import {
@@ -17,6 +17,7 @@ import {
   type TCreateTourInput
 } from '../../zod/tour.zodSchema'
 import type { TSelectOption } from './searchForms/types'
+import { difficultyOptions } from './difficultyOptions'
 
 const CreateTourForm = () => {
   // Initialize selectedGuides state with an empty array of TSelectOption to pass to React-SELECT

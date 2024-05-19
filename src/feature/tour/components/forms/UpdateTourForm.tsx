@@ -9,7 +9,7 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useGetTour } from '../../hooks/useGetTour'
 import { useMutateTour } from '../../hooks/useMutateTour'
-import SelectDifficulty, { difficultyOptions } from './SelectDifficulty'
+import SelectDifficulty from './SelectDifficulty'
 import SelectTourGuides from './SelectTourGuides'
 import Loading from '../../../../ui/components/loading/Loading'
 import FormInputError from '../../../../ui/components/FormInputError'
@@ -21,6 +21,7 @@ import {
 import type { TTour } from '../../../../types/tour.types'
 import type { TUser } from '../../../../types/user.types'
 import type { TSelectOption } from './searchForms/types'
+import { difficultyOptions } from './difficultyOptions'
 
 const API_PUBLIC_URL = import.meta.env.VITE_API_PUBLIC_URL
 
