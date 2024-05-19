@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
-import { useUserStore } from '../../user/store/user.store'
+import useUserStore from '../../user/store/user.store'
 import { login, logout } from '../../../service/auth.service'
 import type { TLoginInput } from '../zod/auth.zodSchema'
 import type { TUser } from '../../../types/user.types'
@@ -45,8 +45,6 @@ export function useLogout() {
     onSuccess: () => {
       // Update UI store state
       setUser(null)
-      // Notify user
-      toast.info('You logged out successfully')
       // Nav to home page
       navigate('/')
     },
