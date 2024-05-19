@@ -15,12 +15,16 @@ export type TOpenButtonProps = {
   windowNameToOpen: TModalContext['windowName']
 } & TBaseProps
 
-export type TWindow = TOpenButtonProps
+export type TWindow = TOpenButtonProps & {
+  isFullHeight?: boolean
+  closeBtnIsVisible?: boolean
+}
 
 export type TOverlayProps = {
   onClick: (event: React.MouseEvent) => void
 } & TBaseProps
 
 export type TCloseButtonProps = {
+  isFullHeight?: boolean
   onClick: () => void
 } & TBaseProps
