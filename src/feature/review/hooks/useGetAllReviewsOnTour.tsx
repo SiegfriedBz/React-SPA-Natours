@@ -8,7 +8,7 @@ type TProps = {
 export function useGetAllReviewsOnTour({ tourId }: TProps) {
   const { status, isPending, isSuccess, isError, isLoading, data, refetch } =
     useQuery({
-      queryKey: ['reviews'],
+      queryKey: ['reviews-for-tour', tourId],
       queryFn: () => getAllReviewsOnTour(tourId)
     })
 
