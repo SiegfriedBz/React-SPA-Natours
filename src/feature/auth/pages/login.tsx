@@ -1,16 +1,7 @@
-import { useLocation } from 'react-router'
-import LoginForm from '../components/LoginForm'
+import LoginAndSignupWrapper from '../../../ui/components/LoginAndSignupWrapper'
 
-const Login = () => {
-  const { state } = useLocation()
-  const prevPathname = state?.prevPathname
-
-  return (
-    <div>
-      Login
-      <LoginForm prevPathname={prevPathname} />
-    </div>
-  )
+const login = () => {
+  return <LoginAndSignupWrapper />
 }
 
-export default Login
+export default login
