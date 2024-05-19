@@ -17,7 +17,7 @@ export async function login(input: TLoginInput) {
     const data = await response.json()
 
     if (!response.ok || data.status !== 'success') {
-      throw new Error(`Login went wrong`)
+      throw new Error(data?.error?.message || `Login went wrong`)
     }
 
     return data
@@ -37,12 +37,12 @@ export async function logout() {
     const data = await response.json()
 
     if (!response.ok || data.status !== 'success') {
-      throw new Error(`Logout went wrong`)
+      throw new Error(data?.error?.message || `Logout went wrong`)
     }
 
     return data
   } catch (error) {
     logger.info(error)
-    throw new Error(`Logout went wrong`)
+    throw error
   }
 }

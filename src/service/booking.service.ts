@@ -10,7 +10,7 @@ export async function getMyBookings() {
     const data = await response.json()
 
     if (!response.ok || data.status !== 'success') {
-      throw new Error(`Fetching bookings went wrong`)
+      throw new Error(data?.error?.message || `Fetching bookings went wrong`)
     }
 
     return data

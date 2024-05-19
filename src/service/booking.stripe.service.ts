@@ -16,7 +16,9 @@ export async function getStripeCheckoutSession(tourId: string) {
     const data = await response.json()
 
     if (!response.ok || data.status !== 'success') {
-      throw new Error(`Getting stripe checkout session went wrong`)
+      throw new Error(
+        data?.error?.message || `Getting stripe checkout session went wrong`
+      )
     }
 
     return data

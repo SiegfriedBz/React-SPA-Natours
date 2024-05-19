@@ -20,7 +20,7 @@ export async function getMe() {
     const data = await response.json()
 
     if (!response.ok || data.status !== 'success') {
-      throw new Error(`Getting user profile went wrong`)
+      throw new Error(data?.error?.message || `Getting user profile went wrong`)
     }
 
     return data
@@ -42,7 +42,7 @@ export async function signup(inputSignup: TSignupInput) {
     const data = await response.json()
 
     if (!response.ok || data.status !== 'success') {
-      throw new Error(`Signup went wrong`)
+      throw new Error(data?.error?.message || `Signup went wrong`)
     }
 
     return data
@@ -74,7 +74,7 @@ export async function updateMe(mutateUserData: TUpdateMeInput) {
     const data = await response.json()
 
     if (!response.ok || data.status !== 'success') {
-      throw new Error(`Profile update went wrong`)
+      throw new Error(data?.error?.message || `Profile update went wrong`)
     }
 
     return data
@@ -97,7 +97,7 @@ export async function updateMyPassword(mutateUserData: TUpdateMyPasswordInput) {
     const data = await response.json()
 
     if (!response.ok || data.status !== 'success') {
-      throw new Error(`Password update went wrong`)
+      throw new Error(data?.error?.message || `Password update went wrong`)
     }
 
     return data
@@ -116,7 +116,7 @@ export async function deleteMe() {
     const data = await response.json()
 
     if (!response.ok || data.status !== 'success') {
-      throw new Error(`Password update went wrong`)
+      throw new Error(data?.error?.message || `Password update went wrong`)
     }
 
     return data
@@ -138,7 +138,7 @@ export async function forgotMyPassword({ email }: TForgotMyPasswordInput) {
     const data = await response.json()
 
     if (!response.ok || data.status !== 'success') {
-      throw new Error(`Password reset went wrong`)
+      throw new Error(data?.error?.message || `Password reset went wrong`)
     }
 
     return data
@@ -159,16 +159,18 @@ export async function resetMyPassword({
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'include',
       body: JSON.stringify({
         password,
         passwordConfirmation,
         resetPasswordToken
       })
     })
+
     const data = await response.json()
 
     if (!response.ok || data.status !== 'success') {
-      throw new Error(`Password reset went wrong`)
+      throw new Error(data?.error?.message || `Password reset went wrong`)
     }
 
     return data
