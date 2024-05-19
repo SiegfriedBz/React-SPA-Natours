@@ -1,41 +1,28 @@
 /// <reference types="cypress" />
 import '../../support/commands'
 
+const API_URL = Cypress.env('API_URL')
+
+const As = 'User'
+
 describe('Login spec', () => {
-  const API_URL = Cypress.env('API_URL')
-
   beforeEach(() => {
-    // Intercept GET Tours request on home page after signup, as not the object of the current tests
-    cy.intercept('GET', `${API_URL}/tours`, {
-      statusCode: 200
-    })
+    // Stub the API on GET /?page=1 route
+    cy.interceptGetAllToursForPage(1)
+    // Stub the API on GET /?page=2 route
+    cy.interceptGetAllToursForPage(2)
+    // Intercept Stripe API
+    cy.interceptStripe()
 
-    // Set fixtures
-    cy.fixture('../fixtures/auth/inputData.auth.login.json').as(
-      'userLoginInput'
-    )
-
-    // Visit Login page
+    // Visit the login page
     cy.visit('/login')
   })
 
-  describe('When the user fills the form correctly', () => {
+  describe('When the User fills the form correctly', () => {
     describe('When the server response is OK', () => {
       beforeEach(() => {
-        // Set up interceptors
-        cy.intercept('POST', `${API_URL}/sessions/login`, {
-          // stubbed server response
-          status: 'success',
-          data: {
-            user: {
-              _id: 'fake_id',
-              name: 'Jane Doe',
-              email: 'jane@cypress.io',
-              role: 'user',
-              isActive: true
-            }
-          }
-        }).as('interceptLogin')
+        // Stub the API on /sessions/login route
+        cy.interceptPostLoginAs({ As })
       })
 
       it('should display a success message, navigate to home page, and display logout button', () => {
@@ -44,17 +31,21 @@ describe('Login spec', () => {
         cy.contains(/login/i).should('be.visible')
 
         // Fill form
-        cy.get('@userLoginInput').then((inputData) => {
-          Object.entries(inputData).forEach(([field, value]) => {
-            cy.get(`[data-cy="form-login-input-${field}"]`).type(`${value}`)
-          })
-        })
+        cy.fixture(`../fixtures/user/selected${As}.json`).then(
+          (selectedUser) => {
+            Object.entries(selectedUser)
+              .filter(([field]) => field === 'email' || field === 'password')
+              .forEach(([field, value]) => {
+                cy.get(`[data-cy="form-login-input-${field}"]`).type(`${value}`)
+              })
+          }
+        )
 
         // Submit form
         cy.get('[data-cy=form-login-btn]').click()
 
-        // Wait for interceptors
-        cy.wait('@interceptLogin')
+        // Wait for interceptor
+        cy.wait(`@interceptPostLoginAs-${As}`)
 
         // Assert that the success message is displayed
         cy.contains('You logged in successfully!')
@@ -72,9 +63,8 @@ describe('Login spec', () => {
       beforeEach(() => {
         // Set up interceptors
         cy.intercept('POST', `${API_URL}/sessions/login`, {
-          // stubbed server response
           status: 'error'
-        }).as('interceptLoginWentWrong')
+        }).as('interceptFailedLogin')
       })
 
       it('should display an error message and stays on login page', () => {
@@ -83,17 +73,21 @@ describe('Login spec', () => {
         cy.contains(/login/i).should('be.visible')
 
         // Fill form
-        cy.get('@userLoginInput').then((inputData) => {
-          Object.entries(inputData).forEach(([field, value]) => {
-            cy.get(`[data-cy="form-login-input-${field}"]`).type(`${value}`)
-          })
-        })
+        cy.fixture(`../fixtures/user/selected${As}.json`).then(
+          (selectedUser) => {
+            Object.entries(selectedUser)
+              .filter(([field]) => field === 'email' || field === 'password')
+              .forEach(([field, value]) => {
+                cy.get(`[data-cy="form-login-input-${field}"]`).type(`${value}`)
+              })
+          }
+        )
 
         // Submit form
         cy.get('[data-cy=form-login-btn]').click()
 
         // Wait for interceptors
-        cy.wait('@interceptLoginWentWrong')
+        cy.wait('@interceptFailedLogin')
 
         // Assert that the error message is displayed
         cy.contains('Login went wrong')
@@ -115,12 +109,12 @@ describe('Login spec', () => {
       cy.contains(/login/i).should('be.visible')
 
       // Fill form with incomplete data
-      cy.get('@userLoginInput').then((inputData) => {
-        Object.entries(inputData).forEach(([field, value]) => {
-          if (field !== 'email') {
+      cy.fixture(`../fixtures/user/selected${As}.json`).then((selectedUser) => {
+        Object.entries(selectedUser)
+          .filter(([field]) => field === 'password')
+          .forEach(([field, value]) => {
             cy.get(`[data-cy="form-login-input-${field}"]`).type(`${value}`)
-          }
-        })
+          })
       })
 
       // Submit form

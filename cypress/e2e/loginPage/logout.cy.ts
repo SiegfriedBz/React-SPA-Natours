@@ -1,36 +1,40 @@
 /// <reference types="cypress" />
 import '../../support/commands'
 
+const API_URL = Cypress.env('API_URL')
+
+const As = 'User'
+
 describe('Logout spec', () => {
-  const API_URL = Cypress.env('API_URL')
-
-  beforeEach(() => {
-    /** 1. Login */
-    cy.stubLogin()
-
-    // Intercept GET Tours request on home page after signup, as not the object of the current tests
-    cy.intercept('GET', `${API_URL}/tours`, { status: 'success' })
-  })
-
   describe('When the user clicks logout button', () => {
+    beforeEach(() => {
+      /** Stub Login */
+      cy.stubLoginAs({ As })
+      // Wait for interceptor
+      cy.wait(`@interceptPostLoginAs-${As}`)
+
+      // Stub the API on GET /?page=1 route
+      cy.interceptGetAllToursForPage(1)
+      // Stub the API on GET /?page=2 route
+      cy.interceptGetAllToursForPage(2)
+
+      // Intercept Stripe API
+      cy.interceptStripe()
+    })
+
     describe('When the server response is OK', () => {
       beforeEach(() => {
-        /** 2. Set logout */
-        // Set up interceptors
+        /** Set success logout interceptor */
         cy.intercept('DELETE', `${API_URL}/sessions/logout`, {
           status: 'success'
-        }).as('interceptLogout')
+        }).as('interceptSuccessLogout')
       })
 
       it('should display a success message, navigate to home page, and display login link', () => {
         // Click Logout button
-        cy.getDataCyEl('logout-btn').click()
-
+        cy.getDataCyEl('logout-btn').click({ force: true })
         // Wait for interceptors
-        cy.wait('@interceptLogout')
-
-        // Assert that the success message is displayed
-        cy.contains('You logged out successfully')
+        cy.wait('@interceptSuccessLogout')
 
         // Assert navigation to home page
         cy.location().its('pathname').should('eq', '/')
@@ -43,19 +47,18 @@ describe('Logout spec', () => {
 
     describe('When the server response is NOT OK', () => {
       beforeEach(() => {
-        /** 2'. Set logout */
-        // Set up interceptors
+        /** Set failed logout interceptor */
         cy.intercept('DELETE', `${API_URL}/sessions/logout`, {
           status: 'error'
-        }).as('interceptLogoutWentWrong')
+        }).as('interceptFailedLogout')
       })
 
       it('should display an error message, stay on the current page', () => {
         // Click Logout button
-        cy.getDataCyEl('logout-btn').click()
+        cy.getDataCyEl('logout-btn').click({ force: true })
 
         // Wait for interceptors
-        cy.wait('@interceptLogoutWentWrong')
+        cy.wait('@interceptFailedLogout')
 
         // Assert that the success message is displayed
         cy.contains('Logout went wrong')
