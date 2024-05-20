@@ -98,7 +98,6 @@ export async function getAllTours({ queryString }: TGetAllToursProps = {}) {
   const baseURL = `${API_URL}/tours`
   const url = queryString ? `${baseURL}?${queryString}` : baseURL
 
-  console.log('===== getAllTours ')
   try {
     const response = await fetch(url)
     const data = await response.json()
@@ -106,8 +105,6 @@ export async function getAllTours({ queryString }: TGetAllToursProps = {}) {
     if (!response.ok || data.status !== 'success') {
       throw new Error(data?.error?.message || `Fetching tours went wrong`)
     }
-
-    console.log('===== getAllTours data', data)
 
     return data
   } catch (error) {
