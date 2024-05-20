@@ -230,8 +230,8 @@ Cypress.Commands.add('stubHomeClickOnSelectedTourCard', () => {
 
   // Click on the the selected tour link
   cy.fixture('../fixtures/tour/selectedTour.json').then((selectedTour) => {
-    cy.get(`a:contains(${selectedTour.name})`).should('be.visible')
-    cy.get(`a:contains(${selectedTour.name})`).click()
+    cy.get(`span:contains(${selectedTour.name})`).should('be.visible')
+    cy.get(`span:contains(${selectedTour.name})`).click()
   })
 
   // Wait for the interceptors

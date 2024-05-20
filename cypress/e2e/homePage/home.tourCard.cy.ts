@@ -30,8 +30,8 @@ describe('Home - TourCard Navigation spec', () => {
     it('should navigate to the correct tour details page', () => {
       // Click on the the selected tour link
       cy.fixture('../fixtures/tour/selectedTour.json').then((selectedTour) => {
-        cy.get(`a:contains(${selectedTour.name})`).should('exist')
-        cy.get(`a:contains(${selectedTour.name})`).click({ force: true })
+        cy.get(`span:contains(${selectedTour.name})`).should('exist')
+        cy.get(`span:contains(${selectedTour.name})`).click({ force: true })
       })
 
       // Wait for the interceptors
