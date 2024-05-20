@@ -30,8 +30,12 @@ describe('Home/AllTours page spec', () => {
         cy.getDataCyEl('home-hero').should('be.visible')
       })
 
-      it('should display a list of tour cards', () => {
-        cy.getDataCyEl('tour-card').should('exist')
+      it('should display the correct list of tour names', () => {
+        cy.fixture('../fixtures/tour/tours.json').then((allTours) => {
+          allTours.slice(0, 4).forEach((tour) => {
+            cy.contains(tour.name).should('exist')
+          })
+        })
       })
 
       it('should display pagination wrapper', () => {

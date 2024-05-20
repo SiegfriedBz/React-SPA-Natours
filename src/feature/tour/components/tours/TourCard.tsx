@@ -37,7 +37,7 @@ const TourCard = ({ tour, distanceToTour, distanceUnit }: TProps) => {
 
   return (
     <MotionCardWrapper>
-      <div data-cy="tour-card" className="card">
+      <div className="card">
         {/* card header */}
         <div className="relative h-64 group">
           <div className="absolute inset-0 u-clip-path-img">
