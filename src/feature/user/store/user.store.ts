@@ -8,7 +8,6 @@ type TState = {
     lat: string
     lng: string
   }
-  getPositionStatus: 'idle' | 'loading' | 'error'
 }
 type TActions = {
   setUser: (userData: TUser | null) => void
@@ -19,7 +18,7 @@ type TActions = {
 }
 type TStore = TState & TActions
 
-export const useUserStore = create<TStore>()((set) => ({
+const useUserStore = create<TStore>()((set) => ({
   user: null,
   getPositionStatus: 'idle',
   setUser: (userData) => set(() => ({ user: userData })),
@@ -31,21 +30,15 @@ export const useUserStore = create<TStore>()((set) => ({
     })
   },
   getUserPosition: async () => {
-    try {
-      set({
-        getPositionStatus: 'loading'
-      })
-      // Get the user's geolocation position
-      const position = await getPosition()
-      const lat = position?.coords?.latitude?.toString()
-      const lng = position?.coords?.longitude?.toString()
+    // Get the user's geolocation position
+    const position = await getPosition()
+    const lat = position?.coords?.latitude?.toString()
+    const lng = position?.coords?.longitude?.toString()
 
-      set({
-        userPosition: { lat, lng },
-        getPositionStatus: 'idle'
-      })
-    } catch (error) {
-      set({ getPositionStatus: 'error' })
-    }
+    set({
+      userPosition: { lat, lng }
+    })
   }
 }))
+
+export default useUserStore

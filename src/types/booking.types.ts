@@ -1,6 +1,8 @@
+import type { TBaseTour } from './tour.types'
+
 export type TBooking = {
   _id: string
   price: number
-  tour: string
+  tour: TBaseTour
   user: string
 }

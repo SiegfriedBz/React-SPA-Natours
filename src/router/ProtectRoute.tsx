@@ -1,5 +1,5 @@
 import { Navigate, Outlet, useLocation } from 'react-router'
-import { useUserStore } from '../feature/user/store/user.store'
+import useUserStore from '../feature/user/store/user.store'
 
 const ProtectRoute = () => {
   const location = useLocation()

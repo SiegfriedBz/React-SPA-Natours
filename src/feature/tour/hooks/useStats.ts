@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { getStats, getMonthlyStats } from '../../../service/tour.service'
+import { getStats, getPlanningStats } from '../../../service/tour.service'
 
 export function useStats() {
   const { status, isPending, isSuccess, isError, isLoading, data, refetch } =
@@ -11,11 +11,11 @@ export function useStats() {
   return { status, isPending, isSuccess, isError, isLoading, data, refetch }
 }
 
-export function useMonthlyStats(year: number) {
+export function usePlanningStats(year: number) {
   const { status, isPending, isSuccess, isError, isLoading, data, refetch } =
     useQuery({
-      queryKey: ['stats'],
-      queryFn: () => getMonthlyStats(year)
+      queryKey: [`stats-${year}`],
+      queryFn: () => getPlanningStats(year)
     })
 
   return { status, isPending, isSuccess, isError, isLoading, data, refetch }

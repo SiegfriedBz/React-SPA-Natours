@@ -1,52 +1,102 @@
 import z from 'zod'
+import {
+  ACCEPTED_IMAGE_MIME_TYPES,
+  ACCEPTED_IMAGE_TYPES,
+  MAX_FILE_SIZE,
+  TOUR_DIFFICULTY
+} from '../../../constants'
 
-export const TOUR_DIFFICULTY = ['easy', 'medium', 'difficult'] as const
+const positiveNumberField = (fieldName: string) => {
+  return z
+    .string()
+    .refine(
+      (val) => /^-?\d+(\.\d+)?$/.test(val),
+      `Tour ${fieldName} must be a valid number`
+    )
+    .transform((val) => parseFloat(val))
+    .refine(
+      (val) => val > 0,
+      `Tour ${fieldName} must be a number greater than 0`
+    )
+}
+
+const optionalPositiveNumberField = (fieldName: string) => {
+  return z
+    .string()
+    .refine(
+      (val) => val === '' || /^-?\d+(\.\d+)?$/.test(val),
+      `Tour ${fieldName} must be a valid number or empty`
+    )
+    .transform((val) => (val === '' ? 0 : parseFloat(val)))
+    .refine(
+      (val) => val >= 0,
+      `Tour ${fieldName} must be a number greater than 0`
+    )
+    .optional()
+}
 
 const baseTourBody = {
-  /** ONLY OPTIONAL ON TOUR UPDATE */
   name: z
     .string()
     .trim()
     .min(3, 'Tour name too short - should be 3 chars minimum')
-    .max(40, 'Tour name too long - should be 40 chars maximum')
-    .optional(),
-  duration: z
-    .number()
-    .int()
-    .positive('Tour duration must be a number greater than 0')
-    .optional(),
-  maxGroupSize: z
-    .number()
-    .int()
-    .positive('Tour maxGroupSize must be a number greater than 0')
-    .optional(),
-  difficulty: z.enum(TOUR_DIFFICULTY).optional(),
-  price: z.number().positive().optional(),
+    .max(40, 'Tour name too long - should be 40 chars maximum'),
+  duration: positiveNumberField('duration'),
+  maxGroupSize: positiveNumberField('maxGroupSize'),
+  difficulty: z.enum(TOUR_DIFFICULTY),
+  price: positiveNumberField('price'),
   summary: z
     .string()
     .trim()
-    .min(8, 'Tour summary too short - should be 8 chars minimum')
-    .optional(),
-  /** ALWAYS OPTIONAL */
-  discount: z.number().optional(),
+    .min(8, 'Tour summary too short - should be 8 chars minimum'),
+  /** OPTIONAL */
+  discount: optionalPositiveNumberField('discount'),
   description: z.string().trim().optional(),
-  imageCover: z.string().optional(),
-  images: z.array(z.string()).optional(),
+  imageCover: z.any().optional(),
+  images: z.any().optional(),
   startDates: z.array(z.string()).optional(),
-  startLocation: z
-    .object({
-      type: z.enum(['Point']).default('Point'),
-      coordinates: z.array(z.number()),
-      description: z.string()
-    })
-    .optional(),
+  startLocation: z.object({
+    type: z.enum(['Point']).default('Point'),
+    coordinates: z.array(
+      z.number().or(
+        z
+          .string()
+          .refine(
+            (val) => /^-?\d+(\.\d+)?$/.test(val),
+            'Coordinates must be a valid number'
+          )
+          .transform((val) => parseFloat(val))
+          .refine((val) => !isNaN(val), 'Coordinates must be a valid number')
+      )
+    ),
+    description: z.string()
+  }),
   locations: z
     .array(
       z.object({
         type: z.enum(['Point']).default('Point'),
-        coordinates: z.array(z.number()),
+        coordinates: z.array(
+          z.number().or(
+            z
+              .string()
+              .refine(
+                (val) => /^-?\d+(\.\d+)?$/.test(val),
+                'Coordinates must be a valid number'
+              )
+              .transform((val) => parseFloat(val))
+              .refine(
+                (val) => !isNaN(val),
+                'Coordinates must be a valid number'
+              )
+          )
+        ),
         description: z.string(),
-        day: z.number()
+        day: z.number().or(
+          z
+            .string()
+            .refine((val) => /^\d+$/.test(val), 'Day must be a valid number')
+            .transform((val) => parseFloat(val))
+        )
       })
     )
     .optional(),
@@ -93,6 +143,49 @@ const createTourZodSchema = z
     }
   )
 
+  // imageCover
+  .refine((data) => data?.imageCover != null, {
+    message: 'Image cover is required.',
+    path: ['imageCover']
+  })
+  .refine((data) => data?.imageCover?.[0]?.size <= MAX_FILE_SIZE, {
+    message: 'Max image size is 5MB.',
+    path: ['imageCover']
+  })
+  .refine(
+    (data) => ACCEPTED_IMAGE_MIME_TYPES.includes(data?.imageCover?.[0]?.type),
+    {
+      message: `Only ${ACCEPTED_IMAGE_TYPES.join(', ')} formats are supported.`,
+      path: ['imageCover']
+    }
+  )
+
+  // images
+  .refine((data) => data?.images.length === 3, {
+    message: '3 images are required.',
+    path: ['images']
+  })
+  .refine(
+    (data) =>
+      Array.from((data?.images as FileList) || []).every(
+        (image: File) => image.size <= MAX_FILE_SIZE
+      ),
+    {
+      message: 'Max image size is 5MB.',
+      path: ['images']
+    }
+  )
+  .refine(
+    (data) =>
+      Array.from((data?.images as FileList) || []).every((image: File) =>
+        ACCEPTED_IMAGE_MIME_TYPES.includes(image?.type)
+      ),
+    {
+      message: `Only ${ACCEPTED_IMAGE_TYPES.join(', ')} formats are supported.`,
+      path: ['images']
+    }
+  )
+
 const updateTourZodSchema = z
   .object({ ...baseTourBody })
   .extend({
@@ -112,6 +205,49 @@ const updateTourZodSchema = z
     {
       message: `If a discount is provided, a price must also be provided and the discount must be less than the price`,
       path: ['discount']
+    }
+  )
+  // imageCover - optional on update
+  .refine(
+    (data) =>
+      data?.imageCover == null ||
+      (data?.imageCover && data?.imageCover?.[0]?.size <= MAX_FILE_SIZE),
+    {
+      message: 'Max image size is 5MB.',
+      path: ['imageCover']
+    }
+  )
+  .refine(
+    (data) =>
+      data?.imageCover == null ||
+      (data?.imageCover &&
+        ACCEPTED_IMAGE_MIME_TYPES.includes(data?.imageCover?.[0]?.type)),
+    {
+      message: `Only ${ACCEPTED_IMAGE_TYPES.join(', ')} formats are supported.`,
+      path: ['imageCover']
+    }
+  )
+  // images - optional on update
+  .refine(
+    (data) =>
+      data?.images.length === 0 ||
+      Array.from((data?.images as FileList) || []).every(
+        (image: File) => image.size <= MAX_FILE_SIZE
+      ),
+    {
+      message: 'Max image size is 5MB.',
+      path: ['images']
+    }
+  )
+  .refine(
+    (data) =>
+      data?.images.length === 0 ||
+      Array.from((data?.images as FileList) || []).every((image: File) =>
+        ACCEPTED_IMAGE_MIME_TYPES.includes(image?.type)
+      ),
+    {
+      message: `Only ${ACCEPTED_IMAGE_TYPES.join(', ')} formats are supported.`,
+      path: ['images']
     }
   )
 

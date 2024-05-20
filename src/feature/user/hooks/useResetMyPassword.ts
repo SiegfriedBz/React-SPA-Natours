@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
-import { useUserStore } from '../store/user.store'
+import useUserStore from '../store/user.store'
 import { resetMyPassword } from '../../../service/user.service'
 import type { TResetMyPasswordInput } from '../zod/user.zodSchema'
 import type { TUser } from '../../../types/user.types'

@@ -17,7 +17,7 @@ export async function createReviewOnTour(inputData: TCreateReviewInput) {
     const data = await response.json()
 
     if (!response.ok || data.status !== 'success') {
-      throw new Error(`Creating review went wrong`)
+      throw new Error(data?.error?.message || `Creating review went wrong`)
     }
 
     return data
@@ -33,7 +33,10 @@ export async function getAllReviewsOnTour(tourId: string) {
     const data = await response.json()
 
     if (!response.ok || data.status !== 'success') {
-      throw new Error(`Fetching reviews for tour #${tourId} went wrong`)
+      throw new Error(
+        data?.error?.message ||
+          `Fetching reviews for tour #${tourId} went wrong`
+      )
     }
 
     return data

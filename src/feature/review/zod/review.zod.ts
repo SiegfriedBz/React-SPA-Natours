@@ -3,14 +3,9 @@ import z from 'zod'
 const createReviewZodSchema = z.object({
   content: z.string({ required_error: 'Review content is required' }),
   rating: z
-    .string()
-    .transform((val) => {
-      const num = parseFloat(val)
-      if (isNaN(num)) {
-        throw new Error('Rating must be a number')
-      }
-      return num
-    })
+    .number()
+    .int()
+    .positive()
     .refine((val) => val >= 1 && val <= 5, {
       message: 'Review rating must be between 1 and 5'
     }),

@@ -1,27 +1,19 @@
 import { useParams } from 'react-router'
-import TourDetails from '../components/TourDetails'
-import TourMap from '../components/TourMap'
-import TourReviews from '../components/TourReviews'
+import TourDetails from '../components/tour/TourDetails'
+import TourMap from '../components/tour/TourMap'
+import TourReviews from '../components/tour/TourReviews'
+import TourCta from '../components/tour/TourCta'
 
 const Tour = () => {
   const { tourId } = useParams()
 
   return (
-    <>
-      TourDetails page
-      <section>
-        <h2>Tour Details</h2>
-        <TourDetails tourId={tourId} />
-      </section>
-      <section>
-        <h2>Tour Map</h2>
-        <TourMap tourId={tourId} />
-      </section>
-      <section>
-        <h2>Tour Reviews</h2>
-        <TourReviews tourId={tourId} />
-      </section>
-    </>
+    <div>
+      <TourDetails tourId={tourId} />
+      <TourMap tourId={tourId} />
+      <TourReviews tourId={tourId} />
+      <TourCta tourId={tourId} />
+    </div>
   )
 }
 
