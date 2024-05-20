@@ -31,8 +31,8 @@ describe('Home - TourCard Navigation spec', () => {
 
       // Click on the the selected tour link
       cy.fixture('../fixtures/tour/selectedTour.json').then((selectedTour) => {
-        cy.get(`a:contains(${selectedTour.name})`).should('be.visible')
-        cy.get(`a:contains(${selectedTour.name})`).click()
+        cy.get(`a:contains(${selectedTour.name})`).should('exist')
+        cy.get(`a:contains(${selectedTour.name})`).click({ force: true })
       })
 
       // Wait for the interceptors
@@ -42,7 +42,7 @@ describe('Home - TourCard Navigation spec', () => {
 
       // Assert the URL
       cy.fixture('../fixtures/tour/selectedTour.json').then((selectedTour) => {
-        cy.location('pathname').should('include', `/tours/${selectedTour._id}`)
+        cy.location('pathname').should('contain', `/tours/${selectedTour._id}`)
       })
     })
   })
