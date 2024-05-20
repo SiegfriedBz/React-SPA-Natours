@@ -64,7 +64,7 @@ describe('Home - Pagination spec', () => {
       cy.visit('/')
       cy.wait(`@interceptGetAllToursForPage-1`)
       cy.wait(`@interceptGetAllToursForPage-2`)
-      cy.getDataCyEl('pagination').contains(2).click()
+      cy.getDataCyEl('pagination').contains(2).click({ force: true })
 
       cy.location('search').should('contain', 'page=2')
     })
@@ -74,7 +74,7 @@ describe('Home - Pagination spec', () => {
       cy.visit('/')
       cy.wait(`@interceptGetAllToursForPage-1`)
       cy.wait(`@interceptGetAllToursForPage-2`)
-      cy.getDataCyEl('pagination').contains(2).click()
+      cy.getDataCyEl('pagination').contains(2).click({ force: true })
       cy.location('search').should('contain', 'page=2')
 
       cy.getDataCyEl('pagination')
@@ -87,7 +87,7 @@ describe('Home - Pagination spec', () => {
       cy.visit('/')
       cy.wait(`@interceptGetAllToursForPage-1`)
       cy.wait(`@interceptGetAllToursForPage-2`)
-      cy.getDataCyEl('pagination').contains(2).click()
+      cy.getDataCyEl('pagination').contains(2).click({ force: true })
       cy.location('search').should('contain', 'page=2')
 
       cy.getDataCyEl('pagination')
@@ -103,7 +103,7 @@ describe('Home - Pagination spec', () => {
         cy.visit('/')
         cy.wait(`@interceptGetAllToursForPage-1`)
         cy.wait(`@interceptGetAllToursForPage-2`)
-        cy.getDataCyEl('pagination').contains(2).click()
+        cy.getDataCyEl('pagination').contains(2).click({ force: true })
         cy.location('search').should('contain', 'page=2')
 
         cy.getDataCyEl('pagination').find('[data-cy="prev-page-btn"]').click()

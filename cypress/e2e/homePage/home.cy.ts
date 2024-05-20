@@ -21,16 +21,17 @@ describe('Home/AllTours page spec', () => {
   })
 
   describe('When user visits "/"', () => {
-    beforeEach(() => {
-      cy.visit('/')
-    })
-
     describe('Home page structure', () => {
       it('should display the hero section', () => {
+        cy.visit('/')
         cy.getDataCyEl('home-hero').should('be.visible')
       })
 
       it('should display the correct list of tour names', () => {
+        cy.visit('/')
+        cy.wait(`@interceptGetAllToursForPage-1`)
+        cy.wait(`@interceptGetAllToursForPage-2`)
+
         cy.fixture('../fixtures/tour/tours.json').then((allTours) => {
           allTours.slice(0, 4).forEach((tour) => {
             cy.contains(tour.name).should('exist')
@@ -39,6 +40,8 @@ describe('Home/AllTours page spec', () => {
       })
 
       it('should display pagination wrapper', () => {
+        cy.visit('/')
+
         cy.getDataCyEl('pagination').should('exist')
       })
     })

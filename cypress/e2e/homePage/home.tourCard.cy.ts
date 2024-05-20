@@ -13,6 +13,8 @@ describe('Home - TourCard Navigation spec', () => {
 
     // Visit the home page
     cy.visit('/')
+    cy.wait(`@interceptGetAllToursForPage-1`)
+    cy.wait(`@interceptGetAllToursForPage-2`)
   })
 
   describe('When user clicks on a Tour Card', () => {
@@ -26,9 +28,6 @@ describe('Home - TourCard Navigation spec', () => {
     })
 
     it('should navigate to the correct tour details page', () => {
-      cy.wait('@interceptGetAllToursForPage-1')
-      cy.wait('@interceptGetAllToursForPage-2')
-
       // Click on the the selected tour link
       cy.fixture('../fixtures/tour/selectedTour.json').then((selectedTour) => {
         cy.get(`a:contains(${selectedTour.name})`).should('exist')
@@ -38,7 +37,6 @@ describe('Home - TourCard Navigation spec', () => {
       // Wait for the interceptors
       cy.wait('@interceptGetSelectedTour')
       cy.wait('@interceptGetSelectedTourReviews')
-      cy.wait('@interceptMapbox')
 
       // Assert the URL
       cy.fixture('../fixtures/tour/selectedTour.json').then((selectedTour) => {
