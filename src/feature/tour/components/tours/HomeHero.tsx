@@ -12,7 +12,6 @@ type TProps = {
 const HomeHero = ({ handleScrollToTours, setDistancesToTours }: TProps) => {
   return (
     <div
-      data-cy="home-hero"
       className="homeHero relative bg-cover bg-center"
       style={{
         backgroundImage: `url("${API_PUBLIC_URL}/img/tours/tour-1-cover.jpg")`
