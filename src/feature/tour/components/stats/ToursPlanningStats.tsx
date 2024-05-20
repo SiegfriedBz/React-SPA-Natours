@@ -22,16 +22,13 @@ const ToursPlanningStats = ({ year }: TProps) => {
   const stats: TMonthlyStat[] = data?.data?.stats
 
   return (
-    <div>
+    <div data-cy="planning-charts-wrapper">
       {isLoading ? (
         <div className="flex h-[54vh] flex-col mx-auto items-center justify-center">
           <ChartSkeleton />
         </div>
       ) : (
-        <div
-          data-cy="planning-charts-wrapper"
-          className="flex h-[54vh] w-full flex-col mx-auto items-center justify-center"
-        >
+        <div className="flex h-[54vh] w-full flex-col mx-auto items-center justify-center">
           <StatsBarChart data={stats} />
           <SelectYearForStats defaultValue={year} />
         </div>

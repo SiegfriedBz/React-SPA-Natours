@@ -59,7 +59,6 @@ const StatsRadarChart = ({ stats }: TProps) => {
 
   return (
     <div
-      data-cy="insights-charts-wrapper"
       className="
         max-lg:max-w-[32rem]
         max-lg:flex 

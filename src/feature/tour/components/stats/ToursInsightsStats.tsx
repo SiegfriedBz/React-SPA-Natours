@@ -14,7 +14,10 @@ const ToursInsightsStats = () => {
   const stats: TTourStat[] = data?.data?.stats
 
   return (
-    <div className={`max-lg:min-h-[54vh] lg:h-[54vh]`}>
+    <div
+      data-cy="insights-charts-wrapper"
+      className={`max-lg:min-h-[54vh] lg:h-[54vh]`}
+    >
       {isLoading ? (
         <div className="lg:grid lg:grid-cols-2 lg:gap-x-2">
           <ChartSkeleton />
