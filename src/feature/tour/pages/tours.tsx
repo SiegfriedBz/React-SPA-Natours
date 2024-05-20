@@ -23,18 +23,18 @@ const Tours = () => {
 
   return (
     <div className="w-full h-full">
-      <section>
+      <section data-cy="home-hero">
         <HomeHero
           handleScrollToTours={handleScrollToTours}
           setDistancesToTours={setDistancesToTours}
         />
       </section>
 
-      <section>
+      <section data-cy="home-all-tours-cards">
         <AllTours ref={scrollTargetRef} distancesToTours={distancesToTours} />
       </section>
 
-      <section data-cy="pagination">
+      <section data-cy="home-pagination">
         <Pagination handleScrollToTours={handleScrollToTours} />
       </section>
     </div>
