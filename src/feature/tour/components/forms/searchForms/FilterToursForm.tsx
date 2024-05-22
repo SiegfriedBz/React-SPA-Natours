@@ -63,7 +63,10 @@ export const FilterToursForm = () => {
 
   return (
     <form data-cy="filter-tours-form" className="m-0" onSubmit={handleSubmit}>
-      <h2 className="h2">Search tours</h2>
+      <h2 className="h2 flex space-x-2">
+        <SVGIcon iconName="filter" />
+        <span>Filter tours</span>
+      </h2>
 
       <div className="flex flex-col space-y-2">
         <div>
@@ -108,7 +111,7 @@ export const FilterToursForm = () => {
         <button className="btn-sm btn-primary btn-submit" type="submit">
           <div className="h-8 text-stone-50 flex items-center space-x-2">
             <SVGIcon iconName="search" color="#f5f5f4" />
-            <span className="text-sm text-stone-50">Search</span>
+            <span className="text-sm text-stone-50">Filter</span>
           </div>
         </button>
       </div>

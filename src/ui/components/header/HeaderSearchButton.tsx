@@ -16,16 +16,25 @@ const HeaderSearchButton = () => {
           ? hideSearchFormsButtons
           : showSearchFormsButtons
       }
-      className="relative 
-        max-sm:min-w-10 max-sm:min-h-10 
-        sm:min-w-12 sm:min-h-12 
+      className="max-sm:h-9 max-sm:w-9
+        max-md:h-10 max-md:w-10
+        md:h-12 md:w-12
         max-sm:ml-3 sm:ml-4 
         btn-sm btn-primary 
         rounded-full
       "
       type="button"
     >
-      <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 h-10 w-10 flex items-center justify-center">
+      <div
+        className="relative
+         top-1/2 -translate-y-1/2 
+         left-1/2 -translate-x-1/2 
+         max-sm:h-8 max-sm:w-8
+         max-md:h-10 max-md:w-10
+         md:h-12 md:w-12
+         flex items-center justify-center
+         rounded-full"
+      >
         <SVGIcon iconName="search" color="#f5f5f4" />
       </div>
     </button>

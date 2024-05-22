@@ -42,16 +42,14 @@ const AllMyBookings = () => {
   }
 
   return bookings?.length === 0 ? (
-    <div>
-      <div className="text-center p-4">
-        <p className="mb-8 text-lg font-semibold text-stone-700">
-          You haven&apos;t booked a tour yet! Start your adventure by exploring
-          our exciting tour options today.
-        </p>
-        <button onClick={() => navigate('/')} className="btn-xl btn-primary">
-          Explore Tours
-        </button>
-      </div>
+    <div className="text-center p-4">
+      <p className="mb-8 text-lg font-semibold text-stone-700">
+        You haven&apos;t booked a tour yet! Start your adventure by exploring
+        our exciting tour options today.
+      </p>
+      <button onClick={() => navigate('/')} className="btn-xl btn-primary">
+        Explore Tours
+      </button>
     </div>
   ) : (
     <div className="cards-grid">

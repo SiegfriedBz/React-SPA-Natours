@@ -6,8 +6,8 @@ export type TLink = {
   dataCy: string
 }
 
-/** auth links */
-export const AUTH_NAV_LINKS = [
+/** auth link */
+export const AUTH_NAV_LINK = [
   {
     to: '/login',
     label: 'Login',

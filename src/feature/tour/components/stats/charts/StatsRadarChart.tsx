@@ -58,20 +58,10 @@ const StatsRadarChart = ({ stats }: TProps) => {
   }
 
   return (
-    <div
-      className="
-        max-lg:max-w-[32rem]
-        max-lg:flex 
-        max-lg:flex-col 
-        max-md:space-y-8
-        max-lg:space-y-16
-        max-lg:mx-auto 
-        max-lg:min-h-screen 
-        lg:grid lg:grid-cols-2 lg:gap-x-2 "
-    >
+    <>
       <PriceChart createData={createData} />
       <RatingChart createData={createData} />
-    </div>
+    </>
   )
 }
 

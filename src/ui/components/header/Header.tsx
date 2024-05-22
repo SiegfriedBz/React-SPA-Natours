@@ -1,20 +1,18 @@
-import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router'
-import useUserStore from '../../../feature/user/store/user.store'
+import { useLogout } from '../../../feature/auth/hooks/useAuth'
 import useModal from '../modal/hooks/useModal'
 import ModalProvider from '../modal/Modal'
 import Logo from './Logo'
 import HeaderSearchButton from './HeaderSearchButton'
 import HeaderNav from './HeaderNav'
 import HeaderAuthNav from './HeaderAuthNav'
-import UserAvatar from '../../../feature/user/components/UserAvatar'
 import BurgerMenuButton from './BurgerMenuButton'
-import type { TUser } from '../../../types/user.types'
+import SVGIcon from '../SVGIcon'
+import useUserStore from '../../../feature/user/store/user.store'
 
 const Header = () => {
   const { pathname } = useLocation()
   const isHomePage = pathname === '/'
-  const user: TUser | null = useUserStore((state) => state.user)
 
   return (
     <header>
@@ -30,12 +28,14 @@ const Header = () => {
       {/* Auth MENU */}
       <HeaderAuthNav />
 
-      {/* MAX:XL MENU */}
+      {/* MAX:XL MENU: BurgerMenuButton + Modal Nav */}
       <div className="xl:hidden ml-4">
         <ModalProvider>
           <ModalProvider.OpenButton
             windowNameToOpen="max-xl-nav"
-            className="h-12 w-12
+            className="max-sm:h-12 max-sm:w-12
+              max-md:h-14 max-md:w-14
+              md:h-16 md:w-16
               flex 
               items-center 
               rounded-full 
@@ -53,7 +53,7 @@ const Header = () => {
             <div
               data-cy="mobile-nav"
               className="h-full w-full
-                flex items-center justify-center
+                flex flex-col items-center justify-center
                 mx-auto 
                 py-8
                 font-semibold
@@ -64,34 +64,11 @@ const Header = () => {
               "
             >
               <HeaderNavWithCloseModal />
+              <LogoutButtonWithCloseModal />
             </div>
           </ModalProvider.Window>
         </ModalProvider>
       </div>
-
-      {/* UserAvatar */}
-      {user != null && (
-        <div
-          className="flex justify-center items-center
-            max-sm:min-w-[3.5rem] max-sm:min-h-[3.5rem]
-            sm:min-w-16 sm:min-h-16
-            max-xl:ml-4 
-            xl:ml-8
-          "
-        >
-          <Link to="/me">
-            <UserAvatar
-              className="
-              max-sm:w-12
-              max-sm:h-12 
-              sm:w-16 sm:h-16 
-              ring-2 
-              ring-primary-light
-            "
-            />
-          </Link>
-        </div>
-      )}
     </header>
   )
 }
@@ -102,4 +79,34 @@ const HeaderNavWithCloseModal = () => {
   const { closeWindow } = useModal()
 
   return <HeaderNav closeModal={closeWindow} />
+}
+
+/* Logout button on SMALL screens */
+const LogoutButtonWithCloseModal = () => {
+  const user = useUserStore((state) => state.user)
+  const { closeWindow } = useModal()
+
+  const { mutate } = useLogout()
+
+  const handleLogout = () => {
+    mutate()
+    closeWindow()
+  }
+
+  if (!user) return null
+
+  return (
+    <button
+      onClick={handleLogout}
+      className="mt-8 u-text-gradient-primary flex items-center space-x-4 text-lg capitalize "
+    >
+      <span>Logout</span>
+      <SVGIcon
+        width="1.5rem"
+        height="1.5rem"
+        iconName="log-out"
+        color="#43a263"
+      />
+    </button>
+  )
 }

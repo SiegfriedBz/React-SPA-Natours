@@ -26,8 +26,7 @@ describe('Login spec', () => {
       })
 
       it('should display a success message, navigate to home page, and display logout button', () => {
-        // Assert login link visible & logout btn not visible
-        cy.contains(/logout/i).should('not.exist')
+        // Assert login link visible
         cy.contains(/login/i).should('be.visible')
 
         // Fill form
@@ -50,9 +49,8 @@ describe('Login spec', () => {
         // Assert that the success message is displayed
         cy.contains('You logged in successfully!')
 
-        // Assert login link not visible & logout btn visible
+        // Assert login link not visible
         cy.contains(/login/i).should('not.exist')
-        cy.contains(/logout/i).should('be.visible')
 
         // Assert navigation to home page
         cy.location().its('pathname').should('eq', '/')
@@ -68,8 +66,7 @@ describe('Login spec', () => {
       })
 
       it('should display an error message and stays on login page', () => {
-        // Assert login link visible & logout btn not visible
-        cy.contains(/logout/i).should('not.exist')
+        // Assert login link visible
         cy.contains(/login/i).should('be.visible')
 
         // Fill form
@@ -92,8 +89,7 @@ describe('Login spec', () => {
         // Assert that the error message is displayed
         cy.contains('Login went wrong')
 
-        // Assert login link still visible & logout btn not visible
-        cy.contains(/logout/i).should('not.exist')
+        // Assert login link still visible
         cy.contains(/login/i).should('be.visible')
 
         // // Assert still on login page

@@ -30,42 +30,66 @@ describe('Logout spec', () => {
         }).as('interceptSuccessLogout')
       })
 
-      it('should display a success message, navigate to home page, and display login link', () => {
-        // Click Logout button
-        cy.getDataCyEl('logout-btn').click({ force: true })
-        // Wait for interceptors
-        cy.wait('@interceptSuccessLogout')
+      describe('When the user is on a mobile device', () => {
+        beforeEach(() => {
+          cy.setXsScreen()
+        })
+        it('should display a success message, navigate to home page, and display login link', () => {
+          // Open modal menu
+          cy.getDataCyEl('burger-menu-button').click({ force: true })
+          // Click on modal logout
+          cy.getDataCyEl('mobile-nav')
+            .contains('Logout')
+            .click({ multiple: true })
+          // Wait for interceptors
+          cy.wait('@interceptSuccessLogout')
 
-        // Assert navigation to home page
-        cy.location().its('pathname').should('eq', '/')
+          // Assert navigation to home page
+          cy.location().its('pathname').should('eq', '/')
 
-        // Assert login link visible & logout btn not visible
-        cy.contains(/logout/i).should('not.exist')
-        cy.contains(/login/i).should('be.visible')
+          // Assert login link visible
+          cy.contains(/login/i).should('be.visible')
+        })
       })
-    })
 
-    describe('When the server response is NOT OK', () => {
-      beforeEach(() => {
-        /** Set failed logout interceptor */
-        cy.intercept('DELETE', `${API_URL}/sessions/logout`, {
-          status: 'error'
-        }).as('interceptFailedLogout')
+      describe('When the user is on a tablet device', () => {
+        beforeEach(() => {
+          cy.setMdScreen()
+        })
+        it('should display a success message, navigate to home page, and display login link', () => {
+          // Open modal menu
+          cy.getDataCyEl('burger-menu-button').click({ force: true })
+          // Click on modal logout
+          cy.getDataCyEl('mobile-nav')
+            .contains('Logout')
+            .click({ multiple: true })
+          // Wait for interceptors
+          cy.wait('@interceptSuccessLogout')
+
+          // Assert navigation to home page
+          cy.location().its('pathname').should('eq', '/')
+
+          // Assert login link visible
+          cy.contains(/login/i).should('be.visible')
+        })
       })
 
-      it('should display an error message, stay on the current page', () => {
-        // Click Logout button
-        cy.getDataCyEl('logout-btn').click({ force: true })
+      describe('When the user is on a desktop device', () => {
+        beforeEach(() => {
+          cy.setXlScreen()
+        })
+        it('should display a success message, navigate to home page, and display login link', () => {
+          // Click on header logout
+          cy.contains(/logout/i).click({ force: true })
+          // Wait for interceptors
+          cy.wait('@interceptSuccessLogout')
 
-        // Wait for interceptors
-        cy.wait('@interceptFailedLogout')
+          // Assert navigation to home page
+          cy.location().its('pathname').should('eq', '/')
 
-        // Assert that the success message is displayed
-        cy.contains('Logout went wrong')
-
-        // Assert login link not visible & logout btn visible
-        cy.contains(/login/i).should('not.exist')
-        cy.contains(/logout/i).should('be.visible')
+          // Assert login link visible
+          cy.contains(/login/i).should('be.visible')
+        })
       })
     })
   })

@@ -15,16 +15,35 @@ const ToursInsightsStats = () => {
 
   return (
     <div
+      className="container mx-auto"
       data-cy="insights-charts-wrapper"
-      className={`max-lg:min-h-[54vh] lg:h-[54vh]`}
+      // className={`max-lg:min-h-[54vh] lg:h-[54vh]`}
     >
       {isLoading ? (
-        <div className="lg:grid lg:grid-cols-2 lg:gap-x-2">
+        <div
+          className="
+            max-lg:max-w-[32rem]
+            flex mx-auto
+            max-lg:flex-col 
+            max-lg:space-y-4
+            lg:flex-row
+          "
+        >
           <ChartSkeleton />
           <ChartSkeleton />
         </div>
       ) : (
-        <StatsRadarChart stats={stats} />
+        <div
+          className="
+            max-lg:max-w-[32rem]
+            flex mx-auto
+            max-lg:flex-col 
+            max-lg:space-y-4
+            lg:flex-row
+        "
+        >
+          <StatsRadarChart stats={stats} />
+        </div>
       )}
     </div>
   )
