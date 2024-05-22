@@ -8,16 +8,18 @@ const AppLayout = () => {
   const matchHome = useMatch('/')
   const matchTours = useMatch('/tours')
   const matchTourId = useMatch('/tours/:tourId')
-  const matchCreateTour = useMatch('/tours/new')
-  const matchTourUpdate = useMatch('/tours/:id/update')
-  const matchToursStats = useMatch('/tours/stats')
+  const matchCreate = useMatch('/tours/new')
+  const matchUpdate = useMatch('/tours/:id/update')
+  const matchInsights = useMatch('/tours/insights')
+  const matchPlanning = useMatch('/tours/planning')
 
   const isHomePage = matchHome || matchTours
   const isToursPage =
     (isHomePage || matchTourId) &&
-    !matchToursStats &&
-    !matchCreateTour &&
-    !matchTourUpdate
+    !matchCreate &&
+    !matchUpdate &&
+    !matchInsights &&
+    !matchPlanning
 
   return (
     <div
@@ -30,7 +32,7 @@ const AppLayout = () => {
       <main
         className={`
           min-h-[calc(100vh-var(--header-h))] 
-          ${isToursPage ? '' : 'max-sm:my-4 max-md:my-8 lg:my-8'}`}
+          ${isToursPage ? '' : 'max-sm:my-4 max-md:my-8 md:my-12'}`}
       >
         <Outlet />
       </main>
