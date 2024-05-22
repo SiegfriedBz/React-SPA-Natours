@@ -11,6 +11,7 @@ import {
 import Loading from '../../../../../ui/components/loading/Loading'
 import logger from '../../../../../utils/logger.utils'
 import type { TDistanceUnitOption } from './distanceUnitOptions'
+import SVGIcon from '../../../../../ui/components/SVGIcon'
 
 type TProps = {
   setDistancesToTours: React.Dispatch<
@@ -64,7 +65,10 @@ export const DistancesToToursForm = ({ setDistancesToTours }: TProps) => {
       className="m-0"
       onSubmit={handleSubmit}
     >
-      <h2 className="h2">Display my distance to tours</h2>
+      <h2 className="h2 flex space-x-2">
+        <SVGIcon iconName="flag" />
+        <span>My distance to tours</span>
+      </h2>
 
       {isLoadingDistances ? (
         <Loading />

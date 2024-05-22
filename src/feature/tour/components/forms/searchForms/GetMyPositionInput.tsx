@@ -12,10 +12,10 @@ const GetMyPositionInput = () => {
   return (
     <>
       <label className="mb-0" htmlFor="latLng">
-        Click on{' '}
-        <span className="italic text-xl tracking-wide text-primary-dark font-extrabold">
+        Click on
+        <span className="mx-2 italic text-xl tracking-wide text-primary-dark font-extrabold">
           Get my position
-        </span>{' '}
+        </span>
         <span className="block whitespace-nowrap opacity-80">
           or enter your coordinates
         </span>
