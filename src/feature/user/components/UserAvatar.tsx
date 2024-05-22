@@ -20,7 +20,14 @@ const UserAvatar = ({ className = '' }: TProps) => {
           : userDefaultImage
       }
       alt="user profile"
-      className={twMerge(`rounded-full object-cover w-16 h-16`, className)}
+      className={twMerge(
+        `rounded-full object-cover 
+          max-sm:w-12
+          max-sm:h-12
+          sm:w-16 sm:h-16 
+      `,
+        className
+      )}
     />
   )
 }

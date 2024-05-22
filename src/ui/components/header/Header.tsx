@@ -82,8 +82,8 @@ const Header = () => {
           <Link to="/me">
             <UserAvatar
               className="
-              max-sm:w-[3.5rem] 
-              max-sm:h-[3.5rem] 
+              max-sm:w-12
+              max-sm:h-12 
               sm:w-16 sm:h-16 
               ring-2 
               ring-primary-light
