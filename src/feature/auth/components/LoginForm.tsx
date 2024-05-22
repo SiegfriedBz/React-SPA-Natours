@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { loginZodSchema, type TLoginInput } from '../zod/auth.zodSchema'
@@ -6,11 +7,10 @@ import LinkUnder from '../../../ui/components/LinkUnder'
 import IsLoadingInput from '../../../ui/components/loading/IsLoadingInput'
 import FormInputError from '../../../ui/components/FormInputError'
 
-type TProps = {
-  prevPathname?: string
-}
+const LoginForm = () => {
+  const { state } = useLocation()
+  const prevPathname = state?.prevPathname
 
-const LoginForm = ({ prevPathname }: TProps) => {
   const {
     register,
     handleSubmit,

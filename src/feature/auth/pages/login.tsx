@@ -1,7 +1,12 @@
-import LoginAndSignupWrapper from '../../../ui/components/LoginAndSignupWrapper'
+import LoginAndSignupFormsWrapper from '../../../ui/components/LoginAndSignupFormsWrapper'
+import LoginForm from '../components/LoginForm'
 
 const login = () => {
-  return <LoginAndSignupWrapper />
+  return (
+    <LoginAndSignupFormsWrapper>
+      <LoginForm />
+    </LoginAndSignupFormsWrapper>
+  )
 }
 
 export default login
