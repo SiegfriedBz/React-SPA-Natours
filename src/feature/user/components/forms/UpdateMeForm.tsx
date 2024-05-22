@@ -45,7 +45,17 @@ const UpdateMeForm = ({ user }: TProps) => {
       <FormInputError errorField={errors.email} />
 
       <label>Photo</label>
-      <UserAvatar className="md:w-24 md:h-24 mb-4 ring-4 ring-primary-light shadow-lg" />
+      <UserAvatar
+        className="
+          max-sm:w-12
+          max-sm:h-12
+          max-md:w-16 max-md:h-16 
+          md:w-24 md:h-24 
+          mb-4 
+          ring-2 ring-primary-light 
+          shadow-lg
+        "
+      />
       <IsLoadingInput isLoading={isPending}>
         <input type="file" {...register('photo')} className="file-input" />
       </IsLoadingInput>
