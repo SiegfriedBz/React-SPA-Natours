@@ -1,46 +1,127 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createBrowserRouter, Navigate } from 'react-router-dom'
+import { lazy, Suspense } from 'react'
 import AppLayout from '../ui/layout/AppLayout'
-import Signup from '../feature/user/pages/signup'
-import Login from '../feature/auth/pages/login'
-import UserProfile from '../feature/user/pages/userProfile'
-import ResetMyPassword from '../feature/user/pages/resetMyPassword'
-import Tours from '../feature/tour/pages/tours'
-import Tour from '../feature/tour/pages/tour'
-import CreateTour from '../feature/tour/pages/createTour'
-import UpdateTour from '../feature/tour/pages/updateTour'
-import ToursPlanning from '../feature/tour/pages/stats/toursPlanning'
-import ToursInsights from '../feature/tour/pages/stats/toursInsights'
-import About from '../ui/pages/about'
-import MyBookings from '../feature/booking/pages/myBookings'
 import ProtectRoute from './ProtectRoute'
 import RestrictTo from './RestrictTo'
+import RootBoundary from '../ui/components/RootBoundary'
+import Tours from '../feature/tour/pages/tours'
+import TourDetailsSkeleton from '../ui/components/skeleton/TourDetailsSkeleton'
+import Loading from '../ui/components/loading/Loading'
+const LazyTour = lazy(() => import('../feature/tour/pages/tour'))
+const LazySignup = lazy(() => import('../feature/user/pages/signup'))
+const LazyLogin = lazy(() => import('../feature/auth/pages/login'))
+const LazyResetMyPassword = lazy(
+  () => import('../feature/user/pages/resetMyPassword')
+)
+const LazyToursInsights = lazy(
+  () => import('../feature/tour/pages/stats/toursInsights')
+)
+const LazyAbout = lazy(() => import('../ui/pages/about'))
+const LazyMyBookings = lazy(() => import('../feature/booking/pages/myBookings'))
+const LazyUserProfile = lazy(() => import('../feature/user/pages/userProfile'))
+const LazyCreateTour = lazy(() => import('../feature/tour/pages/createTour'))
+const LazyUpdateTour = lazy(() => import('../feature/tour/pages/updateTour'))
+const LazyToursPlanning = lazy(
+  () => import('../feature/tour/pages/stats/toursPlanning')
+)
 
 const router = createBrowserRouter([
   {
-    path: '/',
     element: <AppLayout />,
+    errorElement: <RootBoundary />,
     children: [
-      { path: '/', element: <Tours /> },
-      { path: '/tours', element: <Navigate to="/?page=1" replace={true} /> },
-      { path: '/tours/:tourId', element: <Tour /> },
-      { path: '/login', element: <Login /> },
-      { path: '/signup', element: <Signup /> },
+      {
+        path: '/',
+        element: <Tours />
+      },
+      { path: '/tours', element: <Navigate to="/" replace={true} /> },
+      {
+        path: '/tours/:tourId',
+        element: (
+          <Suspense fallback={<TourDetailsSkeleton />}>
+            <LazyTour />
+          </Suspense>
+        )
+      },
+      {
+        path: '/login',
+        element: (
+          <Suspense fallback={<Loading />}>
+            <LazyLogin />
+          </Suspense>
+        )
+      },
+      {
+        path: '/signup',
+        element: (
+          <Suspense fallback={<Loading />}>
+            <LazySignup />
+          </Suspense>
+        )
+      },
       {
         path: '/resetMyPassword-2/2/:resetPasswordToken',
-        element: <ResetMyPassword />
+        element: (
+          <Suspense fallback={<Loading />}>
+            <LazyResetMyPassword />
+          </Suspense>
+        )
       },
-      { path: '/tours/insights', element: <ToursInsights /> },
-      { path: '/about', element: <About /> },
-      { path: '/my-bookings', element: <MyBookings /> },
+      {
+        path: '/tours/insights',
+        element: (
+          <Suspense fallback={<Loading />}>
+            <LazyToursInsights />
+          </Suspense>
+        )
+      },
+      {
+        path: '/about',
+        element: (
+          <Suspense fallback={<Loading />}>
+            <LazyAbout />
+          </Suspense>
+        )
+      },
+      {
+        path: '/my-bookings',
+        element: (
+          <Suspense fallback={<Loading />}>
+            <LazyMyBookings />
+          </Suspense>
+        )
+      },
       {
         element: <ProtectRoute />,
         children: [
-          { path: '/me', element: <UserProfile /> },
+          {
+            path: '/me',
+            element: (
+              <Suspense fallback={<Loading />}>
+                <LazyUserProfile />
+              </Suspense>
+            )
+          },
           {
             element: <RestrictTo authorizedRoles={['admin', 'lead-guide']} />,
             children: [
-              { path: '/tours/new', element: <CreateTour /> },
-              { path: '/tours/:tourId/update', element: <UpdateTour /> }
+              {
+                path: '/tours/new',
+                element: (
+                  <Suspense fallback={<Loading />}>
+                    <LazyCreateTour />
+                  </Suspense>
+                )
+              },
+              {
+                path: '/tours/:tourId/update',
+                element: (
+                  <Suspense fallback={<Loading />}>
+                    <LazyUpdateTour />
+                  </Suspense>
+                )
+              }
             ]
           },
           {
@@ -48,12 +129,18 @@ const router = createBrowserRouter([
               <RestrictTo authorizedRoles={['admin', 'lead-guide', 'guide']} />
             ),
             children: [
-              { path: '/tours/planning/:year', element: <ToursPlanning /> }
+              {
+                path: '/tours/planning/:year',
+                element: (
+                  <Suspense fallback={<Loading />}>
+                    <LazyToursPlanning />
+                  </Suspense>
+                )
+              }
             ]
           }
         ]
       },
-      // TODO - add a 404 page
       { path: '*', element: <Navigate to="/" replace={true} /> }
     ]
   }
