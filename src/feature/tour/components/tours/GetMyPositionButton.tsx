@@ -6,7 +6,7 @@ type TProps = {
 const GetMyPositionButton = (props: TProps) => {
   return (
     <button
-      className="btn-xl btn-secondary whitespace-nowrap"
+      className="btn max-sm:mt-2 max-sm:w-full btn-secondary whitespace-nowrap"
       type="button"
       {...props}
     >

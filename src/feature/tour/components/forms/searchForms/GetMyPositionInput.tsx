@@ -20,7 +20,7 @@ const GetMyPositionInput = () => {
           or enter your coordinates
         </span>
       </label>
-      <div className="flex h-16 space-x-4 w-full items-center">
+      <div className="flex max-sm:flex-col max-sm:gap-y-2 sm:h-16 sm:space-x-4 w-full max-sm:items-start items-center">
         <GetMyPositionButton
           disabled={isLoadingUserPosition}
           onClick={handleGetUserPosition}
