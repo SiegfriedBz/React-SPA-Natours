@@ -5,7 +5,7 @@ const ProtectRoute = () => {
   const location = useLocation()
   const user = useUserStore((state) => state.user)
 
-  return user == null ? (
+  return !user ? (
     <Navigate
       to="/login"
       replace={true}
