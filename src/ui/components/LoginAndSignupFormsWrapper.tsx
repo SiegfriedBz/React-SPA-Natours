@@ -1,15 +1,13 @@
 import { useLayoutEffect, useState } from 'react'
-import { useLocation } from 'react-router'
-import LoginForm from '../../feature/auth/components/LoginForm'
 import ModalProvider from './modal/Modal'
 import ForgotMyPasswordForm from '../../feature/user/components/forms/ForgotMyPasswordForm'
-import SignupForm from '../../feature/user/components/forms/SignupForm'
 
 const API_PUBLIC_URL = import.meta.env.VITE_API_PUBLIC_URL
 
-const LoginAndSignupWrapper = () => {
-  const { pathname, state } = useLocation()
-  const prevPathname = state?.prevPathname
+type TProps = {
+  children: React.ReactNode
+}
+const LoginAndSignupFormsWrapper = ({ children }: TProps) => {
   const [imageTourNumber, setImageTourNumber] = useState(() => {
     return Math.floor(Math.random() * 6) + 1
   })
@@ -20,8 +18,6 @@ const LoginAndSignupWrapper = () => {
   }, [])
 
   const imgUrl = `${API_PUBLIC_URL}/img/tours/tour-${imageTourNumber}-cover.jpg`
-
-  const isLogin = pathname === '/login'
 
   return (
     <div className="max-sm:px-2 w-full">
@@ -43,7 +39,7 @@ const LoginAndSignupWrapper = () => {
           }}
         ></div>
 
-        {isLogin ? <LoginForm prevPathname={prevPathname} /> : <SignupForm />}
+        {children}
       </div>
       <div
         className="container max-w-6xl
@@ -69,4 +65,4 @@ const LoginAndSignupWrapper = () => {
   )
 }
 
-export default LoginAndSignupWrapper
+export default LoginAndSignupFormsWrapper
