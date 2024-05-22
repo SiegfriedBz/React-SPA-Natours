@@ -80,7 +80,7 @@ const HomeHero = ({ handleScrollToTours, setDistancesToTours }: TProps) => {
         </div>
 
         {/* Animated search button <---> 3 buttons to open forms */}
-        <div className="absolute w-full max-sm:px-1 max-sm:-bottom-6 sm:-bottom-8 left-1/2 -translate-x-1/2">
+        <div className="absolute w-full max-sm:px-2 max-sm:-bottom-6 sm:-bottom-8 left-1/2 -translate-x-1/2">
           <div className="flex justify-center w-full">
             <AnimatedSearchButtons setDistancesToTours={setDistancesToTours} />
           </div>
