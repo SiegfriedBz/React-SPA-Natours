@@ -1,14 +1,13 @@
 import { Link } from 'react-router-dom'
+import useUserStore from '../../../user/store/user.store'
 import MotionCardWrapper from '../../../../ui/components/MotionCardWrapper'
 import SVGIcon from '../../../../ui/components/SVGIcon'
 import RatingStars from '../../../../ui/components/RatingStars'
 import type { TTour } from '../../../../types/tour.types'
 import type { TDistance } from '../../../../service/tour.service'
 import type { TDistanceUnitOption } from '../forms/searchForms/distanceUnitOptions'
-import useUserStore from '../../../user/store/user.store'
-import { TUser } from '../../../../types/user.types'
-
-const API_PUBLIC_URL = import.meta.env.VITE_API_PUBLIC_URL
+import type { TUser } from '../../../../types/user.types'
+import CloudinaryImg from '../../../../ui/components/cloudinary/CloudinaryImg'
 
 type TProps = {
   tour: TTour
@@ -42,10 +41,9 @@ const TourCard = ({ tour, distanceToTour, distanceUnit }: TProps) => {
         <div className="relative h-64 group">
           <div className="absolute inset-0 u-clip-path-img">
             <div className="absolute w-full h-full u-bg-gradient-primary">
-              <img
+              <CloudinaryImg
+                url={imageCover}
                 className="object-cover h-full w-full opacity-85"
-                src={`${API_PUBLIC_URL}/img/tours/${imageCover}`}
-                alt={`${name}`}
               />
             </div>
           </div>
