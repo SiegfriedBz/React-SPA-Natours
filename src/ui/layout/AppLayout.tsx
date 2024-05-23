@@ -12,6 +12,8 @@ const AppLayout = () => {
   const matchUpdate = useMatch('/tours/:id/update')
   const matchInsights = useMatch('/tours/insights')
   const matchPlanning = useMatch('/tours/planning')
+  const isLoginPage = useMatch('/login')
+  const isSignupPage = useMatch('/signup')
 
   const isHomePage = matchHome || matchTours
   const isToursPage =
@@ -20,6 +22,8 @@ const AppLayout = () => {
     !matchUpdate &&
     !matchInsights &&
     !matchPlanning
+
+  const isLoginOrSignupPage = isLoginPage || isSignupPage
 
   return (
     <div
@@ -32,7 +36,13 @@ const AppLayout = () => {
       <main
         className={`
           min-h-[calc(100vh-var(--header-h))] 
-          ${isToursPage ? '' : 'max-sm:my-4 max-md:my-8 md:my-12'}`}
+          ${
+            isToursPage
+              ? ''
+              : isLoginOrSignupPage
+                ? 'max-sm:my-2 max-md:my-4 md:my-8 flex items-center'
+                : 'max-sm:my-4 max-md:my-8 md:my-12'
+          }`}
       >
         <Outlet />
       </main>
