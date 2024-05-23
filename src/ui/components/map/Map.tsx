@@ -23,7 +23,7 @@ const MAP_STYLES = {
 }
 
 function Map({ startLocation, locations }: TProps) {
-  const [mapStyle, setMapStyle] = useState(() => MAP_STYLES['outdoor'])
+  const [mapStyle, setMapStyle] = useState(() => MAP_STYLES['light'])
 
   const mapRef = useRef<MapRef | null>(null)
   const [popup, setPopup] = useState<TPopup>(INITIAL_POPUP)
