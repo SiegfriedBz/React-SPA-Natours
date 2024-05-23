@@ -13,7 +13,7 @@ const HomeHero = ({ handleScrollToTours, setDistancesToTours }: TProps) => {
     <div
       className="homeHero relative bg-cover bg-center"
       style={{
-        backgroundImage: `url(${cldBaseUrl}/v1716467110/natours/hero-01.jpg)`
+        backgroundImage: `url(${cldBaseUrl}/v1716473533/natours/hero-02.jpg)`
       }}
     >
       <div className="absolute inset-0 bg-stone-500 opacity-40"></div>
@@ -22,7 +22,7 @@ const HomeHero = ({ handleScrollToTours, setDistancesToTours }: TProps) => {
           max-sm:max-w-sm
           max-lg:max-w-lg 
           lg:max-w-xl
-          top-1/2 -translate-y-[46vh]
+          top-1/2 -translate-y-[42vh]
           left-1/2 -translate-x-1/2
           flex flex-col items-center justify-center 
           h-[52vh]
@@ -51,7 +51,7 @@ const HomeHero = ({ handleScrollToTours, setDistancesToTours }: TProps) => {
           Discover and book your next adventure
         </p>
 
-        <div className="mt-8 flex justify-center space-x-4">
+        <div className="mt-8 flex justify-center space-x-8">
           <button
             onClick={handleScrollToTours}
             className="max-sm:w-36 sm:w-40 
@@ -79,7 +79,7 @@ const HomeHero = ({ handleScrollToTours, setDistancesToTours }: TProps) => {
         </div>
 
         {/* Animated search button <---> 3 buttons to open forms */}
-        <div className="absolute w-full max-sm:px-2 max-sm:-bottom-6 sm:-bottom-8 left-1/2 -translate-x-1/2">
+        <div className="absolute w-full max-sm:px-2 -bottom-10 sm:-bottom-12 left-1/2 -translate-x-1/2">
           <div className="flex justify-center w-full">
             <AnimatedSearchButtons setDistancesToTours={setDistancesToTours} />
           </div>

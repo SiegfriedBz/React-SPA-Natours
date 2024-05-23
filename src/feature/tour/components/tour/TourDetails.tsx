@@ -5,10 +5,9 @@ import SVGIcon from '../../../../ui/components/SVGIcon'
 import RefetchButton from '../../../../ui/components/RefetchButton'
 import RatingStars from '../../../../ui/components/RatingStars'
 import TourDetailsSkeleton from '../../../../ui/components/skeleton/TourDetailsSkeleton'
+import CloudinaryImg from '../../../../ui/components/cloudinary/CloudinaryImg'
 import type { TBaseLocation, TTour } from '../../../../types/tour.types'
 import type { TUser } from '../../../../types/user.types'
-
-const API_PUBLIC_URL = import.meta.env.VITE_API_PUBLIC_URL
 
 type TProps = {
   tourId?: string
@@ -88,7 +87,7 @@ const HeroSection = ({
     <section
       data-cy="tour-hero"
       className="relative 
-        max-sm:h-[80vw]
+        max-sm:h-[100vw]
         max-lg:h-[60vw]
         max-xl:h-[40vw] 
         max-2xl:h-[35vw] 
@@ -103,10 +102,9 @@ const HeroSection = ({
             u-bg-gradient-primary
           "
         ></div>
-        <img
+        <CloudinaryImg
+          url={imageCover}
           className="object-cover h-full w-full opacity-65"
-          src={`${API_PUBLIC_URL}/img/tours/${imageCover}`}
-          alt={`${name}`}
         />
       </div>
 
@@ -120,17 +118,14 @@ const HeroSection = ({
           data-cy="tour-hero-title"
           className="h1 text-stone-100 opacity-90 font-light tracking-widest"
         >
-          <span className="inline-block max-md:w-72 md:w-96 max-md:leading-[2.75rem] md:leading-[3.25rem]">{`${name} tour`}</span>
+          <span className="inline-block max-md:py-2 md:py-4 max-md:w-72 md:w-96 max-md:leading-[2.75rem] md:leading-[3.25rem]">{`${name} tour`}</span>
         </h1>
 
         <div
           className="flex justify-center align-items 
           text-stone-100 
-            max-sm:flex-col 
-            max-sm:mt-4
-            max-sm:space-y-4
-            sm:space-x-8 
-            sm:mt-8
+            space-x-8 
+            mt-8
             max-md:text-xl 
             md:text-2xl
             max-md:font-bold 
@@ -194,15 +189,13 @@ const DescriptionSection = ({
       {/* left */}
       <div
         className="grid justify-center items-center
-        
         max-md:pt-16
         md:py-8
         h-[110%] 
         w-full 
-      
         grid-rows-2 
         lg:gap-y-2 
-        bg-stone-200
+        bg-stone-200 
         "
       >
         <div
@@ -315,10 +308,9 @@ const OverviewBox = ({
     <div className="flex items-center space-x-4">
       {iconName && <SVGIcon iconName={iconName} />}
       {userPhoto && userRole && (
-        <img
+        <CloudinaryImg
+          url={userPhoto}
           className="w-8 h-8 md:w-16 md:h-16 rounded-full object-cover"
-          src={`${API_PUBLIC_URL}/img/users/${userPhoto}`}
-          alt={`${userRole}`}
         />
       )}
 
@@ -346,11 +338,7 @@ const PicturesBoxSection = ({ images }: TPicturesBoxSectionProps) => {
         ${idx === 1 ? 'pt-[8vw]' : idx === 2 ? 'pt-[2vw]' : 'pt-[0]'}`
         return (
           <div key={i} className="w-full min-h-[24vw]">
-            <img
-              src={`${API_PUBLIC_URL}/img/tours/${img}`}
-              alt={`Tour ${idx}`}
-              className={imgClass}
-            />
+            <CloudinaryImg url={img} className={imgClass} />
           </div>
         )
       })}
