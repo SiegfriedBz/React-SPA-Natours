@@ -8,7 +8,9 @@ type TProps = {
 }
 
 const CloudinaryImg = ({ url, className = '' }: TProps) => {
-  const publicId = url.split(cldBaseUrl)[1]
+  const publicId = url?.split(cldBaseUrl)[1]
+
+  if (!publicId) return null
 
   // Create a CloudinaryImage instance
   const image = new CloudinaryImage(publicId, cloudConfig, urlConfig)
