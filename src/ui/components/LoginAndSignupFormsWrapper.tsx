@@ -1,23 +1,36 @@
 import { useLayoutEffect, useState } from 'react'
 import ModalProvider from './modal/Modal'
 import ForgotMyPasswordForm from '../../feature/user/components/forms/ForgotMyPasswordForm'
-
-const API_PUBLIC_URL = import.meta.env.VITE_API_PUBLIC_URL
+import { cldBaseUrl } from './cloudinary/utils'
 
 type TProps = {
   children: React.ReactNode
 }
+const images = [
+  {
+    id: 1,
+    url: `${cldBaseUrl}/v1716467110/natours/hero-01.jpg`
+  },
+  {
+    id: 2,
+    url: `${cldBaseUrl}/v1716473533/natours/hero-02.jpg`
+  },
+  {
+    id: 3,
+    url: `${cldBaseUrl}/v1716473597/natours/hero-03.jpg`
+  }
+]
 const LoginAndSignupFormsWrapper = ({ children }: TProps) => {
-  const [imageTourNumber, setImageTourNumber] = useState(() => {
-    return Math.floor(Math.random() * 6) + 1
+  const [imgNum, setImgNum] = useState(() => {
+    return Math.floor(Math.random() * 3) + 1
   })
 
   useLayoutEffect(() => {
-    const randomTourNumber = Math.floor(Math.random() * 6) + 1
-    setImageTourNumber(randomTourNumber)
+    const randomImgNum = Math.floor(Math.random() * 3) + 1
+    setImgNum(randomImgNum)
   }, [])
 
-  const imgUrl = `${API_PUBLIC_URL}/img/tours/tour-${imageTourNumber}-cover.jpg`
+  const imgUrl = images.find((img) => img.id === imgNum)?.url
 
   return (
     <div className="max-sm:px-2 w-full">
@@ -38,7 +51,6 @@ const LoginAndSignupFormsWrapper = ({ children }: TProps) => {
             backgroundImage: `url(${imgUrl})`
           }}
         ></div>
-
         {children}
       </div>
       <div
@@ -50,7 +62,7 @@ const LoginAndSignupFormsWrapper = ({ children }: TProps) => {
           <ModalProvider.OpenButton
             windowNameToOpen="forgot-password-form"
             className="
-              mt-4
+              max-sm:my-4 sm:mt-4
               btn btn-primary
             "
           >

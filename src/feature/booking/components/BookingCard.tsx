@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom'
 import ModalProvider from '../../../ui/components/modal/Modal'
 import CreateReviewForm from '../../review/components/CreateReviewForm'
+import CloudinaryImg from '../../../ui/components/cloudinary/CloudinaryImg'
 import MotionCardWrapper from '../../../ui/components/MotionCardWrapper'
 import SVGIcon from '../../../ui/components/SVGIcon'
 import type { TBooking } from '../../../types/booking.types'
-
-const API_PUBLIC_URL = import.meta.env.VITE_API_PUBLIC_URL
 
 type TProps = {
   booking: TBooking
@@ -34,10 +33,9 @@ const BookingCard = ({ booking }: TProps) => {
           {imageCover && (
             <div className="absolute inset-0 u-clip-path-img">
               <div className="absolute w-full h-full u-bg-gradient-primary">
-                <img
+                <CloudinaryImg
+                  url={imageCover}
                   className="object-cover h-full w-full opacity-85"
-                  src={`${API_PUBLIC_URL}/img/tours/${imageCover}`}
-                  alt={`${tourName}`}
                 />
               </div>
             </div>

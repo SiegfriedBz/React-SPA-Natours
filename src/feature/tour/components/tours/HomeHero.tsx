@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom'
 import ScrollDownButton from './ScrollDownButton'
 import AnimatedSearchButtons from './AnimatedSearchButtons'
+import { cldBaseUrl } from '../../../../ui/components/cloudinary/utils'
 import type { TDistancesToTours } from '../../pages/tours'
-
-const API_PUBLIC_URL = import.meta.env.VITE_API_PUBLIC_URL
 
 type TProps = {
   handleScrollToTours: () => void
@@ -14,7 +13,7 @@ const HomeHero = ({ handleScrollToTours, setDistancesToTours }: TProps) => {
     <div
       className="homeHero relative bg-cover bg-center"
       style={{
-        backgroundImage: `url("${API_PUBLIC_URL}/img/tours/tour-1-cover.jpg")`
+        backgroundImage: `url(${cldBaseUrl}/v1716467110/natours/hero-01.jpg)`
       }}
     >
       <div className="absolute inset-0 bg-stone-500 opacity-40"></div>
