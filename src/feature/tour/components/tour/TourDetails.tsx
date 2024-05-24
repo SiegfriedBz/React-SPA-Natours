@@ -87,11 +87,7 @@ const HeroSection = ({
     <section
       data-cy="tour-hero"
       className="relative 
-        max-sm:h-[100vw]
-        max-lg:h-[60vw]
-        max-xl:h-[40vw] 
-        max-2xl:h-[35vw] 
-        2xl:h-[30vw] 
+        h-[calc(100vh-var(--header-h))]
         u-clip-path-img
       "
     >
@@ -99,12 +95,12 @@ const HeroSection = ({
         <div
           className="absolute 
             w-full h-full 
-            u-bg-gradient-primary
+            u-bg-gradient-secondary
           "
         ></div>
         <CloudinaryImg
           url={imageCover}
-          className="object-cover h-full w-full opacity-65"
+          className="object-cover h-full w-full opacity-60"
         />
       </div>
 
@@ -125,13 +121,14 @@ const HeroSection = ({
           className="flex justify-center align-items 
           text-stone-100 
             space-x-8 
-            mt-8
+            max-sm:mt-6 sm:mt-8
+            max-sm:text-lg 
             max-md:text-xl 
             md:text-2xl
             max-md:font-bold 
             md:font-semibold
             uppercase
-            opacity-80
+            opacity-85
           "
         >
           <div className="flex items-center space-x-2 shadow-sm">
