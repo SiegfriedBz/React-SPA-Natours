@@ -87,7 +87,7 @@ const HeroSection = ({
     <section
       data-cy="tour-hero"
       className="relative 
-        h-[calc(100vh-var(--header-h))]
+        h-[calc(100svh-var(--header-h))]
         u-clip-path-img
       "
     >

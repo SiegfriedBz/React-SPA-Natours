@@ -16,5 +16,5 @@ const Loading = ({ variant, className = '' }: TProps) => {
 export default Loading
 
 export const SuspenseLoading = () => {
-  return <Loading className="h-[calc(100vh-var(--header-h))]" />
+  return <Loading className="h-[calc(100svh-var(--header-h))]" />
 }
