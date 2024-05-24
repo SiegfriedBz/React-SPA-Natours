@@ -77,8 +77,8 @@ const usePageClasses = ({
     const minHeightClass = upToXs
       ? ''
       : xsToSm
-        ? 'min-h-[calc(100vh-calc(2*var(--header-h)))]'
-        : 'min-h-[calc(100vh-var(--header-h))]'
+        ? 'min-h-[calc(100svh-calc(2*var(--header-h)))]'
+        : 'min-h-[calc(100svh-var(--header-h))]'
 
     return `max-md:my-4 md:my-8 ${minHeightClass} `
   }, [])
@@ -87,7 +87,7 @@ const usePageClasses = ({
     if (isToursPage) return ''
     if (isLoginOrSignupPage) return getClassesForLoginOrSignupPage()
     if (isBookingsPage)
-      return 'min-h-[calc(100vh-var(--header-h))] max-sm:my-4 max-md:my-8 md:my-12'
+      return 'min-h-[calc(100svh-var(--header-h))] max-sm:my-4 max-md:my-8 md:my-12'
     return 'max-sm:my-4 max-md:my-8 md:my-12'
   }, [
     isToursPage,
