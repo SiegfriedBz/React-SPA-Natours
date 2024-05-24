@@ -11,8 +11,7 @@ import FormInputError from '../../../ui/components/FormInputError'
 import IsLoadingInput from '../../../ui/components/loading/IsLoadingInput'
 import RatingStars from '../../../ui/components/RatingStars'
 import { SVGStarIcon } from '../../../ui/components/SVGIcon'
-
-const API_PUBLIC_URL = import.meta.env.VITE_API_PUBLIC_URL
+import CloudinaryImg from '../../../ui/components/cloudinary/CloudinaryImg'
 
 type TProps = {
   tourId: string
@@ -76,10 +75,9 @@ const CreateReviewForm = ({
               u-bg-gradient-primary
             "
         >
-          <img
+          <CloudinaryImg
+            url={tourImageCover}
             className="rounded-full object-cover h-full w-full opacity-85"
-            src={`${API_PUBLIC_URL}/img/tours/${tourImageCover}`}
-            alt={`${tourName}`}
           />
         </div>
         {/* user & tour fields */}

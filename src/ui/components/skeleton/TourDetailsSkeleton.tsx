@@ -23,7 +23,7 @@ const TourDetailsSkeleton = () => {
             >
               <SkeletonTheme baseColor="#55c57a" highlightColor="#43a263">
                 <div className="z-[9999] -mt-32 flex flex-col items-center space-y-8">
-                  <Skeleton width={280} height={80} />
+                  <Skeleton width={240} height={80} />
                   <SkeletonTheme baseColor="#f3f3f3" highlightColor="#ecebeb">
                     <div className="flex items-center space-x-4">
                       <Skeleton width={100} height={30} />
@@ -36,7 +36,6 @@ const TourDetailsSkeleton = () => {
           </div>
         </section>
       </SkeletonTheme>
-
       {/* middle */}
       <section
         className="grid 
