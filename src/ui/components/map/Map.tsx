@@ -90,7 +90,7 @@ function Map({ startLocation, locations }: TProps) {
           </Popup>
         )}
 
-        <SwitchMapStyleButton setMapStyle={setMapStyle} />
+        <SwitchMapStyleButton mapStyle={mapStyle} setMapStyle={setMapStyle} />
       </MapGL>
     </div>
   )
@@ -113,9 +113,12 @@ const CustomPopup = ({ day, description }: TCustomPopupProps) => {
 }
 
 type TSwitchProps = {
+  mapStyle: string
   setMapStyle: React.Dispatch<React.SetStateAction<string>>
 }
-const SwitchMapStyleButton = ({ setMapStyle }: TSwitchProps) => {
+const SwitchMapStyleButton = ({ mapStyle, setMapStyle }: TSwitchProps) => {
+  const isLightMap = mapStyle === MAP_STYLES['light']
+
   return (
     <button
       onClick={() =>
@@ -125,28 +128,23 @@ const SwitchMapStyleButton = ({ setMapStyle }: TSwitchProps) => {
             : MAP_STYLES['outdoor']
         )
       }
-      className="absolute 
+      className={`absolute 
         z-[999] 
         opacity-70
+        max-sm:w-16 max-sm:h-16
         w-20 h-20
         rounded-full
         top-1/4 
-        max-sm:-translate-y-20
+        max-sm:-translate-y-16
         max-md:-translate-y-24
         max-lg:-translate-y-28
         max-xl:-translate-y-32
         2xl:translate-y-0
-        right-2 
-        
         font-extrabold
-      text-primary-dark 
-        ring-2 ring-primary-dark
-      bg-stone-100
-      hover:text-stone-50
-      hover:ring-stone-100
-      hover:bg-primary-dark
+        right-2 
+        ${isLightMap ? 'text-stone-50 hover:text-primary-dark bg-primary-dark hover:bg-stone-100 ring-stone-100 hover:ring-primary-dark' : 'text-primary-dark hover:text-stone-50 bg-stone-100 hover:bg-primary-dark ring-primary-dark hover:ring-stone-100'}
         transition-all duration-300 ease-in-out                   
-    "
+    `}
     >
       Switch Style
     </button>
