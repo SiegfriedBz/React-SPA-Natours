@@ -86,7 +86,10 @@ export const DistancesToToursForm = ({ setDistancesToTours }: TProps) => {
           </div>
 
           <button className="btn-primary btn-submit" type="submit">
-            Get my distance to tours
+            <div className=" text-stone-50 flex items-center space-x-2">
+              <SVGIcon iconName="flag" color="#f5f5f4" />
+              <span className="text-sm text-stone-50">Get distances</span>
+            </div>
           </button>
         </>
       )}
