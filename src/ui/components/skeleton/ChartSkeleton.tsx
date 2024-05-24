@@ -8,11 +8,15 @@ const ChartSkeleton = () => {
         overflow-hidden 
         shadow-lg 
         bg-white 
-        transition duration-300 
-        hover:shadow-xl 
-        hover:scale-[1.015]"
+        w-full
+        "
       >
-        <Skeleton width={800} height={340} />
+        <span className="lg:hidden">
+          <Skeleton width="100%" height={340} />
+        </span>
+        <span className="max-lg:hidden">
+          <Skeleton width="32rem" height={340} />
+        </span>
 
         <div className="p-4 flex items-center space-x-2">
           <Skeleton width={30} height={30} />

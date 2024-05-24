@@ -87,9 +87,10 @@ const HeroSection = ({
     <section
       data-cy="tour-hero"
       className="relative 
-        h-[calc(100svh-var(--header-h))]
+        max-md:h-[72svh]
+        md:h-[calc(100svh-var(--header-h))]
         u-clip-path-img
-      "
+  "
     >
       <div className="h-full">
         <div
@@ -121,12 +122,12 @@ const HeroSection = ({
           className="flex justify-center align-items 
           text-stone-100 
             space-x-8 
-            max-sm:mt-6 sm:mt-8
+            mt-8
             max-sm:text-lg 
-            max-md:text-xl 
-            md:text-2xl
-            max-md:font-bold 
-            md:font-semibold
+            max-lg:text-xl 
+            lg:text-2xl
+            max-sm:font-bold 
+            md:font-light
             uppercase
             opacity-85
           "

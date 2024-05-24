@@ -36,7 +36,7 @@ const StatsBarChart = ({ data }: TProps) => {
         width={800}
         height={400}
         data={sortedData}
-        margin={{ top: 20, right: 20, left: 20, bottom: 0 }}
+        margin={{ top: 20, right: 24, left: -16, bottom: 0 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
