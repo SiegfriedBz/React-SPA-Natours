@@ -1,12 +1,12 @@
 import Select, { GroupBase, OptionProps } from 'react-select'
 import { useGetUsersByRoles } from '../../hooks/useGetUsersByRoles'
 import Loading from '../../../../ui/components/loading/Loading'
+import CloudinaryImg from '../../../../ui/components/cloudinary/CloudinaryImg'
+import colourStyles from '../../../../ui/utils/reactSelectStyles.utils'
+import userDefaultImage from '../../../../assets/user/default.jpg'
 import type { DetailedHTMLProps, HTMLAttributes } from 'react'
 import type { TUser } from '../../../../types/user.types'
 import type { TSelectOption } from './searchForms/types'
-import colourStyles from '../../../../ui/utils/reactSelectStyles.utils'
-
-const API_PUBLIC_URL = import.meta.env.VITE_API_PUBLIC_URL
 
 type TSelectGuideOption = TSelectOption & { photo?: string }
 
@@ -84,20 +84,37 @@ const CustomOption = ({ data, innerProps, isDisabled }: TCustomOptionProps) => {
         hover:font-semibold
       "
     >
-      <img
-        src={`${API_PUBLIC_URL}/img/users/${data.photo}`}
-        alt="Guide photo"
-        className="rounded-full 
-          max-sm:h-10 max-sm:w-10 
-          sm:h-16 sm:w-16
-          object-cover
-          border border-current
-          shadow-md
-          transition-all
-          duration-200
-          hover:shadow-lg
-        "
-      />
+      {data?.photo ? (
+        <CloudinaryImg
+          url={data?.photo}
+          className="rounded-full 
+            max-sm:h-10 max-sm:w-10 
+            sm:h-16 sm:w-16
+            object-cover
+            border border-current
+            shadow-md
+            transition-all
+            duration-200
+            hover:shadow-lg
+          "
+        />
+      ) : (
+        <img
+          src={userDefaultImage}
+          alt="Guide photo default"
+          className="rounded-full 
+            max-sm:h-10 max-sm:w-10 
+            sm:h-16 sm:w-16
+            object-cover
+            border border-current
+            shadow-md
+            transition-all
+            duration-200
+            hover:shadow-lg
+          "
+        />
+      )}
+
       <div className="text-lg">
         <p>{data.label}</p>
       </div>

@@ -7,7 +7,7 @@ import RestrictTo from './RestrictTo'
 import RootBoundary from '../ui/components/RootBoundary'
 import Tours from '../feature/tour/pages/tours'
 import TourDetailsSkeleton from '../ui/components/skeleton/TourDetailsSkeleton'
-import Loading from '../ui/components/loading/Loading'
+import { SuspenseLoading } from '../ui/components/loading/Loading'
 const LazyTour = lazy(() => import('../feature/tour/pages/tour'))
 const LazySignup = lazy(() => import('../feature/user/pages/signup'))
 const LazyLogin = lazy(() => import('../feature/auth/pages/login'))
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: (
-          <Suspense fallback={<Loading />}>
+          <Suspense fallback={<SuspenseLoading />}>
             <LazyLogin />
           </Suspense>
         )
@@ -55,7 +55,7 @@ const router = createBrowserRouter([
       {
         path: '/signup',
         element: (
-          <Suspense fallback={<Loading />}>
+          <Suspense fallback={<SuspenseLoading />}>
             <LazySignup />
           </Suspense>
         )
@@ -63,7 +63,7 @@ const router = createBrowserRouter([
       {
         path: '/resetMyPassword-2/2/:resetPasswordToken',
         element: (
-          <Suspense fallback={<Loading />}>
+          <Suspense fallback={<SuspenseLoading />}>
             <LazyResetMyPassword />
           </Suspense>
         )
@@ -71,7 +71,7 @@ const router = createBrowserRouter([
       {
         path: '/tours/insights',
         element: (
-          <Suspense fallback={<Loading />}>
+          <Suspense fallback={<SuspenseLoading />}>
             <LazyToursInsights />
           </Suspense>
         )
@@ -79,7 +79,7 @@ const router = createBrowserRouter([
       {
         path: '/about',
         element: (
-          <Suspense fallback={<Loading />}>
+          <Suspense fallback={<SuspenseLoading />}>
             <LazyAbout />
           </Suspense>
         )
@@ -87,7 +87,7 @@ const router = createBrowserRouter([
       {
         path: '/my-bookings',
         element: (
-          <Suspense fallback={<Loading />}>
+          <Suspense fallback={<SuspenseLoading />}>
             <LazyMyBookings />
           </Suspense>
         )
@@ -98,7 +98,7 @@ const router = createBrowserRouter([
           {
             path: '/me',
             element: (
-              <Suspense fallback={<Loading />}>
+              <Suspense fallback={<SuspenseLoading />}>
                 <LazyUserProfile />
               </Suspense>
             )
@@ -109,7 +109,7 @@ const router = createBrowserRouter([
               {
                 path: '/tours/new',
                 element: (
-                  <Suspense fallback={<Loading />}>
+                  <Suspense fallback={<SuspenseLoading />}>
                     <LazyCreateTour />
                   </Suspense>
                 )
@@ -117,7 +117,7 @@ const router = createBrowserRouter([
               {
                 path: '/tours/:tourId/update',
                 element: (
-                  <Suspense fallback={<Loading />}>
+                  <Suspense fallback={<SuspenseLoading />}>
                     <LazyUpdateTour />
                   </Suspense>
                 )
@@ -132,7 +132,7 @@ const router = createBrowserRouter([
               {
                 path: '/tours/planning/:year',
                 element: (
-                  <Suspense fallback={<Loading />}>
+                  <Suspense fallback={<SuspenseLoading />}>
                     <LazyToursPlanning />
                   </Suspense>
                 )

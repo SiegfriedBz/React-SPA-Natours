@@ -1,13 +1,11 @@
 import { Link } from 'react-router-dom'
 import useUserStore from '../../../user/store/user.store'
-
 import logoWhite from '../../../../assets/logo-white.png'
 import StripeCheckoutButton from '../../../stripe/components/StripeCheckoutButton'
 import RefetchButton from '../../../../ui/components/RefetchButton'
-import type { TTour } from '../../../../types/tour.types'
 import { useGetTour } from '../../hooks/useGetTour'
-
-const API_PUBLIC_URL = import.meta.env.VITE_API_PUBLIC_URL
+import CloudinaryImg from '../../../../ui/components/cloudinary/CloudinaryImg'
+import type { TTour } from '../../../../types/tour.types'
 
 type TProps = {
   tourId?: string
@@ -95,25 +93,38 @@ const TourCta = ({ tourId }: TProps) => {
         const imgClass =
           index === 0 ? 'translate-x-[12%] z-9' : '-translate-x-[8%] z-8'
         return isLoading ? (
-          // TODO: Add skeleton loader
-          <div>ljbljb</div>
-        ) : (
           <img
+            className="max-sm:hidden
+              absolute
+              left-0
+              top-1/2
+              -translate-y-1/2
+              max-md:w-24 max-md:h-24
+              md:w-40 md:h-40
+              rounded-full
+              shadow-2xl 
+              ${imgClass}
+            "
+            src={logoWhite}
+            alt="Natours
+          logo"
+          />
+        ) : (
+          <CloudinaryImg
             key={index}
-            src={`${API_PUBLIC_URL}/img/tours/${image}`}
-            alt={`Image-${index}`}
+            url={image}
             className={`
-                max-sm:hidden
-                absolute
-                left-0
-                top-1/2
-                -translate-y-1/2
-                max-md:w-24 max-md:h-24
-                md:w-40 md:h-40
-                rounded-full
-                shadow-2xl 
-                ${imgClass}
-              `}
+              max-sm:hidden
+              absolute
+              left-0
+              top-1/2
+              -translate-y-1/2
+              max-md:w-24 max-md:h-24
+              md:w-40 md:h-40
+              rounded-full
+              shadow-2xl 
+              ${imgClass}
+            `}
           />
         )
       })}

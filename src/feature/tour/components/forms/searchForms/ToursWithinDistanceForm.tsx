@@ -81,13 +81,13 @@ export const ToursWithinDistanceForm = () => {
         />
       </div>
 
-      <div className="flex my-2 space-x-4">
+      <div className="flex space-x-4">
         <button
           onClick={handleClear}
-          className="group btn-sm btn-secondary u-scale-sm btn-submit"
+          className="group btn btn-secondary u-scale-sm btn-submit"
           type="button"
         >
-          <div className="h-8 flex items-center space-x-2">
+          <div className="flex items-center space-x-2">
             <SVGIcon
               wrapperClassName="text-stone-700 group-hover:text-primary-light"
               iconName="x-circle"
@@ -97,9 +97,9 @@ export const ToursWithinDistanceForm = () => {
           </div>
         </button>
 
-        <button className="btn-sm btn-primary btn-submit" type="submit">
-          <div className="h-8 text-stone-50 flex items-center space-x-2">
-            <SVGIcon iconName="search" color="#f5f5f4" />
+        <button className="btn btn-primary btn-submit" type="submit">
+          <div className="text-stone-50 flex items-center space-x-2">
+            <SVGIcon iconName="compass" color="#f5f5f4" />
             <span className="text-sm text-stone-50">Filter</span>
           </div>
         </button>

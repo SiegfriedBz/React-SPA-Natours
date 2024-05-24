@@ -18,12 +18,11 @@ import {
   updateTourZodSchema,
   type TUpdateTourInput
 } from '../../zod/tour.zodSchema'
+import CloudinaryImg from '../../../../ui/components/cloudinary/CloudinaryImg'
+import { difficultyOptions } from './difficultyOptions'
 import type { TTour } from '../../../../types/tour.types'
 import type { TUser } from '../../../../types/user.types'
 import type { TSelectOption } from './searchForms/types'
-import { difficultyOptions } from './difficultyOptions'
-
-const API_PUBLIC_URL = import.meta.env.VITE_API_PUBLIC_URL
 
 type TProps = {
   tourId?: string
@@ -212,9 +211,8 @@ const UpdateTourForm = ({ tourId }: TProps) => {
 
             <label>Image Cover</label>
             {tour?.imageCover && (
-              <img
-                src={`${API_PUBLIC_URL}/img/tours/${tour.imageCover}`}
-                alt="Tour"
+              <CloudinaryImg
+                url={tour.imageCover}
                 className="h-64 w-64 object-cover rounded-lg mb-2 shadow-xl"
               />
             )}
@@ -230,11 +228,10 @@ const UpdateTourForm = ({ tourId }: TProps) => {
             <label>Images</label>
             <ul className="flex mb-2 flex-wrap justify-between gap-4">
               {tour?.images.map((image) => (
-                <img
+                <CloudinaryImg
                   key={image}
-                  src={`${API_PUBLIC_URL}/img/tours/${image}`}
-                  alt="Tour"
-                  className=" w-64 object-cover rounded-lg shadow-xl"
+                  url={image}
+                  className="w-64 object-cover rounded-lg shadow-xl"
                 />
               ))}
             </ul>
@@ -250,7 +247,6 @@ const UpdateTourForm = ({ tourId }: TProps) => {
             )}
 
             {/* Input fields for startLocation */}
-
             <label>Start Location</label>
             <div className="px-2">
               <label>Longitude</label>
