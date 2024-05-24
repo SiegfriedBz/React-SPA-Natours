@@ -105,7 +105,7 @@ body {
     max-height: 35vh;
   }
   .homeHero {
-    @apply rounded-b-lg overflow-hidden
+    @apply md:rounded-b-sm lg:rounded-b-lg overflow-hidden
        h-[calc(100dvh-var(--header-h))] min-h-[calc(100dvh-var(--header-h))];
   }
 
@@ -131,7 +131,7 @@ body {
     @apply uppercase p-0 m-0
       tracking-wide
       u-text-gradient-stone-light
-      opacity-70;
+      opacity-80;
   }
 
   /* h2 */
