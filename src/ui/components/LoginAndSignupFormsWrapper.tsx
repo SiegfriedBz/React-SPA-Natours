@@ -1,35 +1,17 @@
-import { useLayoutEffect, useState } from 'react'
 import ModalProvider from './modal/Modal'
 import ForgotMyPasswordForm from '../../feature/user/components/forms/ForgotMyPasswordForm'
-import { cldBaseUrl } from './cloudinary/utils'
+
+const images = [
+  { id: 1, url: import.meta.env.VITE_LOGIN_BG_IMG_01_URL },
+  { id: 2, url: import.meta.env.VITE_LOGIN_BG_IMG_02_URL },
+  { id: 3, url: import.meta.env.VITE_LOGIN_BG_IMG_03_URL }
+]
 
 type TProps = {
   children: React.ReactNode
 }
-const images = [
-  {
-    id: 1,
-    url: `${cldBaseUrl}/v1716467110/natours/hero-01.jpg`
-  },
-  {
-    id: 2,
-    url: `${cldBaseUrl}/v1716473533/natours/hero-02.jpg`
-  },
-  {
-    id: 3,
-    url: `${cldBaseUrl}/v1716473597/natours/hero-03.jpg`
-  }
-]
 const LoginAndSignupFormsWrapper = ({ children }: TProps) => {
-  const [imgNum, setImgNum] = useState(() => {
-    return Math.floor(Math.random() * 3) + 1
-  })
-
-  useLayoutEffect(() => {
-    const randomImgNum = Math.floor(Math.random() * 3) + 1
-    setImgNum(randomImgNum)
-  }, [])
-
+  const imgNum = Math.floor(Math.random() * 3) + 1
   const imgUrl = images.find((img) => img.id === imgNum)?.url
 
   return (
