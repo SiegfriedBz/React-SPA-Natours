@@ -14,6 +14,7 @@ const AppLayout = () => {
   const matchPlanning = useMatch('/tours/planning')
   const isLoginPage = useMatch('/login')
   const isSignupPage = useMatch('/signup')
+  const isBookingsPage = useMatch('/my-bookings')
 
   const isHomePage = matchHome || matchTours
   const isToursPage =
@@ -32,16 +33,16 @@ const AppLayout = () => {
       "
     >
       <Header />
-
       <main
         className={`
-          min-h-[calc(100vh-var(--header-h))] 
           ${
             isToursPage
               ? ''
               : isLoginOrSignupPage
-                ? 'max-sm:my-2 max-md:my-4 md:my-8 flex items-center'
-                : 'max-sm:my-4 max-md:my-8 md:my-12'
+                ? 'max-md:my-4 md:my-8'
+                : isBookingsPage
+                  ? 'min-h-[calc(100vh-var(--header-h))] max-sm:my-4 max-md:my-8 md:my-12'
+                  : 'max-sm:my-4 max-md:my-8 md:my-12'
           }`}
       >
         <Outlet />
