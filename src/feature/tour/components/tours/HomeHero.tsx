@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom'
 import ScrollDownButton from './ScrollDownButton'
 import AnimatedSearchButtons from './AnimatedSearchButtons'
-import { cldBaseUrl } from '../../../../ui/components/cloudinary/utils'
 import type { TDistancesToTours } from '../../pages/tours'
+
+const VITE_HERO_BG_IMG_URL = import.meta.env.VITE_HERO_BG_IMG_URL
 
 type TProps = {
   handleScrollToTours: () => void
@@ -13,10 +14,10 @@ const HomeHero = ({ handleScrollToTours, setDistancesToTours }: TProps) => {
     <div
       className="homeHero relative bg-cover bg-center"
       style={{
-        backgroundImage: `url(${cldBaseUrl}/v1716473533/natours/hero-02.jpg)`
+        backgroundImage: `url(${VITE_HERO_BG_IMG_URL})`
       }}
     >
-      <div className="absolute inset-0 bg-stone-500 opacity-40"></div>
+      <div className="absolute inset-0 u-bg-gradient-secondary opacity-30"></div>
       <div
         className="relative 
           max-sm:max-w-sm
