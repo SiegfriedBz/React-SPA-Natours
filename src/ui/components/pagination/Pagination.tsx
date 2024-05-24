@@ -52,7 +52,7 @@ const Pagination = ({ handleScrollToTours }: TProps) => {
   }
 
   return (
-    <div className="flex w-full justify-between my-4">
+    <div className="flex w-full justify-between mb-2">
       <div className={`${showPrevPageBtn ? 'flex items-center' : 'hidden'}`}>
         <PaginationButton
           onClick={handleClickPrevPage}
