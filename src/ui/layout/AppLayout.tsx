@@ -6,12 +6,18 @@ import Footer from '../components/Footer'
 import 'react-toastify/dist/ReactToastify.css'
 
 const AppLayout = () => {
-  const { isHomePage, isToursPage, isLoginOrSignupPage, isBookingsPage } =
-    useMatchPage()
+  const {
+    isHomePage,
+    isToursPage,
+    isLoginOrSignupPage,
+    isBookingsPage,
+    isAboutPage
+  } = useMatchPage()
   const { getPageClasses } = usePageClasses({
     isToursPage,
     isLoginOrSignupPage,
-    isBookingsPage
+    isBookingsPage,
+    isAboutPage
   })
 
   return (
@@ -41,11 +47,12 @@ const useMatchPage = () => {
   const matchTourId = !!useMatch('/tours/:tourId')
   const matchCreate = !!useMatch('/tours/new')
   const matchUpdate = !!useMatch('/tours/:id/update')
-  const matchInsights = !!useMatch('/tours/insights')
-  const matchPlanning = !!useMatch('/tours/planning')
   const isLoginPage = !!useMatch('/login')
   const isSignupPage = !!useMatch('/signup')
+  const matchInsights = !!useMatch('/tours/insights')
+  const matchPlanning = !!useMatch('/tours/planning')
   const isBookingsPage = !!useMatch('/my-bookings')
+  const isAboutPage = !!useMatch('/about')
 
   const isHomePage = matchHome || matchTours
   const isToursPage =
@@ -56,18 +63,26 @@ const useMatchPage = () => {
     !matchPlanning
   const isLoginOrSignupPage = isLoginPage || isSignupPage
 
-  return { isHomePage, isToursPage, isLoginOrSignupPage, isBookingsPage }
+  return {
+    isHomePage,
+    isToursPage,
+    isLoginOrSignupPage,
+    isBookingsPage,
+    isAboutPage
+  }
 }
 
 type TUsePageClassesProps = {
   isToursPage: boolean
   isLoginOrSignupPage: boolean
   isBookingsPage: boolean
+  isAboutPage: boolean
 }
 const usePageClasses = ({
   isToursPage,
   isLoginOrSignupPage,
-  isBookingsPage
+  isBookingsPage,
+  isAboutPage
 }: TUsePageClassesProps) => {
   const getClassesForLoginOrSignupPage = useCallback(() => {
     const innerWidth = window.innerWidth
@@ -86,13 +101,14 @@ const usePageClasses = ({
   const getPageClasses = useCallback(() => {
     if (isToursPage) return ''
     if (isLoginOrSignupPage) return getClassesForLoginOrSignupPage()
-    if (isBookingsPage)
-      return 'min-h-[calc(100svh-var(--header-h))] max-sm:my-4 max-md:my-8 md:my-12'
+    if (isBookingsPage || isAboutPage)
+      return 'min-h-[calc(100svh-calc(2*var(--header-h)))] max-sm:my-4 max-md:my-8 md:my-12'
     return 'max-sm:my-4 max-md:my-8 md:my-12'
   }, [
     isToursPage,
     isLoginOrSignupPage,
     isBookingsPage,
+    isAboutPage,
     getClassesForLoginOrSignupPage
   ])
 
