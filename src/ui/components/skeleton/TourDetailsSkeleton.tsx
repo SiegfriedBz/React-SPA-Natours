@@ -7,7 +7,8 @@ const TourDetailsSkeleton = () => {
       <SkeletonTheme baseColor="#55c57a" highlightColor="#43a263">
         <section
           className="relative 
-            h-[calc(100svh-var(--header-h))]
+            max-md:h-[72svh]
+            md:h-[calc(100svh-var(--header-h))]
             u-clip-path-img
           "
         >
