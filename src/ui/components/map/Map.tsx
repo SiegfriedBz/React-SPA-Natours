@@ -24,7 +24,6 @@ const MAP_STYLES = {
 
 function Map({ startLocation, locations }: TProps) {
   const [mapStyle, setMapStyle] = useState(() => MAP_STYLES['light'])
-
   const mapRef = useRef<MapRef | null>(null)
   const [popup, setPopup] = useState<TPopup>(INITIAL_POPUP)
   const { viewState, setViewState } = useView({ startLocation })
@@ -54,7 +53,6 @@ function Map({ startLocation, locations }: TProps) {
               anchor={getAnchor(lat)}
               onClick={(e) => {
                 e.originalEvent.stopPropagation()
-                // setPopup if not startLocation
                 day > 0
                   ? setPopup({
                       day,
@@ -62,12 +60,17 @@ function Map({ startLocation, locations }: TProps) {
                       lat,
                       lng
                     })
-                  : () => {}
+                  : setPopup({
+                      day: 0,
+                      description,
+                      lat,
+                      lng
+                    })
               }}
             >
               <img
-                src={day > 0 ? pinOrange : pinGreen}
-                className={day > 0 ? 'w-8' : 'w-7'}
+                src={day > 0 ? pinGreen : pinOrange}
+                className={day > 0 ? 'max-sm:w-6 sm:w-8' : 'max-sm:w-5 sm:w-7'}
                 alt="map pin"
               />
             </Marker>
@@ -81,44 +84,13 @@ function Map({ startLocation, locations }: TProps) {
             anchor={getAnchor(popup.lat)}
             onClose={() => setPopup(INITIAL_POPUP)}
             closeButton={false}
+            className="rounded-xl shadow-xl"
           >
             <CustomPopup day={popup.day} description={popup.description} />
           </Popup>
         )}
 
-        <button
-          onClick={() =>
-            setMapStyle((prev) =>
-              prev === MAP_STYLES['outdoor']
-                ? MAP_STYLES['light']
-                : MAP_STYLES['outdoor']
-            )
-          }
-          className="absolute 
-            z-[999] 
-            opacity-70
-            w-20 h-20
-            rounded-full
-            top-1/4 
-            max-sm:-translate-y-20
-            max-md:-translate-y-24
-            max-lg:-translate-y-28
-            max-xl:-translate-y-32
-            2xl:translate-y-0
-            right-2 
-            
-            font-extrabold
-          text-primary-dark 
-            ring-2 ring-primary-dark
-          bg-stone-100
-          hover:text-stone-50
-          hover:ring-stone-100
-          hover:bg-primary-dark
-            transition-all duration-300 ease-in-out
-          "
-        >
-          Switch Style
-        </button>
+        <SwitchMapStyleButton setMapStyle={setMapStyle} />
       </MapGL>
     </div>
   )
@@ -131,9 +103,52 @@ type TCustomPopupProps = {
 }
 const CustomPopup = ({ day, description }: TCustomPopupProps) => {
   return (
-    <div className="rounded-3xl px-2 py-1 md:px-4 md:py-2 text-center space-y-2 md:space-y-4">
-      <p className="text-lg md:text-xl font-semibold">Day: {day}</p>
-      <p className="text-lg md:text-xl font-light">{description}</p>
+    <div className="h-full w-full text-center max-md:space-y-2 md:space-y-4">
+      <p className="max-md:text-sm md:text-base ">Day: {day}</p>
+      <p className="max-md:text-sm md:text-base font-semibold ">
+        {description}
+      </p>
     </div>
+  )
+}
+
+type TSwitchProps = {
+  setMapStyle: React.Dispatch<React.SetStateAction<string>>
+}
+const SwitchMapStyleButton = ({ setMapStyle }: TSwitchProps) => {
+  return (
+    <button
+      onClick={() =>
+        setMapStyle((prev) =>
+          prev === MAP_STYLES['outdoor']
+            ? MAP_STYLES['light']
+            : MAP_STYLES['outdoor']
+        )
+      }
+      className="absolute 
+        z-[999] 
+        opacity-70
+        w-20 h-20
+        rounded-full
+        top-1/4 
+        max-sm:-translate-y-20
+        max-md:-translate-y-24
+        max-lg:-translate-y-28
+        max-xl:-translate-y-32
+        2xl:translate-y-0
+        right-2 
+        
+        font-extrabold
+      text-primary-dark 
+        ring-2 ring-primary-dark
+      bg-stone-100
+      hover:text-stone-50
+      hover:ring-stone-100
+      hover:bg-primary-dark
+        transition-all duration-300 ease-in-out                   
+    "
+    >
+      Switch Style
+    </button>
   )
 }
