@@ -26,15 +26,16 @@ const ToursPlanningStats = ({ year }: TProps) => {
       {isLoading ? (
         <div
           className="flex flex-col mx-auto items-center justify-center
-            h-[54vh] w-full 
+            h-[54vh] w-full
           "
         >
           <ChartSkeleton />
         </div>
       ) : (
         <div
-          className="flex flex-col mx-auto items-center justify-center
-            h-[54vh] w-full 
+          className="flex flex-col 
+            mx-auto items-center justify-center
+            h-[54vh] w-full
           "
         >
           <StatsBarChart data={stats} />
