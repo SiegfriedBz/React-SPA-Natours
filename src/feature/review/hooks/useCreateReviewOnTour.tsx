@@ -9,9 +9,8 @@ export function useCreateReviewOnTour() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (inputData: TCreateReviewInput) => {
-      return createReviewOnTour(inputData)
-    },
+    mutationFn: (inputData: TCreateReviewInput) =>
+      createReviewOnTour(inputData),
     onSuccess: () => {
       // Invalidate cache keys after mutation
       queryClient.invalidateQueries({ queryKey: ['reviews'] })
