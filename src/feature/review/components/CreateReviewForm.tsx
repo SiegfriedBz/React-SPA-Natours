@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useDebounce } from 'use-debounce'
 import { SubmitHandler, useForm, UseFormSetValue } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useUserStore from '../../../feature/user/store/user.store'
@@ -44,9 +45,17 @@ const CreateReviewForm = ({
     resolver: zodResolver(createReviewZodSchema)
   })
 
+  // Initialize RHF form state on rating field
+  useEffect(() => {
+    setValue('rating', userRating)
+  }, [userRating, setValue])
+
+  // Initilalize use mutation hook
   const { mutate, isPending } = useCreateReviewOnTour()
 
+  // Submit handler
   const onSubmit: SubmitHandler<TCreateReviewInput> = (data) => {
+    console.log(data)
     mutate(data)
   }
 
@@ -64,9 +73,9 @@ const CreateReviewForm = ({
         <div
           className="absolute 
               right-0 
-              max-sm:w-28 max-sm:h-28  
+              max-sm:w-20 max-sm:h-20  
               sm:w-32 sm:h-32  
-              max-sm:-top-[6.5rem]
+              max-sm:-top-[42%]
               sm:-top-32 
               rounded-full 
               ring-2 ring-stone-300 
@@ -93,7 +102,11 @@ const CreateReviewForm = ({
 
         {/* rating field */}
         <label>Rating</label>
-        <input {...register('rating')} type="hidden" />
+        <input
+          {...register('rating')}
+          defaultValue={userRating}
+          type="hidden"
+        />
         <UserRatingInput
           setValue={setValue}
           userRating={userRating}
@@ -137,6 +150,13 @@ const UserRatingInput = ({
   transientUserRating,
   setTransientUserRating
 }: TUserRatingInputProps) => {
+  const [debouncedTransientUserRating, setDebouncedTransientUserRating] =
+    useDebounce(transientUserRating, 500)
+
+  useEffect(() => {
+    setTransientUserRating(debouncedTransientUserRating)
+  }, [setTransientUserRating, debouncedTransientUserRating])
+
   return (
     <div className="flex space-x-1">
       {Array.from({ length: 5 }, (_, i) => i + 1).map((starNum) => {
@@ -150,8 +170,8 @@ const UserRatingInput = ({
         return (
           <SVGStarIcon
             key={`user-input-${starNum}`}
-            onMouseEnter={() => setTransientUserRating(starNum)}
-            onMouseLeave={() => setTransientUserRating(null)}
+            onMouseEnter={() => setDebouncedTransientUserRating(starNum)}
+            onMouseLeave={() => setDebouncedTransientUserRating(null)}
             onClick={() => {
               // update UI state
               setUserRating(starNum)
