@@ -90,7 +90,7 @@ const HeroSection = ({
         max-md:h-[72svh]
         md:h-[calc(100svh-var(--header-h))]
         u-clip-path-img
-  "
+      "
     >
       <div className="h-full">
         <div
