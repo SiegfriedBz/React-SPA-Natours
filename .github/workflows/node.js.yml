@@ -29,4 +29,3 @@ jobs:
         with:
           wait-on: http://localhost:3000
           start: npx vite --host
-          browser: chrome
