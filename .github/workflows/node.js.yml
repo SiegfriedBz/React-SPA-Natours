@@ -23,6 +23,15 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm ci
-      - run: npm run build # Compile TypeScript to JavaScript
       - run: npm run prettier-format && npm run lint
-      - run: npm run test
+      - name: Clean up disk space
+        run: |
+          sudo apt clean
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+      - name: Run tests
+        uses: cypress-io/github-action@v2
+        with:
+          start: npm run dev
+          wait-on: 'http://localhost:3000'
+          command: npm run test
