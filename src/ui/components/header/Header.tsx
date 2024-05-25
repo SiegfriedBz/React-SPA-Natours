@@ -52,10 +52,11 @@ const Header = () => {
           >
             <div
               data-cy="mobile-nav"
-              className="h-full w-full
+              className="h-[100svh]
+                w-full
                 flex flex-col items-center justify-center
                 mx-auto 
-                py-8
+                pb-4
                 font-semibold
                 opacity-90
                 rounded-xl
@@ -98,7 +99,13 @@ const LogoutButtonWithCloseModal = () => {
   return (
     <button
       onClick={handleLogout}
-      className="mt-8 u-text-gradient-primary flex items-center space-x-4 text-lg capitalize "
+      className="mt-8 w-44 
+        mx-auto 
+        pl-16
+        flex justify-between items-center
+        u-text-gradient-primary
+        text-lg capitalize
+      "
     >
       <span>Logout</span>
       <SVGIcon
