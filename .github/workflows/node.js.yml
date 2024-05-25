@@ -30,8 +30,8 @@ jobs:
           sudo rm -rf /usr/share/dotnet
           sudo rm -rf /opt/ghc
       - name: Run tests
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v5
         with:
-          start: npm run dev
+          start: npx vite --host
           wait-on: 'http://localhost:3000'
           command: npm run test
