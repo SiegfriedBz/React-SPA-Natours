@@ -29,4 +29,4 @@ jobs:
         with:
           wait-on: http://localhost:5173
           start: npx vite --host
-          command: npm run test
+          browser: chrome
