@@ -6,7 +6,7 @@ import { defineConfig } from 'cypress'
 export default defineConfig({
   projectId: 'a6epfn',
   env: {
-    API_URL: process.env?.VITE_API_URL,
+    API_URL: '**/api/v1',
     API_TOURS_PER_PAGE: process.env?.VITE_API_TOURS_PER_PAGE
   },
   e2e: {
