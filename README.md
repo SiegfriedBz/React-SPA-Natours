@@ -29,3 +29,4 @@ export default {
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
 # tours-vite-react-ts
+[![Natours](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/simple/a6epfn&style=flat&logo=cypress)](https://cloud.cypress.io/projects/a6epfn/runs)
