@@ -3,6 +3,22 @@ on: [push]
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+    env:
+      VITE_ADMIN_LINK_TO: ${{ secrets.VITE_ADMIN_LINK_TO }}
+      VITE_APP_URL: ${{ secrets.VITE_APP_URL }}
+      VITE_API_PUBLIC_URL: ${{ secrets.VITE_API_PUBLIC_URL }}
+      VITE_API_URL: ${{ secrets.VITE_API_URL }}
+      VITE_API_TOURS_PER_PAGE: ${{ secrets.VITE_API_TOURS_PER_PAGE }}
+      VITE_STRIPE_PUBLIC_KEY: ${{ secrets.VITE_STRIPE_PUBLIC_KEY }}
+      VITE_MAPBOX_API_KEY: ${{ secrets.VITE_MAPBOX_API_KEY }}
+      VITE_CLOUDINARY_CLOUD_NAME: ${{ secrets.VITE_CLOUDINARY_CLOUD_NAME }}
+      VITE_HERO_BG_IMG_URL: ${{ secrets.VITE_HERO_BG_IMG_URL }}
+      VITE_LOGIN_BG_IMG_01_URL: ${{ secrets.VITE_LOGIN_BG_IMG_01_URL }}
+      VITE_LOGIN_BG_IMG_02_URL: ${{ secrets.VITE_LOGIN_BG_IMG_02_URL }}
+      VITE_LOGIN_BG_IMG_03_URL: ${{ secrets.VITE_LOGIN_BG_IMG_03_URL }}
+      CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+
+   
     # Runs tests in parallel with matrix strategy https://docs.cypress.io/guides/guides/parallelization
     # https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
     # Also see warning here https://github.com/cypress-io/github-action#parallel
@@ -21,14 +37,8 @@ jobs:
           # https://docs.cypress.io/guides/continuous-integration/introduction#Boot-your-server
           build: npm run build
           start: npx vite --host
-          wait-on: 'http://localhost:3000' # Waits for above
+          wait-on: ${{ env.VITE_APP_URL }}
           # Records to Cypress Cloud 
           # https://docs.cypress.io/guides/cloud/projects#Set-up-a-project-to-record
           record: true
           parallel: true # Runs test in parallel using settings above
-        env:
-          # For recording and parallelization to work you must set your CYPRESS_RECORD_KEY
-          # in GitHub repo → Settings → Secrets → Actions
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          VITE_API_URL: ${{ secrets.VITE_API_URL }}
-          VITE_API_TOURS_PER_PAGE: ${{ secrets.VITE_API_TOURS_PER_PAGE }}
