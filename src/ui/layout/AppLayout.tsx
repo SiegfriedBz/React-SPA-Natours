@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 import { Outlet, ScrollRestoration, useMatch } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import { ToastContainer } from 'react-toastify'
 import Header from '../components/header/Header'
 import Footer from '../components/Footer'
@@ -27,13 +28,15 @@ const AppLayout = () => {
       "
     >
       <Header />
+
       <main className={getPageClasses()}>
         <Outlet />
       </main>
 
       <Footer />
-      <ToastContainer />
 
+      <ToastContainer />
+      <Analytics />
       {!isHomePage && <ScrollRestoration />}
     </div>
   )
