@@ -1,5 +1,8 @@
 name: Cypress Tests
-on: [push]
+on:
+  pull_request:
+    branches: ['main']
+
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
@@ -18,7 +21,6 @@ jobs:
       VITE_LOGIN_BG_IMG_03_URL: ${{ secrets.VITE_LOGIN_BG_IMG_03_URL }}
       CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
-   
     # Runs tests in parallel with matrix strategy https://docs.cypress.io/guides/guides/parallelization
     # https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
     # Also see warning here https://github.com/cypress-io/github-action#parallel
@@ -38,7 +40,7 @@ jobs:
           build: npm run build
           start: npx vite --host
           wait-on: ${{ env.VITE_APP_URL }}
-          # Records to Cypress Cloud 
+          # Records to Cypress Cloud
           # https://docs.cypress.io/guides/cloud/projects#Set-up-a-project-to-record
           record: true
           parallel: true # Runs test in parallel using settings above
