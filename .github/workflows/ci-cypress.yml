@@ -29,3 +29,6 @@ jobs:
       with:
         build: npm run build
         start: npx vite --host
+      env:
+        VITE_API_URL: ${{ secrets.VITE_API_URL }}
+        VITE_API_TOURS_PER_PAGE: ${{ secrets.VITE_API_TOURS_PER_PAGE }}
