@@ -4,6 +4,7 @@ await loadEnv
 import { defineConfig } from 'cypress'
 
 export default defineConfig({
+  projectId: 'a6epfn',
   env: {
     API_URL: process.env?.VITE_API_URL,
     API_TOURS_PER_PAGE: process.env?.VITE_API_TOURS_PER_PAGE
