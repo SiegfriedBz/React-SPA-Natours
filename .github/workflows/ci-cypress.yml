@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.x, 18.x, 20.x]
+        node-version: [20.x]
 
     steps:
     - uses: actions/checkout@v4
@@ -29,4 +29,3 @@ jobs:
       with:
         build: npm run build
         start: npx vite --host
-        browser: chrome
