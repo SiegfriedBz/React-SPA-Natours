@@ -4,6 +4,9 @@ This project is a frontend implementation using Vite and React for a web applica
 It interacts with a backend standalone [API](https://github.com/SiegfriedBz/express_api_ts-natours) written in TypeScript with Node.js and Express.
 To ensure seamless functionality, verify that the backend API is up and running
 
+## Cypress
+[![Natours](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/simple/a6epfn&style=flat&logo=cypress)](https://cloud.cypress.io/projects/a6epfn/runs)
+
 
 ## Table of Contents
 - [Prerequisites](#prerequisites)
