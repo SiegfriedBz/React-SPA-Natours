@@ -98,7 +98,7 @@ Create a .env file in the root directory of the project and add the following en
   ```
 
 ## Live Demo
-Visit the live demo of [Spa-Natours](https://spa-natours.vercel.app/)
+Visit the live demo of [Spa-Natours](https://spa-natours.vercel.app/) deployed on Vercel.
 
 
 
