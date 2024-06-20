@@ -1,6 +1,6 @@
 {
-  "name": "api_ts_zod_fe_react_v2",
-  "private": true,
+  "name": "natours-react-spa",
+  "author": "Siegfried Bozza",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
