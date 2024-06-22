@@ -1,6 +1,7 @@
 # Natours React SPA
 
 This project is a frontend implementation using Vite and React for a web application.  
+Cypress tests have been added to ensure the quality and reliability of the application's features.
 It interacts with a backend standalone [API](https://github.com/SiegfriedBz/express_api_ts-natours) written in TypeScript with Node.js and Express.
 To ensure seamless functionality, verify that the backend API is up and running
 
