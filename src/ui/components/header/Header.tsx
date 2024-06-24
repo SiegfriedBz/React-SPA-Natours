@@ -52,7 +52,7 @@ const Header = () => {
           >
             <div
               data-cy="mobile-nav"
-              className="h-[100svh]
+              className="h-[100lvh]
                 w-full
                 flex flex-col items-center justify-center
                 mx-auto 
