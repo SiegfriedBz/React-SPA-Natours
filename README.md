@@ -1,9 +1,11 @@
 # Natours React SPA
 
 This project is a frontend implementation using Vite and React for a web application.  
-Cypress tests have been added to ensure the quality and reliability of the application's features.
-It interacts with a backend standalone [API](https://github.com/SiegfriedBz/express_api_ts-natours) written in TypeScript with Node.js and Express.
-To ensure seamless functionality, verify that the backend API is up and running
+It utilizes Zustand to manage UI state, React Query to handle remote server state, React Hook Form combined with Zod validation, and React Select for form dropdowns.  
+Cypress tests have been added to ensure the quality and reliability of the application's features.  
+
+It interacts with a backend standalone [Natours API](https://github.com/SiegfriedBz/express_api_ts-natours) written in TypeScript with Node.js and Express.
+To ensure seamless functionality, verify that this backend API is up and running.
 
 ## Cypress
 [![Natours](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/simple/a6epfn&style=flat&logo=cypress)](https://cloud.cypress.io/projects/a6epfn/runs)
